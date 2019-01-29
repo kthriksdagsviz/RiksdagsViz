@@ -5,7 +5,7 @@
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "server": "nodemon server.js",
+    "server": "nodemon server/index.js --exec babel-node --presets babel-preset-env",
     "client": "cd client && yarn start",
     "dev": "concurrently --kill-others-on-fail \"yarn server\" \"yarn client\""
   },
@@ -21,9 +21,12 @@
   "homepage": "https://github.com/adigladi/RiksdagsViz#readme",
   "dependencies": {
     "body-parser": "^1.18.3",
-    "express": "^4.16.4"
+    "express": "^4.16.4",
+    "mongoose": "^5.4.7"
   },
   "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-preset-env": "^1.7.0",
     "concurrently": "^4.1.0"
   }
 }

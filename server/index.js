@@ -1,7 +1,14 @@
-const express = require('express');
-const bodyParser = require('body-parser');
+//https://medium.freecodecamp.org/how-to-make-create-react-app-work-with-a-node-backend-api-7c5c48acb1b0
+//Follow guide to deploy on heruko
+import mongoose from 'mongoose'
+import express from 'express'
+import bodyParser from 'body-parser'
+
+
 const app = express();
 const port = process.env.PORT || 5000;
+
+
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
