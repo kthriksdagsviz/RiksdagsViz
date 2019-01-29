@@ -1,5 +1,23 @@
 # RiksdagsViz
 
+
+## For connection to mongodb(admin access)
+In root folder, create config.json and fill with
+
+```
+{
+    "development": {
+        "config_id": "development",
+        "app_name": "riksviz",
+        "app_desc": "A visualization of Riksdagen",
+        "node_port": 5000,
+        "database": "mongodb+srv://admin:<PASSWORD>@riksdagsviz-7gqgl.mongodb.net/test?retryWrites=true"
+    }
+}
+```
+and replace <PASSWORD> with database password.
+
+
 ## Available Scripts
 
 In the project directory, you can run:
@@ -17,5 +35,6 @@ Launches the server on port 5000
 ### `npm client`
 
 Runs only the client
+
 
 

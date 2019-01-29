@@ -3,14 +3,22 @@
 import mongoose from 'mongoose'
 import express from 'express'
 import bodyParser from 'body-parser'
+import mongodb from 'mongodb'
+import db from './config'
+
 
 
 const app = express();
-const port = process.env.PORT || 5000;
+const port = process.env.PORT || global.gConfig.node_port;
 
+
+//connect to database
+db.mongo.init().then(() => console.log("db connected"));
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+
+
 
 app.get('/api/hello', (req, res) => {
   res.send({ express: 'Hello From Express' });
