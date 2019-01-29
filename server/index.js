@@ -15,6 +15,8 @@ const port = process.env.PORT || global.gConfig.node_port;
 //connect to database
 db.mongo.init().then(() => console.log("db connected"));
 
+const db = mongoose.connection;
+
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 

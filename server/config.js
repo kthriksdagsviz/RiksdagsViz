@@ -11,7 +11,7 @@ module.exports = {
 	mongo: {
 		init: function (params) {
 			return require('mongoose').connect(
-				global.gConfig.database
+				global.gConfig.database, {useNewUrlParser: true}
 			)
 		},
 		default: {
