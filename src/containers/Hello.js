@@ -4,9 +4,7 @@ class Hello extends Component {
     render() {
       return (
         <div className="App">
-          <header className="App-header">
-            Sup
-          </header>
+          <h1> This is hello route</h1>
         </div>
       );
     }
