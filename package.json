@@ -8,7 +8,7 @@
     "server": "nodemon server/index.js --exec babel-node --presets babel-preset-env",
     "client": "cd client && yarn start",
     "dev": "concurrently --kill-others-on-fail \"yarn server\" \"yarn client\"",
-    "install": "cd client && yarn install && cd ../server && yarn install"
+    "install": "cd client && yarn install && cd ../ && yarn install"
   },
   "repository": {
     "type": "git",
