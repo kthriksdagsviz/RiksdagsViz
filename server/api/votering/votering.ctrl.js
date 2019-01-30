@@ -5,6 +5,8 @@ export default {
     getVoteringarById,
     getVoteringarByDate
 }
+
+
 /**
    * FillDb with latest voteringar, wip
 */

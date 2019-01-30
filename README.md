@@ -4,7 +4,8 @@
 ## First time setup:
 ```
 git clone git@github.com:adigladi/RiksdagsViz.git
-cd RiksdagsViz/client
+cd RiksdagsViz
+npm install -g nodemon
 yarn install
 ```
 
@@ -22,7 +23,7 @@ In root folder, create config.json and fill with
     }
 }
 ```
-and replace < PASSWORD > with database password.
+and replace < PASSWORD > with database password (which you can get from Ben 😉 ).
 
 
 
