@@ -7,5 +7,12 @@ router
     .route('/votering/fill')
     .get(ctrl.fillDb)
 
-    
+router
+    .route('/votering/:id')
+    .get(ctrl.getVoteringarById)
+
+router
+    .route('/votering/date/:date')
+    .get(ctrl.getVoteringarByDate)
+
 export default router

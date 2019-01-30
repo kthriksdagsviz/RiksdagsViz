@@ -22,7 +22,7 @@ const voteringScheme = new mongoose.Schema({
     votering: String,
     votering_url_xml:String,
     dok_id:String,
-    systemdatum: String
+    systemdatum: Date
 }, {collection:"voteringar"})
 
 
