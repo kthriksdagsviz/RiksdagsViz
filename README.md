@@ -1,7 +1,14 @@
 # RiksdagsViz
 
 
-## For connection to mongodb(admin access)
+## First time setup:
+```
+git clone git@github.com:adigladi/RiksdagsViz.git
+cd RiksdagsViz/client
+yarn install
+```
+
+### Connect to mongodb(admin access)
 In root folder, create config.json and fill with
 
 ```
@@ -15,7 +22,8 @@ In root folder, create config.json and fill with
     }
 }
 ```
-and replace <PASSWORD> with database password.
+and replace < PASSWORD > with database password.
+
 
 
 ## Available Scripts

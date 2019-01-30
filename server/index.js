@@ -1,35 +1,41 @@
 //https://medium.freecodecamp.org/how-to-make-create-react-app-work-with-a-node-backend-api-7c5c48acb1b0
 //Follow guide to deploy on heruko
 import mongoose from 'mongoose'
+import morgan from 'morgan'
 import express from 'express'
-import bodyParser from 'body-parser'
-import mongodb from 'mongodb'
-import db from './config'
+import cors from 'cors'
+import config from './config/config'
+import expressConfig from './config/expressConfig';
+import routesConfig from './config/routesConfig'
 
+class Server{
+  constructor(){
+    this.app = express()
+    this.config = config
+    this.init()
+  }
 
+  init(){
+    this.app.use(morgan('dev'));
+    this.app.use(cors())
+    expressConfig(this.app);
+   
+    mongoose.connect(
+      this.config.db, {useNewUrlParser: true},
+      err => {
+        if(err) {
+          console.log(`[MongoDB] Failed to connect. ${err}`);
+        }
+        else{
+          console.log(`[MongoDB] connected: ${this.config.db}`);
+          routesConfig(this.app)
+          this.app.listen(this.config.apiPort, () => {
+            console.log(`[Server] listening on port ${this.config.apiPort}`);
+          });
+        }
+      } 
+  )
+  }
+}
 
-const app = express();
-const port = process.env.PORT || global.gConfig.node_port;
-
-
-//connect to database
-db.mongo.init().then(() => console.log("db connected"));
-
-const db = mongoose.connection;
-
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
-
-
-
-app.get('/api/hello', (req, res) => {
-  res.send({ express: 'Hello From Express' });
-});
-app.post('/api/world', (req, res) => {
-  console.log(req.body);
-  res.send(
-    `I received your POST request. This is what you sent me: ${req.body.post}`,
-  );
-});
-
-app.listen(port, () => console.log(`Listening on port ${port}`));
+export default new Server().app
