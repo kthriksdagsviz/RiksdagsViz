@@ -9,7 +9,6 @@ import IndexInformation from './IndexInformation';
 
 import '../styles/index.css'
 
-
 class AppContainer extends Component {
 
 

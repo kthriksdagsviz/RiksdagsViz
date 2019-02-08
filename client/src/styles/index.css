@@ -1,25 +1,41 @@
+/* apply a natural box layout model to all elements, but allowing components to change */
+html {
+    box-sizing: border-box;
+  }
+  *, *:before, *:after {
+    box-sizing: inherit;
+  }
+
 .App{
     display: flex;
     flex-direction: row;
+    height: 100vh;
 }
 
 
 .index__map{
     width: 70%;
-    background: lightblue;
+    margin: .5em;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+    padding: 1em;
 }
 
 .IndexInformation{
     display: flex;
     flex-direction: column;
     width: 30%;
+    
 }
 
 .index__voteringar{
     height: 50vh;
-    background: blue;
+    margin: .5em;
+    padding: 1em;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
 }
 .index__ledamot{
     height: 50vh;
-    background:red;
+    margin: .5em;
+    padding: 1em;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
 }
