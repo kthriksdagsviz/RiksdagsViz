@@ -3,9 +3,10 @@
 
 ## First time setup:
 ```
+npm install -g nodemon
 git clone git@github.com:adigladi/RiksdagsViz.git
 cd RiksdagsViz
-npm install -g nodemon
+cd client && yarn install
 yarn install
 ```
 
