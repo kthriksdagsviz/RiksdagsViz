@@ -2,8 +2,13 @@ import React, { Component } from 'react';
 import { bindActionCreators } from "redux";
 import * as actions from '../actions'
 import { requestVoteringarById } from '../actions'
-
+import { Container, Row, Col } from 'react-bootstrap'
 import { connect } from 'react-redux'
+import RiksdagsMap from './RiksdagsMap'
+import IndexInformation from './IndexInformation';
+
+import '../styles/index.css'
+
 
 class AppContainer extends Component {
 
@@ -28,16 +33,8 @@ class AppContainer extends Component {
       const { voteringar } = this.props; 
       return (
         <div className="App">
-          <h1> This is home route</h1>
-          <button onClick={() => this.onButtonClick()}> Fetch from api </button>
-          
-          {voteringar.isFetching ? <span> Loading indicator...</span> :
-            <ul>
-            {/* { voteringar.fetched && this.renderVoteringar()} */}
-            
-            </ul>
-          }
-          
+          <RiksdagsMap />
+          <IndexInformation />
         </div>
       );
     }

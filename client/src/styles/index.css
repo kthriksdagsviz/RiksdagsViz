@@ -1,0 +1,25 @@
+.App{
+    display: flex;
+    flex-direction: row;
+}
+
+
+.index__map{
+    width: 70%;
+    background: lightblue;
+}
+
+.IndexInformation{
+    display: flex;
+    flex-direction: column;
+    width: 30%;
+}
+
+.index__voteringar{
+    height: 50vh;
+    background: blue;
+}
+.index__ledamot{
+    height: 50vh;
+    background:red;
+}
