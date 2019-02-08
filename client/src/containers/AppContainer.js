@@ -33,7 +33,8 @@ class AppContainer extends Component {
           
           {voteringar.isFetching ? <span> Loading indicator...</span> :
             <ul>
-            { voteringar.fetched && this.renderVoteringar()}
+            {/* { voteringar.fetched && this.renderVoteringar()} */}
+            
             </ul>
           }
           

@@ -19,22 +19,26 @@ class Server{
     this.app.use(morgan('dev'));
     this.app.use(cors())
     expressConfig(this.app);
+    routesConfig(this.app)
+    this.app.listen(this.config.apiPort, () => {
+      console.log(`[Server] listening on port ${this.config.apiPort}`);
+    });
    
-    mongoose.connect(
-      this.config.db, {useNewUrlParser: true},
-      err => {
-        if(err) {
-          console.log(`[MongoDB] Failed to connect. ${err}`);
-        }
-        else{
-          console.log(`[MongoDB] connected: ${this.config.db}`);
-          routesConfig(this.app)
-          this.app.listen(this.config.apiPort, () => {
-            console.log(`[Server] listening on port ${this.config.apiPort}`);
-          });
-        }
-      } 
-  )
+  //   mongoose.connect(
+  //     this.config.db, {useNewUrlParser: true},
+  //     err => {
+  //       if(err) {
+  //         console.log(`[MongoDB] Failed to connect. ${err}`);
+  //       }
+  //       else{
+  //         console.log(`[MongoDB] connected: ${this.config.db}`);
+  //         routesConfig(this.app)
+  //         this.app.listen(this.config.apiPort, () => {
+  //           console.log(`[Server] listening on port ${this.config.apiPort}`);
+  //         });
+  //       }
+  //     } 
+  // )
   }
 }
 

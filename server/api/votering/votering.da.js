@@ -5,6 +5,7 @@ import xml2js from 'xml2js'
 import moment from 'moment'
 export default {
     getRiksdagsDb,
+    getRiksdagsVoteringar,
     VoteringById,
     VoteringarByDate
 }
@@ -16,6 +17,28 @@ function getRiksdagsDb(){
             .then((response) => {
                 xml2js.parseString(response.data, function (err, result) {
                     result.voteringlista.votering.forEach((v) => saveVotering(v))
+                    resolve(result)
+                });
+                //res.json(resJson)
+            })
+            .catch((error) => {
+                if(error.status == 400){
+                    resolve(null)
+                }
+                else{
+                    reject(error)
+                }
+            })
+        
+        })
+}
+
+function getRiksdagsVoteringar(){
+    return new Promise((resolve, reject) => {
+        let url = "http://data.riksdagen.se/voteringlista/?rm=2018%2F19&bet=&punkt=&parti=M&valkrets=&rost=&iid=&sz=10&utformat=xml&gruppering="
+        axios.get(url)
+            .then((response) => {
+                xml2js.parseString(response.data, function (err, result) {
                     resolve(result)
                 });
                 //res.json(resJson)

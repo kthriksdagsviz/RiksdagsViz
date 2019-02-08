@@ -3,7 +3,8 @@ import VoteringDa from './votering.da'
 export default {
     fillDb,
     getVoteringarById,
-    getVoteringarByDate
+    getVoteringarByDate,
+    getDb
 }
 
 
@@ -16,6 +17,11 @@ function fillDb(req, res){
         .catch((error) => console.log("there was an error"))
 }
 
+function getDb(req, res){
+    VoteringDa.getRiksdagsVoteringar()
+        .then((data)=>   res.json({data}))
+        .catch((error) => console.log("there was an error"))
+}
 /**
    * Get voteringar by id
 */

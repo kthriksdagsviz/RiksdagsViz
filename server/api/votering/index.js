@@ -4,6 +4,10 @@ import ctrl from './votering.ctrl'
 const router = express.Router()
 
 router
+    .route('/votering')
+    .get(ctrl.getDb)
+
+router
     .route('/votering/fill')
     .get(ctrl.fillDb)
 

@@ -9,3 +9,6 @@ export const requestVoteringarById = id => ({
 
 
 export const receivedVoteringarById = data => ({type:types.RECEIVED_VOTERING_BY_ID, data})
+
+
+
