@@ -20,8 +20,12 @@ function getLedamoterByParams(params, size){
         axios.get(url, {
             params:  params 
         }).then((response) => {
-            //console.log(response.data)
-            resolve(response.data)
+            const data = Object.assign({}, response.data.personlista)
+            if(size){
+                data.person.slice(0, size);
+                data['@hits'] = size;
+            }
+            resolve(data)
         })
         .catch((error) => {
             if(error.status == 400){
@@ -43,11 +47,11 @@ function getLedamotByName(fname,ename){
         ename=""
     }
     let url = "http://data.riksdagen.se/personlista/?iid=&fnamn="+ fname +  "&enamn=" + ename + "&f_ar=&kn=&parti=&valkrets=&rdlstatus=tjanst&org=&utformat=json&termlista="
-    console.log(url)
     return new Promise((resolve, reject) => {
         axios.get(url)
             .then((response) => {
-                resolve(response.data)
+                console.log(response)
+                //resolve(response.data)
             })
             .catch((error) => {
                 if(error.status == 400){

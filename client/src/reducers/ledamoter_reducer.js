@@ -1,4 +1,4 @@
-import { RECEIVED_VOTERING_BY_ID,REQUEST_VOTERING_BY_ID } from "../constants/ActionTypes";
+import { RECEIVED_LEDAMOTER,REQUEST_LEDAMOTER } from "../constants/ActionTypes";
 
 
 const initialState = {
@@ -7,11 +7,11 @@ const initialState = {
   list:[]
 }
  
-export default function voteringar(state = initialState, action) {
+export default function ledamoter(state = initialState, action) {
   switch (action.type) {
-    case REQUEST_VOTERING_BY_ID: 
+    case REQUEST_LEDAMOTER: 
       return { ...state, isFetching: true };
-    case RECEIVED_VOTERING_BY_ID:
+    case RECEIVED_LEDAMOTER:
       return {
         isFetching: false,
         fetched: true,

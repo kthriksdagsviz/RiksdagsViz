@@ -31,7 +31,7 @@ function getAntalLedamoterByGroup(req,res){
 }
 
 function getLedamoterByParams(req, res){
-    const { iid, fnamn, enamn, f_ar, kn, parti, valkrets, rdlstatus, org, termlist, size} = req.body;
+    const { iid, fnamn, enamn, f_ar, kn, parti, valkrets, rdlstatus, org, termlist, size} =  req.query;
     const params = {
         iid, fnamn, enamn, f_ar, kn, parti, valkrets, rdlstatus, org, utformat:'json', termlist
     }
