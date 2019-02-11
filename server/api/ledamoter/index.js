@@ -7,6 +7,9 @@ router
     .route('/ledamoter/name')
     .get(ctrl.getLedamoterByName)
 
+router
+    .route('/ledamoter')
+    .get(ctrl.getLedamoterByParams)
 
 
 export default router
