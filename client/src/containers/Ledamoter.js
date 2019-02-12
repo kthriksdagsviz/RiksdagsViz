@@ -31,12 +31,13 @@ class Ledamoter extends React.Component{
 
     fetchData = () => {
         this.props.ledamoterByParams({
-            fnamn:"lars",
-            size: 0
+            fnamn:"ulf",
+            size: 10
         })
     }
 
     renderPersonData = () => {
+        if (this.props.ledamoter.list.person) {
             const data =  this.props.ledamoter.list.person.map((person) => {
             return (
                 <div key={person.intressent_id}>
@@ -46,6 +47,7 @@ class Ledamoter extends React.Component{
             )
             })
         return data
+        }
     }
 
     render(){
