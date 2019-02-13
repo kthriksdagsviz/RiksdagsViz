@@ -13,24 +13,24 @@ export default class RiksdagsSeats extends Component {
         }
     }
 
+  
     buildSVG = () => {
         
-        return(<SvgLoader path="/RiksdagStolar.svg">
-            <SvgProxy selector={this.state.selectedSeat} fill={"green"} />
-        </SvgLoader>)
+        return(
+            <SvgLoader path="/RiksdagStolar.svg" style={{width:'100%', height:'50vh'}} >
+                <SvgProxy selector={this.state.selectedSeat} fill={"green"}  />
+            </SvgLoader>
+        )
     }
 
     setSeat = (e) => {
 
-        console.log(this.state.selectedSeat)
         let RiksdagStolar = d3.select('.riksdags_map')
         //let paths = RiksdagStolar.selectAll().attr({"fill":"#fff"})
         RiksdagStolar.select("svg").select("#Welcome").selectAll("path").style("fill", "red")
 
         if(e.target.id != "") {
-            this.setState({
-                selectedSeat:"#"
-            })
+            this.props.selectLedamot()
             this.setState({
                 selectedSeat: '#' + e.target.id
             })

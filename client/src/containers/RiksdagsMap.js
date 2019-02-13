@@ -17,7 +17,19 @@ class RiksdagsMap extends Component {
         })
     }
     selectLedamot = (person) => {
-        this.props.setSelectedLedamot(person)
+        if(!person){
+            let person ={
+                tilltalsnamn: "Oscar",
+                efternamn: "Wiigh",
+                parti: "M",
+                bild_url_80: "http://data.riksdagen.se/filarkiv/bilder/ledamot/9f5c5d35-c450-4068-923a-2d8d077223d5_80.jpg"
+            }
+            this.props.setSelectedLedamot(person)
+        }
+        else{
+            this.props.setSelectedLedamot(person)
+        }
+        
     }
 
     renderPersonData = () => {
@@ -45,11 +57,11 @@ class RiksdagsMap extends Component {
         return (
             <div className="index__map"> 
             
-                {!hasFetched ? 
+                {/* {!hasFetched ? 
                 (isFetching ? <Spinner name="cube-grid"  fadeIn="none" /> : "" ):
-                <div style={{display:'flex', flexDirection:'row'}}> {this.renderPersonData()} </div>}
+                <div style={{display:'flex', flexDirection:'row'}}> {this.renderPersonData()} </div>} */}
                 
-                {/* <RiksdagsSeats/> */}
+                <RiksdagsSeats selectLedamot={this.selectLedamot}/>
           </div>
         )
     }
