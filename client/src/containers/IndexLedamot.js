@@ -45,7 +45,6 @@ class IndexLedamot extends Component{
     }
 
     render(){
-        console.log(this.props.ledamot)
         return (
             <div className="index__ledamot">
                 {this.renderLedamot()}

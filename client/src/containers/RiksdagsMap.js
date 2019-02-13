@@ -11,8 +11,8 @@ class RiksdagsMap extends Component {
 
     fetchData = () => {
         this.props.ledamoterByParams({
-            fnamn:"ulf",
-            size: 1
+            fnamn:"Lars",
+            size: 10
         })
     }
     selectLedamot = (person) => {
@@ -42,7 +42,7 @@ class RiksdagsMap extends Component {
             <button onClick={this.fetchData}> Fetch </button>
                 {!hasFetched ? 
                 (isFetching ? <Spinner name="cube-grid"  fadeIn="none" /> : "" ):
-                <div> {this.renderPersonData()} </div>}
+                <div style={{display:'flex', flexDirection:'row'}}> {this.renderPersonData()} </div>}
                 
           </div>
         )

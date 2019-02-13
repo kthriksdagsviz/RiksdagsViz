@@ -11,7 +11,7 @@ const initialState = {
 export default function ledamoter(state = initialState, action) {
   switch (action.type) {
     case REQUEST_LEDAMOTER: 
-      return { ...state, isFetching: true };
+      return { ...state, isFetching: true, fetched: false };
     case RECEIVED_LEDAMOTER:
       return {
         isFetching: false,

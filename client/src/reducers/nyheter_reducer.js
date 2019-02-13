@@ -10,7 +10,7 @@ const initialState = {
 export default function nyheter(state = initialState, action) {
   switch (action.type) {
     case REQUEST_NEWS: 
-      return { ...state, isFetching: true };
+      return { ...state, isFetching: true, fetched: false };
     case RECEIVED_NEWS:
       return {
         isFetching: false,
