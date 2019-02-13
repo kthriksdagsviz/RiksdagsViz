@@ -7,7 +7,7 @@ import { connect } from 'react-redux'
 import RiksdagsMap from './RiksdagsMap'
 import IndexInformation from './IndexInformation';
 
-import '../styles/index.css'
+import '../styles/index.scss'
 
 class AppContainer extends Component {
 

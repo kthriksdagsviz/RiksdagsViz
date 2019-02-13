@@ -3,7 +3,7 @@ import { bindActionCreators } from "redux";
 import * as actions from '../actions'
 import { requestLedamoterByParams } from '../actions'
 import { connect } from 'react-redux'
-import '../styles/indexLedamot.css'
+import '../styles/indexLedamot.scss'
 import _ from 'lodash'
 
 class IndexLedamot extends Component{
