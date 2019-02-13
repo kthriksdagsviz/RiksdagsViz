@@ -15,6 +15,8 @@ Ledamoter actions
 export const requestLedamoterByParams = (params) => ({type: types.REQUEST_LEDAMOTER,payload: {params}})
 export const receivedLedamoterByParams = data => ({type:types.RECEIVED_LEDAMOTER, data})
 
+export const setSelectedLedamot = (data) => ({type: types.SET_LEDAMOT, data})
+
 
 
 

@@ -19,4 +19,5 @@ function* getNyheterByParams(data) {
 
 export function* watchNyheterSaga() {
   yield takeLatest(types.REQUEST_NEWS, getNyheterByParams);
+  
 }

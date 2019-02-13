@@ -32,7 +32,7 @@ class Ledamoter extends React.Component{
     fetchData = () => {
         this.props.ledamoterByParams({
             fnamn:"ulf",
-            size: 10
+            size: 1
         })
     }
 

@@ -16,8 +16,7 @@ function* getLedamoterByParams(data) {
   }
 }
 
-
-
 export function* watchLedamoterSaga() {
   yield takeLatest(types.REQUEST_LEDAMOTER, getLedamoterByParams);
+
 }
