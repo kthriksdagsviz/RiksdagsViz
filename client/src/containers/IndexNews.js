@@ -4,14 +4,22 @@ import * as actions from '../actions'
 import { requestNyheterByParams } from '../actions'
 import { connect } from 'react-redux'
 import  Spinner  from 'react-spinkit'
+import '../styles/indexNews.css'
 
 
  class IndexNews extends Component{
 
+    shortenNewsDescription = (desc) => {
+        if (desc.length > 150) {
+            return desc.substring(0,149) + '...';
+        } else {
+            return desc;
+        }
+    }
 
     getLatestNews = () => {
         this.props.requestNyheterByParams({
-            q:'Annie Lööf',
+            q:'Ulf Kristersson',
             sortBy:'popularity',
             from:'2019-02-11',
             to: '2019-02-13'
@@ -22,9 +30,17 @@ import  Spinner  from 'react-spinkit'
         if (this.props.nyheter.list.totalResults > 0 ) {
             const data =  this.props.nyheter.list.articles.map((article, index) => {
             return (
-                <div key={index}>
-                    <img src={article.urlToImage}></img>
-                    <p>{article.author} {article.title} ({article.description})</p> 
+                <div key={index} className="newsBox">
+                    <div className="articleImageBox">
+                        <img src={article.urlToImage} alt={article.title}></img>
+                    </div>
+                    <div className="articleInfoBox">
+                        <a href={article.url} target="_blank" rel="noopener noreferrer">
+                            <h4>{article.title}</h4>
+                            <p><em>{article.author}</em>, {article.source.name}</p>
+                            <p>{this.shortenNewsDescription(article.description)}</p>
+                        </a>
+                    </div>
                 </div>
             )
             })
