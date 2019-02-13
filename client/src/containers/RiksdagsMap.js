@@ -33,13 +33,17 @@ class RiksdagsMap extends Component {
         }
     }
 
+    componentDidMount(){
+        this.fetchData()
+    }
+
 
     render(){
         const { isFetching, fetched } = this.props.ledamoter
         const hasFetched = fetched ? fetched : false;
         return (
             <div className="index__map"> 
-            <button onClick={this.fetchData}> Fetch </button>
+            
                 {!hasFetched ? 
                 (isFetching ? <Spinner name="cube-grid"  fadeIn="none" /> : "" ):
                 <div style={{display:'flex', flexDirection:'row'}}> {this.renderPersonData()} </div>}
