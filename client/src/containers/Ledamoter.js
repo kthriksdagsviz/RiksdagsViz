@@ -69,12 +69,12 @@ const mapStateToProps = state => ({
     ledamoter: state.ledamoter
   })
   
-  const mapDispatchToProps = dispatch => {
-    //actions:bindActionCreators(actions, dispatch),
+const mapDispatchToProps = dispatch => {
+//actions:bindActionCreators(actions, dispatch),
     return {
-      ledamoterByParams: (params) => dispatch(requestLedamoterByParams(params))
+        ledamoterByParams: (params) => dispatch(requestLedamoterByParams(params))
     }
-  }
+}
     
   export default connect(mapStateToProps, mapDispatchToProps)(Ledamoter);
     
