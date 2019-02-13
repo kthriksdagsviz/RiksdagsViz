@@ -1,12 +1,15 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faQuestionCircle } from '@fortawesome/free-solid-svg-icons'
+
 import '../styles/navbar.scss'
 
 export default () => (
     <div className="navbar_container" >
         <Link to="/"> 
             <div className="navbar_link_home">
-                Home    
+                <img src={process.env.PUBLIC_URL + '/riksdagslogo.png'}/>    
             </div>
         </Link>
         <Link to="/ledamoter">
@@ -20,9 +23,9 @@ export default () => (
             </div> 
         </Link>
 
-        <Link to="/hello">
+        <Link to="/about">
             <div className="navbar_link_about">
-                 About   
+                <FontAwesomeIcon icon={faQuestionCircle} size="3x" />
             </div> 
         </Link>
     </div>
