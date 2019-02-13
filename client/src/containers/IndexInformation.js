@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import IndexLedamot from './IndexLedamot'
-import IndexVotering from './IndexVoteringar'
+import IndexNews from './IndexNews'
 
 
 export default class IndexInformation extends Component{
@@ -8,7 +8,7 @@ export default class IndexInformation extends Component{
         return (
             <div className="IndexInformation">
                 <IndexLedamot />
-                <IndexVotering />
+                <IndexNews />
           </div>
         )
     }
