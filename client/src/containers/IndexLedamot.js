@@ -6,6 +6,8 @@ import { connect } from 'react-redux'
 import '../styles/indexLedamot.scss'
 import _ from 'lodash'
 
+import '../styles/colors.scss'
+
 class IndexLedamot extends Component{
 
 
@@ -13,7 +15,7 @@ class IndexLedamot extends Component{
         if(!_.isEmpty(this.props.ledamot)){
             const {ledamot} = this.props 
             return (
-                <div className="ledamot_container">
+                <div className={`ledamot_container bg-${ledamot.parti}`}>
                     <svg id="cardBanner" viewBox="0 0 200 150" preserveAspectRatio="none" transform="scale(1.35,0.75)"> 
                         <path d="M 152.876 68.568 C 151.816 69.158 149.519 69.31 149.519 69.31 L 0 69.31 L 0 4.417 L 181.263 4.417 C 181.263 4.417 187.615 4.447 189.112 8.297 C 190.567 12.043 188.044 14.34 188.044 14.34 L 155.66 65.648 C 155.66 65.648 154.099 67.888 152.876 68.568 Z"/>
                         {/* <path id="bannerShadow" d="M4.264 69 L30 69 L30 95 Z" /> */}
