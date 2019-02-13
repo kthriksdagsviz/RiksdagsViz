@@ -5,6 +5,7 @@ import { requestLedamoterByParams, setSelectedLedamot } from '../actions'
 import { Container, Row, Col } from 'react-bootstrap'
 import { connect } from 'react-redux'
 import  Spinner  from 'react-spinkit'
+import RiksdagsSeats from "../components/RiksdagsSeats/RiksdagsSeats"
 
 
 class RiksdagsMap extends Component {
@@ -48,6 +49,7 @@ class RiksdagsMap extends Component {
                 (isFetching ? <Spinner name="cube-grid"  fadeIn="none" /> : "" ):
                 <div style={{display:'flex', flexDirection:'row'}}> {this.renderPersonData()} </div>}
                 
+                <RiksdagsSeats/>
           </div>
         )
     }
