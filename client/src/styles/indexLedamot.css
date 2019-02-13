@@ -1,15 +1,16 @@
 @import url('https://fonts.googleapis.com/css?family=Rubik');
 
-body {
+
+
+.ledamot_container{
   font-family: "Rubik";
   color: #FAFAFA;
 }
 
-
-
 #cardHead {
   height: 25%;
   
+ 
 }
 
 #cardHead img {
