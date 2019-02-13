@@ -20,7 +20,7 @@ import * as moment from 'moment';
 
     getLatestNews = () => {
         this.props.requestNyheterByParams({
-            q:'Smul Pajsson',
+            q:'Ulf Kristersson',
             sortBy:'popularity',
             from: moment().subtract(2, 'days').format('YYYY[-]MM[-]DD'),
             to: moment().format('YYYY[-]MM[-]DD')
