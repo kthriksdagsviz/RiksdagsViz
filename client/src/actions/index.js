@@ -18,3 +18,9 @@ export const receivedLedamoterByParams = data => ({type:types.RECEIVED_LEDAMOTER
 
 
 
+/*
+Nyheter actions
+*/
+export const requestNyheterByParams = (params) => ({type: types.REQUEST_NEWS,payload: {params}})
+export const receivedNyheterByParams = data => ({type:types.RECEIVED_NEWS, data})
+
