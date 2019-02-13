@@ -31,22 +31,23 @@ class Ledamoter extends React.Component{
 
     fetchData = () => {
         this.props.ledamoterByParams({
-            fnamn:"Peter",
-            size: 2
+            fnamn:"ulf",
+            size: 10
         })
     }
 
     renderPersonData = () => {
-        const data =  this.props.ledamoter.list.person.map((person) => {
-        return (
-            <div key={person.intressent_id}>
-                <p>{person.tilltalsnamn} {person.efternamn} </p> 
-            </div>
-        )
-        })
-    return data
-    
-      
+        if (this.props.ledamoter.list.person) {
+            const data =  this.props.ledamoter.list.person.map((person) => {
+            return (
+                <div key={person.intressent_id}>
+                    <img src={person.bild_url_192}></img>
+                    <p>{person.tilltalsnamn} {person.efternamn} ({person.parti})</p> 
+                </div>
+            )
+            })
+        return data
+        }
     }
 
     render(){

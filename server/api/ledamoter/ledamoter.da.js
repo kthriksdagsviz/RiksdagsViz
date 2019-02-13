@@ -21,8 +21,11 @@ function getLedamoterByParams(params, size){
             params:  params 
         }).then((response) => {
             const data = Object.assign({}, response.data.personlista)
-            if(size){
-                data.person.slice(0, size);
+            if (data['@hits'] == 1) {
+                data.person = Array(data.person)
+            }
+            if(size > 0 && size < data['@hits']){
+                data.person.splice(0, data['@hits'] - size);
                 data['@hits'] = size;
             }
             resolve(data)
