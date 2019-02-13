@@ -5,6 +5,7 @@ import { requestNyheterByParams } from '../actions'
 import { connect } from 'react-redux'
 import  Spinner  from 'react-spinkit'
 import '../styles/indexNews.css'
+import * as moment from 'moment';
 
 
  class IndexNews extends Component{
@@ -21,8 +22,8 @@ import '../styles/indexNews.css'
         this.props.requestNyheterByParams({
             q:'Ulf Kristersson',
             sortBy:'popularity',
-            from:'2019-02-11',
-            to: '2019-02-13'
+            from: moment().subtract(2, 'days').format('YYYY[-]MM[-]DD'),
+            to: moment().format('YYYY[-]MM[-]DD')
         })
     }
 
