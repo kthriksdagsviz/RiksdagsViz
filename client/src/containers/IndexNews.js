@@ -5,7 +5,7 @@ import { requestNyheterByParams } from '../actions'
 import { connect } from 'react-redux'
 import  Spinner  from 'react-spinkit'
 import _ from 'lodash'
-import '../styles/indexNews.css'
+import '../styles/indexNews.scss'
 import * as moment from 'moment';
 
 
@@ -21,7 +21,7 @@ import * as moment from 'moment';
 
     getLatestNews = (q) => {
         this.props.requestNyheterByParams({
-            q:'Ulf Kristersson',
+            q: q,
             sortBy:'popularity',
             from: moment().subtract(2, 'days').format('YYYY[-]MM[-]DD'),
             to: moment().format('YYYY[-]MM[-]DD')
