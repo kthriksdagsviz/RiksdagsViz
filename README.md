@@ -33,17 +33,17 @@ and replace < PASSWORD > with database password (which you can get from Ben 😉
 
 In the project directory, you can run:
 
-### `npm dev`
+### `yarn dev`
 
 Will run both client and server
 Open [http://localhost:5000](http://localhost:5000) to view it in the browser.
 
 
-### `npm server`
+### `yarn server`
 
 Launches the server on port 5000
 
-### `npm client`
+### `yarn client`
 
 Runs only the client
 
