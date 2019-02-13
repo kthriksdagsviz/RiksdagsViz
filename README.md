@@ -7,6 +7,7 @@ npm install -g nodemon
 git clone git@github.com:adigladi/RiksdagsViz.git
 cd RiksdagsViz
 cd client && yarn install
+cd ..
 yarn install
 ```
 
