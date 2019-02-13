@@ -49,7 +49,7 @@ class RiksdagsMap extends Component {
                 (isFetching ? <Spinner name="cube-grid"  fadeIn="none" /> : "" ):
                 <div style={{display:'flex', flexDirection:'row'}}> {this.renderPersonData()} </div>}
                 
-                <RiksdagsSeats/>
+                {/* <RiksdagsSeats/> */}
           </div>
         )
     }

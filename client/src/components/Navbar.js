@@ -1,10 +1,29 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
+import '../styles/navbar.scss'
 
 export default () => (
-    <div style={{height:'100%', backgroundColor:'gray', position:'fixed', width:'100px', top:0, display:'flex', flexDirection:'column'}}> 
-        <Link to="/"> Home </Link>
-        <Link to="/hello"> Hello </Link>
-        <Link to="/ledamoter"> Ledamoter </Link>
+    <div className="navbar_container" >
+        <Link to="/"> 
+            <div className="navbar_link_home">
+                Home    
+            </div>
+        </Link>
+        <Link to="/ledamoter">
+            <div className="navbar_link_ledamoter">
+                Ledamoter   
+            </div> 
+        </Link>
+        <Link to="/hello">
+            <div className="navbar_link_info">
+                 Hello   
+            </div> 
+        </Link>
+
+        <Link to="/hello">
+            <div className="navbar_link_about">
+                 About   
+            </div> 
+        </Link>
     </div>
 )
