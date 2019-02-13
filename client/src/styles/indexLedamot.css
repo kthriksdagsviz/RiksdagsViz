@@ -5,32 +5,21 @@ body {
   color: #FAFAFA;
 }
 
-ul {
-  list-style-type: none;
-  margin: 0;
-  padding: 0;
-  overflow: hidden;
-  text-align: center;
+
+
+#cardHead {
+  height: 25%;
+  
 }
 
-li {
-  text-align: center;
-  display: inline-block;
-  padding: 5px 5px 2px 5px;
-}
-
-/* Add rounded corners to the top left and the top right corner of the image */
-img {
+#cardHead img {
+  /* Add rounded corners to the top left and the top right corner of the image */
   width: 100px;
   border-radius: 20px;
   border: 2px solid white;
   box-shadow: 0 3px 10px 0 rgba(0,0,0,0.6);
   float: right;
   margin: 10px 30px 0 0;
-}
-
-#cardHead {
-  height: 25%;
 }
 
 #cardTitle {
@@ -94,6 +83,8 @@ img {
   text-align: center;
 }
 
+
+
 #cardVote h2{
   margin: 0;
 }
@@ -101,4 +92,18 @@ img {
 #cardVote p{
   margin: 0;
   text-align: left;
+}
+
+#cardVote ul{
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  text-align: center;
+}
+
+#cardVote li{
+  text-align: center;
+  display: inline-block;
+  padding: 5px 5px 2px 5px;
 }
