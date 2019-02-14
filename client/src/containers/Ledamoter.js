@@ -12,7 +12,7 @@ class Ledamoter extends React.Component{
     }
 
     componentDidMount(){
-       if(!this.props.fetched && _.isEmpty(this.props.ledamoter.list) ){
+       if(!this.props.fetched && this.props.ledamoter.list['@hits'] < 1){
             this.fetchData()
        }
         

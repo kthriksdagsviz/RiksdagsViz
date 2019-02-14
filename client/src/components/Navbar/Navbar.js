@@ -1,28 +1,26 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faQuestionCircle } from '@fortawesome/free-solid-svg-icons'
-
-import '../styles/navbar.scss'
+import { faQuestionCircle, faLandmark, faLayerGroup, faRunning } from '@fortawesome/free-solid-svg-icons'
+import './navbar.scss'
 
 export default () => (
     <div className="navbar_container" >
         <Link to="/"> 
             <div className="navbar_link_home">
-                <img alt="no" src={process.env.PUBLIC_URL + '/riksdagslogo.png'}/>    
+                <FontAwesomeIcon icon={faLandmark} size="3x" color="white" /> 
             </div>
         </Link>
         <Link to="/ledamoter">
             <div className="navbar_link_ledamoter">
-                Ledamoter   
+            <FontAwesomeIcon icon={faRunning} size="3x" color="white" />      
             </div> 
         </Link>
-        <Link to="/hello">
-            <div className="navbar_link_info">
-                 Hello   
+        <Link to="/partier">
+            <div className="navbar_link_partier">
+                <FontAwesomeIcon icon={faLayerGroup} size="3x" color="white" />   
             </div> 
         </Link>
-
         <Link to="/about">
             <div className="navbar_link_about">
                 <FontAwesomeIcon icon={faQuestionCircle} size="3x" />

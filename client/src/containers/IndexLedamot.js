@@ -22,7 +22,7 @@ class IndexLedamot extends Component{
                     <div className="cardHead">
                         <Media>
                             <Media.Body className={`cardTitle bg-${ledamot.parti}`}>
-                                <h1>{ledamot.tilltalsnamn} {ledamot.efternamn} ( {ledamot.parti} )</h1>
+                                <h1>{ledamot.tilltalsnamn} {ledamot.efternamn} ( <Link to={'/partier/' + ledamot.parti}>{ledamot.parti} </Link> )</h1>
                                 <p>{ledamot.status}</p>
                             </Media.Body>
                             <Link to={'/ledamoter/' + ledamot.intressent_id}><img src={ledamot.bild_url_80} alt="Avatar"/> </Link>
