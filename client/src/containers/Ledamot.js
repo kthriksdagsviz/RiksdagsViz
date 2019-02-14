@@ -33,22 +33,26 @@ class Ledamot extends React.Component{
     }
 
     componentDidMount(){
-        //if ledamoter has not been fetched, fetch them, implement it later
-        this.fetchSingleLedamot()
+
+        let personId = this.props.match.params.id;
+
+        //get the person from the redux store
+        let persistedLedamot = _.find(this.props.ledamoter.list.person, {'intressent_id':personId})
+
+        //if that person is not defined, fetch new, otherwise just set state with that person
+        if(!_.isEmpty(persistedLedamot)){
+            console.log("get from store")
+            this.setState({ledamot: persistedLedamot, fetched:true})
+        }
+        else{
+            console.log("get from store")
+            this.fetchSingleLedamot()
+        }
+
+       
         
     }
 
-    componentDidUpdate(nextProps){
-        // console.log(nextProps.ledamoter != this.props.ledamoter)
-        // if(this.props.ledamoter.fetched && !_.isEmpty(this.props.ledamoter.list)){
-        //     if(nextProps.ledamoter != this.props.ledamoter){
-        //         let personlist = this.props.ledamoter.list.person
-        //         let personId = this.props.match.params.id;
-        //         let a = _.find(this.props.ledamoter.list.person, {'intressent_id':personId})
-        //     }
-           
-        // }
-    }
 
     renderPersonData = () => {
         const { ledamot, error } = this.state

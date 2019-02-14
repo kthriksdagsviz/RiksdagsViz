@@ -128,7 +128,7 @@ class Riksdagsfilter extends Component {
 
                      <div className="search-seat-list"> 
                         {filteredData.map((seat)=>{ return(
-                            <div> {seat.name}, {seat.party}, plats: {seat.id} </div>
+                            <div key={seat.id}> {seat.name}, {seat.party}, plats: {seat.id} </div>
                         )
                         })}
                     </div>
