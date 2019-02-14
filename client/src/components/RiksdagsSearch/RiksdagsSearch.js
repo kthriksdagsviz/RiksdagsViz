@@ -1,6 +1,6 @@
 /* eslint-disabled */
 import React, { Component } from 'react'
-import './RiksdagsSearch.css'
+import './RiksdagsSearch.scss'
 import seatData from '../../utils'
 
 export default class RiksdagsSearch extends Component {

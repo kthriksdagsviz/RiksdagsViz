@@ -7,6 +7,7 @@ import { connect } from 'react-redux'
 import  Spinner  from 'react-spinkit'
 import RiksdagsSeats from "../components/RiksdagsSeats/RiksdagsSeats"
 import RiksdagsSearch from '../components/RiksdagsSearch/RiksdagsSearch'
+import Riksdagsfilter from '../components/Riksdagsfilter/Riksdagsfilter';
 
 
 class RiksdagsMap extends Component {
@@ -63,6 +64,7 @@ class RiksdagsMap extends Component {
                 <div style={{display:'flex', flexDirection:'row'}}> {this.renderPersonData()} </div>} */}
                 
                 <RiksdagsSeats selectLedamot={this.selectLedamot}/>
+                <Riksdagsfilter />
             {/* <RiksdagsSearch/> */}
             
           </div>
