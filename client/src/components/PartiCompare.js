@@ -88,6 +88,8 @@ export default class PartiCompare extends Component {
 
         var data = voteByParty();
 
+        var parties = ['V', 'S', 'MP', 'C', 'L', 'KD', 'M', 'SD'];
+
         var colors = [partyColors.partyV, partyColors.partyS, partyColors.partyMP, partyColors.partyC,
                       partyColors.partyL, partyColors.partyKD, partyColors.partyM, partyColors.partySD];
 
@@ -121,14 +123,20 @@ export default class PartiCompare extends Component {
           .data(d => { return d.groups; })
           .enter()
           .append("g")
-          .append("path")
-            .style("fill", (d,i) => { return colors[i] })
-            .style("stroke", "black")
-            .on("mouseover", highlight)
-            .on("mouseleave", unhighlight)
-            .attr("d", d3.arc()
-              .innerRadius(diameter/2)
-              .outerRadius(diameter/2 + 20))
+          
+        var circle = groups.append("path").attr("id", d => { return "group-" + d.index; })
+          .style("fill", (d,i) => { return colors[i] })
+          .style("stroke", "black")
+          .on("mouseover", highlight)
+          .on("mouseleave", unhighlight)
+          .attr("d", d3.arc()
+            .innerRadius(diameter/2)
+            .outerRadius(diameter/2 + 20))
+
+        var groupLabel = groups.append("text").attr("x", "5").attr("dy", "16")
+          .append("textPath")
+          .attr("xlink:href", d => { return "#group-" + d.index; })
+          .text(d => {return parties[d.index]})
 
         var links = svg.datum(res).append("g").selectAll("path")
           .data(d => { return d; })
@@ -140,7 +148,6 @@ export default class PartiCompare extends Component {
             .style("fill", d => { return(colors[d.source.index]) })
             .style("stroke", "black");
     }
-
 
 
     render() {
