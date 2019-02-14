@@ -96,8 +96,6 @@ class Riksdagsfilter extends Component {
             }
         );
         const { classes } = this.props
-
-        console.log(filteredData)
         return (
             <Paper className="search-container" elevation={1}>
                 <form className={classes.root} autoComplete="off">
