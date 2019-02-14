@@ -1,13 +1,11 @@
 import React, { Component } from 'react';
-import { bindActionCreators } from "redux";
-import * as actions from '../actions'
 import { requestNyheterByParams } from '../actions'
 import { connect } from 'react-redux'
 import  Spinner  from 'react-spinkit'
 import _ from 'lodash'
 import '../styles/indexNews.scss'
 import * as moment from 'moment';
-
+import Paper from '@material-ui/core/Paper'
 
  class IndexNews extends Component{
 
@@ -38,7 +36,7 @@ import * as moment from 'moment';
     renderLatestNews = () =>{
         const data =  this.props.nyheter.list.articles.map((article, index) => {
         return (
-            <div key={index} className="newsBox">
+            <Paper key={index} className="newsBox" elevation={1}>
                 <div className="articleImageBox">
                     <img src={article.urlToImage} alt={article.title}></img>
                 </div>
@@ -49,7 +47,7 @@ import * as moment from 'moment';
                         <p>{this.shortenNewsDescription(article.description)}</p>
                     </a>
                 </div>
-            </div>
+            </Paper>
         )
         })
     return data

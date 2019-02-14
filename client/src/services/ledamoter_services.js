@@ -9,4 +9,3 @@ export const getLedamoterByParams = async (params) =>{
 	
 	return response.data
 }
-

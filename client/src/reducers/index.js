@@ -5,9 +5,8 @@ import nyheter from "./nyheter_reducer"
 
 import { connectRouter } from 'connected-react-router'
 
-export default (history) => combineReducers({
-  router: connectRouter(history),
-  voteringar,
-  ledamoter,
-  nyheter
+export default () => combineReducers({
+  voteringar: voteringar,
+  ledamoter: ledamoter,
+  nyheter: nyheter
 });
