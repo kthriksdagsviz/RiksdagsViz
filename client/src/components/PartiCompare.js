@@ -74,7 +74,7 @@ export default class PartiCompare extends Component {
         // [V, S, MP, C, L, KD, M, SD]
         var partySize = [28, 100, 16, 31, 20, 22, 70, 62];
 
-        var data = [
+        /* var data = [
             // [V, S, MP, C, L, KD, M, SD]
             [0,  80000, 4916, 2868, 2000, 250, 11, 1275],
             [8000,  0, 8916, 2868, 2000, 2500, 1341, 75],
@@ -84,7 +84,9 @@ export default class PartiCompare extends Component {
             [250,  2500, 250, 2500, 250, 0, 11, 2275],
             [11,  1341, 11, 11, 1231, 11, 0, 2275],
             [1275,  75, 1275, 75, 75, 2275, 2275, 0]
-          ];
+          ]; */
+
+        var data = voteByParty();
 
         var colors = [partyColors.partyV, partyColors.partyS, partyColors.partyMP, partyColors.partyC,
                       partyColors.partyL, partyColors.partyKD, partyColors.partyM, partyColors.partySD];
