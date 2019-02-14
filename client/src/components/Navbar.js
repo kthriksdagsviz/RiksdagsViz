@@ -9,7 +9,7 @@ export default () => (
     <div className="navbar_container" >
         <Link to="/"> 
             <div className="navbar_link_home">
-                <img src={process.env.PUBLIC_URL + '/riksdagslogo.png'}/>    
+                <img alt="no" src={process.env.PUBLIC_URL + '/riksdagslogo.png'}/>    
             </div>
         </Link>
         <Link to="/ledamoter">

@@ -1,8 +1,5 @@
-import React, { Component } from 'react';
-import { bindActionCreators } from "redux";
-import * as actions from '../actions'
+import React from 'react';
 import { requestLedamoterByParams } from '../actions'
-import { Container, Row, Col } from 'react-bootstrap'
 import { connect } from 'react-redux'
 import  Spinner  from 'react-spinkit'
 

@@ -25,6 +25,7 @@
     "react-samy-svg": "^3.0.7",
     "react-spinkit": "^3.0.0",
     "react-svgmt": "^1.1.7",
+    "redux-persist": "^5.10.0",
     "redux-saga": "^1.0.0"
   },
   "devDependencies": {

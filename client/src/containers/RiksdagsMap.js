@@ -1,12 +1,7 @@
 import React, { Component } from 'react'
-import { bindActionCreators } from "redux";
-import * as actions from '../actions'
 import { requestLedamoterByParams, setSelectedLedamot } from '../actions'
-import { Container, Row, Col } from 'react-bootstrap'
 import { connect } from 'react-redux'
-import  Spinner  from 'react-spinkit'
 import RiksdagsSeats from "../components/RiksdagsSeats/RiksdagsSeats"
-import RiksdagsSearch from '../components/RiksdagsSearch/RiksdagsSearch'
 import Riksdagsfilter from '../components/Riksdagsfilter/Riksdagsfilter';
 
 
@@ -26,6 +21,7 @@ class RiksdagsMap extends Component {
                 parti: "M",
                 bild_url_80: "http://data.riksdagen.se/filarkiv/bilder/ledamot/9f5c5d35-c450-4068-923a-2d8d077223d5_80.jpg"
             }
+            person = this.props.ledamoter.list.person[0]
             this.props.setSelectedLedamot(person)
         }
         else{

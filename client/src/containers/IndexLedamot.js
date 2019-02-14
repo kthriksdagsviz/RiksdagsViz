@@ -6,6 +6,7 @@ import { connect } from 'react-redux'
 import Media from 'react-bootstrap/Media'
 import '../styles/indexLedamot.scss'
 import _ from 'lodash'
+import { Link } from 'react-router-dom'
 
 import '../styles/colors.scss'
 
@@ -24,7 +25,7 @@ class IndexLedamot extends Component{
                                 <h1>{ledamot.tilltalsnamn} {ledamot.efternamn} ( {ledamot.parti} )</h1>
                                 <p>{ledamot.status}</p>
                             </Media.Body>
-                            <img src={ledamot.bild_url_80} alt="Avatar"/> 
+                            <Link to={'/ledamoter/' + ledamot.intressent_id}><img src={ledamot.bild_url_80} alt="Avatar"/> </Link>
                         </Media>
                     </div>
 
