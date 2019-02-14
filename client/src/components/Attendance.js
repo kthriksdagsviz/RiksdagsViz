@@ -7,10 +7,10 @@ import * as d3 from 'd3';
 class Attendance extends Component {
 
     data2 = {
-        circleColor: "#178BCA", // The color of the outer circle.
+        circleColor: "#12a846", // The color of the outer circle.
         circleFill: '#fff', // The fill color of the circle.  Can be set to "transparent"
-        textColor: "#045681", // The color of the value text when the wave does not overlap it.
-        waveTextColor: "#A4DBf8" // The color of the value text when the wave overlaps it.
+        textColor: "#12a846", // The color of the value text when the wave does not overlap it.
+        waveTextColor: "white" // The color of the value text when the wave overlaps it.
     };
 
     constructor(props) {
@@ -21,10 +21,14 @@ class Attendance extends Component {
     
       componentDidMount() {
         const { data } = this.props;
-        this.createGauge("attendanceGauge", 55, this.data2)
+        this.data2.circleColor = "#ff0000";
+        this.data2.textColor = "#ff0000";
+        this.createGauge("attendanceGauge", 65, this.data2)
       }
       componentWillReceiveProps({ data }) {
-        this.createGauge("attendanceGauge", 55, this.data2)
+        this.data2.circleColor = "#ff0000";
+        this.data2.textColor = "#ff0000";
+        this.createGauge("attendanceGauge", 65, this.data2)
       }
 
     
