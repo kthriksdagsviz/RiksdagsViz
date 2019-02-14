@@ -6,6 +6,7 @@ import { Container, Row, Col } from 'react-bootstrap'
 import { connect } from 'react-redux'
 import  Spinner  from 'react-spinkit'
 import RiksdagsSeats from "../components/RiksdagsSeats/RiksdagsSeats"
+import RiksdagsSearch from '../components/RiksdagsSearch/RiksdagsSearch'
 
 
 class RiksdagsMap extends Component {
@@ -62,6 +63,8 @@ class RiksdagsMap extends Component {
                 <div style={{display:'flex', flexDirection:'row'}}> {this.renderPersonData()} </div>} */}
                 
                 <RiksdagsSeats selectLedamot={this.selectLedamot}/>
+            {/* <RiksdagsSearch/> */}
+            
           </div>
         )
     }
