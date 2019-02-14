@@ -12,6 +12,17 @@ $party-KD: #0059a3;
 $party-L: #0065b6;
 $party-MP: #12a846;
 
+:export {
+    partyS: $party-S;
+    partyM: $party-M;
+    partySD: $party-SD;
+    partyC: $party-C;
+    partyV: $party-V;
+    partyKD: $party-KD;
+    partyL: $party-L;
+    partyMP: $party-MP;
+  }
+
 .bg-S { background: $party-S; }
 .bg-M { background: $party-M; }
 .bg-SD { background: $party-SD; }
