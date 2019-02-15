@@ -26,6 +26,10 @@ const styles = theme => ({
         width: '48%',
 
       },
+    formControlGroup:{
+        margin: theme.spacing.unit,
+        width: '100%',
+    },
     formContainer:{
         display:'flex',
         flexDirection: 'row',
@@ -70,7 +74,8 @@ class Riksdagsfilter extends Component {
             lan:'',
             name:'',
             search: '',
-            dropDown: ''
+            dropDown: '',
+            groupby:'default'
         }
     }
 
@@ -173,7 +178,25 @@ class Riksdagsfilter extends Component {
                         <MenuItem value={'dal_lan'}>Dalarnas län</MenuItem>
                         </Select>
                     </FormControl>
+
+                    
                     </div>
+                    <FormControl className={classes.formControlGroup} >
+                        <InputLabel htmlFor="lan-simple">Group by</InputLabel>
+                        <Select
+                        value={this.state.groupby}
+                        onChange={this.handleChange}
+                        inputProps={{
+                            name: 'groupby',
+                            id: 'groupby-simple',
+                        }}
+                        >
+                        <MenuItem value="default">
+                            <em>By real life positions</em>
+                        </MenuItem>
+                        <MenuItem value={'partiet'}>By partier</MenuItem>
+                        </Select>
+                    </FormControl>
                     </form>
             </Paper>
         )

@@ -1,5 +1,5 @@
 import React from 'react';
-import { requestLedamoterByParams } from '../actions'
+import { requestLedamoterByParams, setLedamotFetched } from '../actions'
 import { connect } from 'react-redux'
 import  Spinner  from 'react-spinkit'
 import LedamotTable from '../components/LedamotTable/LedamotTable';
@@ -12,8 +12,12 @@ class Ledamoter extends React.Component{
     }
 
     componentDidMount(){
-       if(!this.props.fetched && this.props.ledamoter.list['@hits'] < 1){
+        let numOfHits = parseInt(this.props.ledamoter.list['@hits'] < 1)
+       if(!this.props.fetched && numOfHits){
             this.fetchData()
+       }
+       else{
+           this.props.setLedamotFetched()
        }
         
     }
@@ -69,7 +73,8 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => {
 //actions:bindActionCreators(actions, dispatch),
     return {
-        ledamoterByParams: (params) => dispatch(requestLedamoterByParams(params))
+        ledamoterByParams: (params) => dispatch(requestLedamoterByParams(params)),
+        setLedamotFetched: () => dispatch(setLedamotFetched())
     }
 }
     
