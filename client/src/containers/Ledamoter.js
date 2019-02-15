@@ -1,10 +1,10 @@
-import React, { Component } from 'react';
-import { bindActionCreators } from "redux";
-import * as actions from '../actions'
-import { requestLedamoterByParams } from '../actions'
-import { Container, Row, Col } from 'react-bootstrap'
+import React from 'react';
+import { requestLedamoterByParams, setLedamotFetched } from '../actions'
 import { connect } from 'react-redux'
 import  Spinner  from 'react-spinkit'
+import LedamotTable from '../components/LedamotTable/LedamotTable';
+import _ from 'lodash'
+
 
 class Ledamoter extends React.Component{
     constructor(props){
@@ -12,13 +12,14 @@ class Ledamoter extends React.Component{
     }
 
     componentDidMount(){
-        // if(!this.props.fetched)
-        // {
-        //     this.props.ledamoterByParams({
-        //     fnamn:"Peter",
-        //     size: 2
-        // })
-        // }
+        let numOfHits = parseInt(this.props.ledamoter.list['@hits'] < 1)
+       if(!this.props.fetched && numOfHits){
+            this.fetchData()
+       }
+       else{
+           this.props.setLedamotFetched()
+       }
+        
     }
     componentDidUpdate(nextProps){
         // if(!nextProps.ledamoter.fetched){
@@ -31,8 +32,7 @@ class Ledamoter extends React.Component{
 
     fetchData = () => {
         this.props.ledamoterByParams({
-            fnamn:"ulf",
-            size: 1
+            size: 100
         })
     }
 
@@ -54,11 +54,12 @@ class Ledamoter extends React.Component{
         const { isFetching, fetched } = this.props.ledamoter
         const hasFetched = fetched ? fetched : false;
         return(
-            <div>
-                <button onClick={this.fetchData}> Fetch </button>
+            <div className="ledamot_table_container">
                 {!hasFetched ? 
                 (isFetching ? <Spinner name="cube-grid"  fadeIn="none" /> : "" ):
-                <div> {this.renderPersonData()} </div>}
+                <div style={{width:'99%', height:'99%'}}>
+                    <LedamotTable data={this.props.ledamoter} />  
+                    </div>}
                 
             </div>
         )
@@ -67,12 +68,13 @@ class Ledamoter extends React.Component{
 
 const mapStateToProps = state => ({
     ledamoter: state.ledamoter
-  })
-  
+})
+
 const mapDispatchToProps = dispatch => {
 //actions:bindActionCreators(actions, dispatch),
     return {
-        ledamoterByParams: (params) => dispatch(requestLedamoterByParams(params))
+        ledamoterByParams: (params) => dispatch(requestLedamoterByParams(params)),
+        setLedamotFetched: () => dispatch(setLedamotFetched())
     }
 }
     

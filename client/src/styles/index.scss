@@ -19,8 +19,22 @@ html {
     width: 100%;
     /* margin: .5em; */
     box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
-    padding: 1em;
+     padding: 1em 0 ;
     height:50vh;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    .riksdags_map{
+        width: 70%;
+    }
+}
+
+.ledamot_table_container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100vh;
 }
 
 .IndexInformation{
@@ -44,4 +58,16 @@ html {
     
     padding: 1em;
     box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+}
+
+.parti_container{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+.parti_compare{
+  
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
 }
