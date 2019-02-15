@@ -43,7 +43,7 @@ class Attendance extends Component {
         // ----------------Colors-------------------
         var circleFill = '#fff'; // The fill color of the circle.  Can be set to "transparent"
         var waveTextColor = "white"; // The color of the value text when the wave overlaps it.
-        var circleColor = partyColors.partyM; // The color of the outer circle.
+        var circleColor = partyColors["party" + partyID]; // The color of the outer circle.
         var textColor = circleColor; // The color of the value text when the wave does not overlap it.
         var waveColor = circleColor; // The color of the fill wave.
         // -----------------------------------------
