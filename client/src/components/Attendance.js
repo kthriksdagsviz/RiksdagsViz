@@ -1,5 +1,6 @@
-import React, { Component } from 'react'
-import partyColors from '../styles/colors.scss'
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import partyColors from '../styles/colors.scss';
 import * as d3 from 'd3';
 
 
@@ -11,15 +12,13 @@ class Attendance extends Component {
       }
     
       componentDidMount() {
-        const { data } = this.props;
-        this.createGauge(65, "M")
+        const { ledamot } = this.props;
+        this.createGauge(65, ledamot.parti)
       }
       componentWillReceiveProps({ data }) {
-        this.createGauge(65, "M")
+        this.createGauge(65, ledamot.parti)
       }
 
-    
-    
     createGauge(value, partyID) {
         var elementId = "attendanceGauge";
         
@@ -306,4 +305,11 @@ class Attendance extends Component {
     }
 }
 
-export default Attendance;
+
+const mapStateToProps = state => ({
+    ledamot: state.ledamoter.selectedLedamot
+  })
+  
+
+  export default connect(mapStateToProps, null)(Attendance);
+    
