@@ -59,3 +59,15 @@ html {
     padding: 1em;
     box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
 }
+
+.parti_container{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+.parti_compare{
+  
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
