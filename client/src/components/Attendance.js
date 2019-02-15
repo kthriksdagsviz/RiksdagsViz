@@ -1,40 +1,28 @@
 import React, { Component } from 'react'
-import { bindActionCreators } from "redux";
-import * as actions from '../actions'
+import partyColors from '../styles/colors.scss'
 import * as d3 from 'd3';
 
 
 class Attendance extends Component {
 
-    data2 = {
-        circleColor: "#12a846", // The color of the outer circle.
-        circleFill: '#fff', // The fill color of the circle.  Can be set to "transparent"
-        textColor: "#12a846", // The color of the value text when the wave does not overlap it.
-        waveTextColor: "white" // The color of the value text when the wave overlaps it.
-    };
-
     constructor(props) {
         super(props);
         this.createGauge = this.createGauge.bind(this)
-    
       }
     
       componentDidMount() {
         const { data } = this.props;
-        this.data2.circleColor = "#ff0000";
-        this.data2.textColor = "#ff0000";
-        this.createGauge("attendanceGauge", 65, this.data2)
+        this.createGauge(65, "M")
       }
       componentWillReceiveProps({ data }) {
-        this.data2.circleColor = "#ff0000";
-        this.data2.textColor = "#ff0000";
-        this.createGauge("attendanceGauge", 65, this.data2)
+        this.createGauge(65, "M")
       }
 
     
     
-    createGauge(elementId, value, config) {
-        if(config == null) config = data;
+    createGauge(value, partyID) {
+        var elementId = "attendanceGauge";
+        
         // ------------Gauge parameters-------------
         var minValue = 0; // The gauge minimum value.
         var maxValue = 100; // The gauge maximum value.
@@ -52,7 +40,12 @@ class Attendance extends Component {
         var textSize = 1; // The relative height of the text to display in the wave circle. 1 = 50%
         var valueCountUp = true; // If true, the displayed value counts up from 0 to it's final value upon loading. If false, the final value is displayed.
         var displayPercent = true; // If true, a % symbol is displayed after the value.
-        var waveColor = config.circleColor; // The color of the fill wave.
+        // ----------------Colors-------------------
+        var circleFill = '#fff'; // The fill color of the circle.  Can be set to "transparent"
+        var waveTextColor = "white"; // The color of the value text when the wave overlaps it.
+        var circleColor = partyColors.partyM; // The color of the outer circle.
+        var textColor = circleColor; // The color of the value text when the wave does not overlap it.
+        var waveColor = circleColor; // The color of the fill wave.
         // -----------------------------------------
     
         var gauge = d3.select("#" + elementId);
@@ -135,7 +128,7 @@ class Attendance extends Component {
             .attr("cy", radius)
             .attr("r", radius)
             .attr("class", "fill")
-            .style("fill", config.circleFill);
+            .style("fill", circleFill);
     
         // Draw the outer circle.
         var gaugeStrokeArc = d3.arc()
@@ -146,7 +139,7 @@ class Attendance extends Component {
         gaugeGroup.append("path")
             .attr("d", gaugeStrokeArc)
             .attr("class", "stroke")
-            .style("fill", config.circleColor)
+            .style("fill", circleColor)
             .attr('transform','translate('+radius+','+radius+')');
     
         // Text where the wave does not overlap.
@@ -155,7 +148,7 @@ class Attendance extends Component {
             .attr("class", "liquidFillGaugeText")
             .attr("text-anchor", "middle")
             .attr("font-size", textPixels + "px")
-            .style("fill", config.textColor)
+            .style("fill", textColor)
             .attr('transform','translate('+radius+','+textRiseScaleY(textVertPosition)+')');
     
         // The clipping wave area.
@@ -186,7 +179,7 @@ class Attendance extends Component {
             .attr("class", "liquidFillGaugeText")
             .attr("text-anchor", "middle")
             .attr("font-size", textPixels + "px")
-            .style("fill", config.waveTextColor)
+            .style("fill", waveTextColor)
             .attr('transform','translate('+radius+','+textRiseScaleY(textVertPosition)+')');
     
         // Make the value count up.
