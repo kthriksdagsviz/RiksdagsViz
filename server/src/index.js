@@ -4,9 +4,13 @@ import mongoose from 'mongoose'
 import morgan from 'morgan'
 import express from 'express'
 import cors from 'cors'
+import path from 'path'
 import config from './config/config'
 import expressConfig from './config/expressConfig';
 import routesConfig from './config/routesConfig'
+const staticFiles = express.static(path.join(__dirname, '../../client/build'))
+
+
 
 class Server{
   constructor(){
@@ -18,8 +22,11 @@ class Server{
   init(){
     this.app.use(morgan('dev'));
     this.app.use(cors())
+    this.app.use(staticFiles)
     expressConfig(this.app);
     routesConfig(this.app)
+    this.app.use('/*', staticFiles)
+
     this.app.listen(process.env.PORT || 5000, () => {
       console.log(`[Server] listening on`);
     });
