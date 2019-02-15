@@ -28,7 +28,8 @@
   "homepage": "https://github.com/adigladi/RiksdagsViz#readme",
   "dependencies": {
     "axios": "^0.18.0",
-    "concurrently": "^4.1.0"
+    "concurrently": "^4.1.0",
+    "nodemon": "^1.18.10"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",
