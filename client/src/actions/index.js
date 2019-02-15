@@ -17,7 +17,7 @@ export const receivedLedamoterByParams = data => ({type:types.RECEIVED_LEDAMOTER
 
 export const setSelectedLedamot = (data) => ({type: types.SET_LEDAMOT, data})
 
-
+export const setLedamotFetched = () => ({type: types.SET_LEDAMOT_FETCHED})
 
 
 /*
