@@ -1,0 +1,36 @@
+{
+  "name": "server",
+  "version": "1.0.0",
+  "description": "Server that feeds client with data",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon index.js --exec babel-node --presets babel-preset-env",
+    "build": "babel . --ignore node_modules,build --out-dir build"
+    
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^0.18.0",
+    "body-parser": "^1.18.3",
+    "cors": "^2.8.5",
+    "express": "^4.16.4",
+    "express-http-proxy": "^1.5.1",
+    "lodash": "^4.17.11",
+    "moment": "^2.24.0",
+    "mongodb": "^3.1.13",
+    "mongoose": "^5.4.7",
+    "morgan": "^1.9.1",
+    "newsapi": "^2.4.0",
+    "normalize.css": "^8.0.1",
+    "xml-js": "^1.6.9",
+    "xml2js": "^0.4.19"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-preset-env": "^1.7.0",
+    "concurrently": "^4.1.0",
+    "babel-register": "^6.22.0"
+  }
+}
