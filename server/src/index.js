@@ -20,8 +20,8 @@ class Server{
     this.app.use(cors())
     expressConfig(this.app);
     routesConfig(this.app)
-    this.app.listen(this.config.apiPort, () => {
-      console.log(`[Server] listening on port ${this.config.apiPort}`);
+    this.app.listen(process.env.PORT || 5000, () => {
+      console.log(`[Server] listening on`);
     });
    
   //   mongoose.connect(
