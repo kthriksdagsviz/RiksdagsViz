@@ -3,13 +3,17 @@
   "version": "1.0.0",
   "description": "A visualization of Riksdagen",
   "main": "server.js",
+  "engines": {
+    "node": "10.0.0"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "server": "nodemon server/index.js --exec babel-node --presets babel-preset-env",
     "server-dev": "node server/index.js --exec babel-node --presets babel-preset-env",
     "client": "cd client && yarn start",
     "dev": "concurrently --kill-others-on-fail \"yarn run server\" \"yarn run client\"",
-    "heroku-postbuild": "yarn && cd client && yarn && yarn run build"
+    "build": "concurrently \"cd client && yarn build\" \"cd server && yarn build\"",
+    "heroku-postbuild": "concurrently "
   },
   "repository": {
     "type": "git",
