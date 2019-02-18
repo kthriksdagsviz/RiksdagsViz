@@ -60,7 +60,7 @@ class Ledamot extends React.Component{
         const { ledamot, error } = this.state
         if(!error){
             return (
-                <div >
+                <div style={{margin:'0 1em 0 0'}}>
                      <div className="ledamot_component_container">
                         <LedamotComponent ledamot={ledamot} />
                     </div>
@@ -88,7 +88,7 @@ class Ledamot extends React.Component{
             <div>
                 {!hasFetched ? 
                 (isFetching ? <Spinner name="cube-grid"  fadeIn="none" /> : "" ):
-                <div> {this.renderPersonData()}<Attendance ledamot={this.state.ledamot}/></div>}
+                <div style={{display:'flex', flexDirection:'row', alignItems:'center'}}> {this.renderPersonData()}<Attendance ledamot={this.state.ledamot}/></div>}
             </div>
         )
     }
