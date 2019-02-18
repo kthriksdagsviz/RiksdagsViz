@@ -3,11 +3,8 @@
 
 ## First time setup:
 ```
-npm install -g nodemon
 git clone git@github.com:adigladi/RiksdagsViz.git
 cd RiksdagsViz
-cd client && yarn install
-cd ..
 yarn install
 ```
 
@@ -33,7 +30,7 @@ and replace < PASSWORD > with database password (which you can get from Ben 😉
 
 In the project directory, you can run:
 
-### `yarn dev`
+### `yarn start`
 
 Will run both client and server
 Open [http://localhost:5000](http://localhost:5000) to view it in the browser.
