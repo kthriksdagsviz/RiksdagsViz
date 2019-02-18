@@ -33,6 +33,7 @@ class IndexLedamot extends Component{
             let kvot = path.Frånvarande[0] / (parseInt(path.Avstår[0]) + parseInt(path.Frånvarande[0]) + parseInt(path.Ja[0]) + parseInt(path.Nej[0]));
             let procent = 100 - kvot*100;
             let attendance = Math.round(procent * 10) / 10;
+            setState({attendance: data.voteringslista.votering[0]})
         })
     }
 
@@ -45,7 +46,7 @@ class IndexLedamot extends Component{
         if(!_.isEmpty(this.props.ledamot)){
             const {ledamot} = this.props 
             return (
-                <LedamotComponent ledamot={ledamot} />
+                <LedamotComponent ledamot={ledamot} voteringar={this.attendance}/>
             )
         }
     }
