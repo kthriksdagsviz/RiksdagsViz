@@ -5,6 +5,7 @@ import { connect } from 'react-redux'
 import { ledamoter_api } from '../services'
 import Spinner from 'react-spinkit'
 import LedamotComponent from '../components/LedamotComponent/ledamotcomponent';
+import { RadarChart } from 'react-chartjs'
 
 class Ledamot extends React.Component{
     constructor(props){
