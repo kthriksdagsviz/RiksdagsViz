@@ -7,7 +7,8 @@ export default {
     getRiksdagsDb,
     getRiksdagsVoteringar,
     VoteringById,
-    VoteringarByDate
+    VoteringarByDate,
+    getVoteringByLedamotId
 }
 
 function getRiksdagsDb(){
@@ -31,6 +32,28 @@ function getRiksdagsDb(){
             })
         
         })
+}
+
+function getVoteringByLedamotId(iid){
+    return new Promise((resolve, reject) => {
+        let url = "http://data.riksdagen.se/voteringlista/?rm=&bet=&punkt=&parti=&valkrets=&rost=&iid=" + iid +"&sz=100&utformat=xml&gruppering=iid"
+        axios.get(url)
+            .then((response) => {
+                xml2js.parseString(response.data, function (err, result) {
+                    resolve(result)
+                });
+                //res.json(resJson)
+            })
+            .catch((error) => {
+                if(error.status == 400){
+                    resolve(null)
+                }
+                else{
+                    reject(error)
+                }
+            })
+        
+        })  
 }
 
 function getRiksdagsVoteringar(params){
@@ -91,6 +114,8 @@ function VoteringById(id){
         })
     })
 }
+
+
 
 function VoteringarByDate(date){
     return new Promise((resolve, reject) => {

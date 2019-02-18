@@ -4,6 +4,7 @@ export default {
     fillDb,
     getVoteringarById,
     getVoteringarByDate,
+    getVoteringarByLedamotId,
     getDb
 }
 
@@ -34,10 +35,17 @@ function getDb(req, res){
    * Get voteringar by id
 */
 function getVoteringarById(req, res){
-    const { id } = req.params;
+    const { id } = req.query;
     VoteringDa.VoteringById(id)
         .then((votering) => res.status(200).json(votering))
         .catch(() => res.sendStatus(422))
+}
+
+function getVoteringarByLedamotId(req, res){
+    const { iid } = req.query
+    console.log(iid)
+    VoteringDa.getVoteringByLedamotId(iid)
+        .then((data) => res.status(200).json(data) )
 }
 
 
