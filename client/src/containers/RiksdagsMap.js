@@ -6,7 +6,12 @@ import Riksdagsfilter from '../components/Riksdagsfilter/Riksdagsfilter';
 import {ledamoter_api} from '../services'
 
 class RiksdagsMap extends Component {
-
+    constructor(props){
+        super(props)
+        this.state={
+            groupby:"default"
+        }
+    }
     fetchData = () => {
         this.props.ledamoterByParams({
             fnamn:"Lars",
@@ -54,6 +59,11 @@ class RiksdagsMap extends Component {
         }
     }
 
+    onGroupByChange = (groupBy) => {
+        console.log(groupBy)
+        this.setState({groupby: groupBy})
+    }
+
     componentDidMount(){
         //this.fetchData()
     }
@@ -69,8 +79,8 @@ class RiksdagsMap extends Component {
                 (isFetching ? <Spinner name="cube-grid"  fadeIn="none" /> : "" ):
                 <div style={{display:'flex', flexDirection:'row'}}> {this.renderPersonData()} </div>} */}
                 
-                <RiksdagsSeats selectLedamot={this.fetchSingleLedamot}/>
-                <Riksdagsfilter />
+                <RiksdagsSeats selectLedamot={this.fetchSingleLedamot} groupby={this.state.groupby} />
+                <Riksdagsfilter changeGroupBy={this.onGroupByChange} />
             {/* <RiksdagsSearch/> */}
             
           </div>

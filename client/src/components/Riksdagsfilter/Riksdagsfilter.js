@@ -84,13 +84,21 @@ class Riksdagsfilter extends Component {
     }
 
     updateDropDown = (event) => {
-        this.setState({dropDown:event.target.value})
+        this.setState({dropDown:event.target.value}, () => {
+            this.props.changeGroupBy(this.state.dropDown)
+        })
+        
         console.log(this.state.dropDown)
     }
     handleChange = (event) => {
         this.setState({
             ...this.state,
             [event.target.name]: event.target.value,
+        }, () => {
+           console.log(event.target.name)
+           if(event.target.name == "groupby"){
+               this.props.changeGroupBy(event.target.value)
+           }
         })
     }
 
