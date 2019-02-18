@@ -4,8 +4,8 @@
   "description": "A visualization of Riksdagen",
   "main": "server.js",
   "engines": {
-    "node": "10.0.0",
-    "yarn": "1.3.2"
+    "node": ">=8.0.0 <11.0.0",
+    "yarn": ">=1.0.0 <2.0.0"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
