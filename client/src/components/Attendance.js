@@ -12,6 +12,7 @@ class Attendance extends Component {
         super(props);
         this.state  = {
             ledamot: {},
+            attendance: {},
             isFetching: false,
             fetched: false,
             error: false
@@ -19,25 +20,20 @@ class Attendance extends Component {
         this.createGauge = this.createGauge.bind(this);
       }
 
-      fetchAttendance = (id) => {
+      fetchAttendance = (ledamot) => {
         this.setState({isFetching: true})
-        console.log(id)
-        votering_api.getLedamotVoteringById(id).then((data) => {
-            console.log("kollahär", data)
-            if(data['@hits'] > 0){
-                //this.setState({ledamot: data.person[0], fetched: true, isFetching: false})
-            }
-            else{
-                this.setState({fetched: true, isFetching: false, error: true})
-            }
-            
+        votering_api.getLedamotVoteringById(ledamot.intressent_id).then((data) => {
+            let path = data.voteringlista.votering[0];
+            console.log(path)
+            let kvot = path.Frånvarande[0] / (parseInt(path.Avstår[0]) + parseInt(path.Frånvarande[0]) + parseInt(path.Ja[0]) + parseInt(path.Nej[0]));
+            let procent = 100 - kvot*100;
+            this.createGauge(procent, ledamot.parti);
         })
     }
     
       componentDidMount() {
-        const {classes, ledamot} = this.props
-        this.fetchAttendance(ledamot.intressent_id);
-        this.createGauge(65, ledamot.parti);
+        const {ledamot} = this.props
+        this.fetchAttendance(ledamot);
       }
       componentWillReceiveProps({ data }) {
         this.createGauge(65, "M");
