@@ -21,10 +21,9 @@ class Attendance extends Component {
 
       fetchAttendance = (id) => {
         this.setState({isFetching: true})
-        votering_api.getVoteringById({
-            iid: id
-        }).then((data) => {
-            console.log("kollahär"+data)
+        console.log(id)
+        votering_api.getLedamotVoteringById(id).then((data) => {
+            console.log("kollahär", data)
             if(data['@hits'] > 0){
                 //this.setState({ledamot: data.person[0], fetched: true, isFetching: false})
             }
@@ -37,8 +36,7 @@ class Attendance extends Component {
     
       componentDidMount() {
         const {classes, ledamot} = this.props
-        console.log(ledamot);
-//        this.fetchAttendance(ledamot.intressent_id);
+        this.fetchAttendance(ledamot.intressent_id);
         this.createGauge(65, ledamot.parti);
       }
       componentWillReceiveProps({ data }) {
