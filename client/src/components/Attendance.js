@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { requestLedamoterByParams, setSelectedLedamot } from '../actions'
+import { requestVoteringarById } from '../actions'
 import { votering_api } from '../services'
 import partyColors from '../styles/colors.scss';
 import * as d3 from 'd3';
@@ -20,9 +20,8 @@ class Attendance extends Component {
       }
 
       fetchAttendance = (id) => {
-        console.log("kollahärinnan")
         this.setState({isFetching: true})
-        votering_api.requestVoteringarById({
+        votering_api.getVoteringById({
             iid: id
         }).then((data) => {
             console.log("kollahär"+data)
@@ -39,12 +38,11 @@ class Attendance extends Component {
       componentDidMount() {
         const {classes, ledamot} = this.props
         console.log(ledamot);
-//        let id = this.props.match.params.id;
-        this.fetchAttendance(ledamot.intressent_id);
-        this.createGauge(65, this.props.ledamot.parti);
+//        this.fetchAttendance(ledamot.intressent_id);
+        this.createGauge(65, ledamot.parti);
       }
       componentWillReceiveProps({ data }) {
-        this.createGauge(65, this.props.ledamot.parti);
+        this.createGauge(65, "M");
       }
 
     createGauge(value, partyID) {
@@ -341,7 +339,7 @@ const mapStateToProps = state => ({
   const mapDispatchToProps = dispatch => {
     //actions:bindActionCreators(actions, dispatch),
         return {
-            ledamoterByParams: (params) => dispatch(requestLedamoterByParams(params))
+            voteringarById: (id) => dispatch(requestVoteringarById(id))
         }
     }
   
