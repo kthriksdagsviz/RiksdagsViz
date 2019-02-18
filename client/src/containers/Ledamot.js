@@ -4,6 +4,7 @@ import { requestLedamoterByParams } from '../actions'
 import { connect } from 'react-redux'
 import { ledamoter_api } from '../services'
 import Spinner from 'react-spinkit'
+import LedamotComponent from '../components/LedamotComponent/ledamotcomponent';
 
 class Ledamot extends React.Component{
     constructor(props){
@@ -58,9 +59,12 @@ class Ledamot extends React.Component{
         const { ledamot, error } = this.state
         if(!error){
             return (
-                <div >
-                    <img src={ledamot.bild_url_192}></img>
-                    <p>{ledamot.tilltalsnamn} {ledamot.efternamn} ({ledamot.parti})</p> 
+                <div>
+                    <div className="ledamot_component_container">
+                        <LedamotComponent ledamot={ledamot} />
+                    </div>
+                    {/* <img src={ledamot.bild_url_192}></img>
+                    <p>{ledamot.tilltalsnamn} {ledamot.efternamn} ({ledamot.parti})</p>  */}
                 </div>
             )
         }

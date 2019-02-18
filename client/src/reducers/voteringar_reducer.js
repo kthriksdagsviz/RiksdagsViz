@@ -1,10 +1,12 @@
-import { RECEIVED_VOTERING_BY_ID,REQUEST_VOTERING_BY_ID } from "../constants/ActionTypes";
+import { RECEIVED_VOTERING_BY_ID,REQUEST_VOTERING_BY_ID, REQUEST_VOTERING_BY_YEAR, RECEIVED_VOTERING_BY_YEAR } from "../constants/ActionTypes";
 
 
 const initialState = {
   isFetching: false,
   fetched: false,
-  list:[]
+  list:{
+    
+  }
 }
  
 export default function voteringar(state = initialState, action) {
@@ -17,6 +19,16 @@ export default function voteringar(state = initialState, action) {
         fetched: true,
         list:action.data
       } 
+    case REQUEST_VOTERING_BY_YEAR:
+      return {...state, isFetching: true, fetched: false}
+    case RECEIVED_VOTERING_BY_YEAR:
+      return {
+        isFetching: false,
+        fetched: true,
+        list: action.data.data
+      }
+      case "TOGGLE_VOTERING_FETCHED":
+      return {...state, fetched: !this.state.fetched}
     default:
       return state;
   }

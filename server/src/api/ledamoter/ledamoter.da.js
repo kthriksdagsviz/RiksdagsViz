@@ -51,10 +51,11 @@ function getLedamotByName(fname,ename){
     }
     let url = "http://data.riksdagen.se/personlista/?iid=&fnamn="+ fname +  "&enamn=" + ename + "&f_ar=&kn=&parti=&valkrets=&rdlstatus=tjanst&org=&utformat=json&termlista="
     return new Promise((resolve, reject) => {
-        axios.get(url)
+        axios.get(encodeURI(url))
             .then((response) => {
-                console.log(response)
-                //resolve(response.data)
+                console.log(response.data)
+
+                resolve(response.data)
             })
             .catch((error) => {
                 if(error.status == 400){
