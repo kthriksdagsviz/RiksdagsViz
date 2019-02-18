@@ -1,4 +1,4 @@
-import { RECEIVED_LEDAMOTER,REQUEST_LEDAMOTER, SET_LEDAMOT } from "../constants/ActionTypes";
+import { RECEIVED_LEDAMOTER,REQUEST_LEDAMOTER, SET_LEDAMOT, SET_LEDAMOT_FETCHED } from "../constants/ActionTypes";
 
 
 const initialState = {
@@ -20,7 +20,8 @@ export default function ledamoter(state = initialState, action) {
       } 
     case SET_LEDAMOT:
       return { ...state, selectedLedamot: action.data };
-
+    case SET_LEDAMOT_FETCHED:
+      return {...state, fetched: true}
     default:
       return state;
   }

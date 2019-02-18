@@ -4,14 +4,19 @@ import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 import { Provider } from 'react-redux'
-import store, { history } from './store'
+import configureStore, { history } from './store'
+import { PersistGate } from 'redux-persist/integration/react'
 
+console.disableYellowBox = true;
 
+const { store, persistor } =configureStore()
 
 const render = () => {
     ReactDOM.render(
         <Provider store={store}>
+        <PersistGate persistor={persistor} loading={null}>
           <App history={history} />
+          </PersistGate>
         </Provider>,
       document.getElementById('root')
     )

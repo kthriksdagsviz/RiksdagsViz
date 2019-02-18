@@ -1,12 +1,18 @@
 import React, { Component } from 'react'
 import PartiCompare from '../components/PartiCompare'
+import PartiTimeline from '../components/PartiTimeline/partitimeline';
 
 class Parti extends Component {
     render() {
       return (
+        
         <div className="parti_container">
-          <h1>Parti page</h1>
-          <PartiCompare />
+          <div className="parti_compare">
+            <PartiCompare />
+          </div>
+          <div>
+            <PartiTimeline />
+          </div>
         </div>
       );
     }
