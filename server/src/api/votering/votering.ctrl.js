@@ -18,7 +18,15 @@ function fillDb(req, res){
 }
 
 function getDb(req, res){
-    VoteringDa.getRiksdagsVoteringar()
+    const { rm, parti } =  req.query;
+    let listOfYears = rm.split(',')
+
+    let params = {
+        rm: listOfYears,
+        parties: parti
+    }
+
+    VoteringDa.getRiksdagsVoteringar(params)
         .then((data)=>   res.json({data}))
         .catch((error) => console.log("there was an error"))
 }
@@ -38,7 +46,6 @@ function getVoteringarById(req, res){
 */
 function getVoteringarByDate(req, res){
     const { date } = req.params;
-    console.log(date)
     VoteringDa.VoteringarByDate(date)
         .then((voteringar) => res.status(200).json(voteringar))
         .catch(() => res.sendStatus(422))
