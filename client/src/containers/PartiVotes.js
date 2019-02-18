@@ -11,13 +11,13 @@ class Parti extends Component {
     componentDidMount(){
       var parties = ['V', 'S', 'MP', 'C', 'L', 'KD', 'M', 'SD'];
       if(!this.props.voteringar.fetched){
-        //this.props.voteringarByYear("2018/19,2017/18,2016/17", parties)
+        this.props.voteringarByYear("2018/19,2017/18,2016/17", parties)
       }
       else if(this.props.voteringar.fetched && _.isEmpty(this.props.voteringar.list)){
-        //this.props.voteringarByYear("2018/19,2017/18,2016/17", parties)
+        this.props.voteringarByYear("2018/19,2017/18,2016/17", parties)
       }
       else{
-        //this.props.voteringarByYear("2018/19,2017/18,2016/17", parties)
+        this.props.voteringarByYear("2018/19,2017/18,2016/17", parties)
       }
 
       
