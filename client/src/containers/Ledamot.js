@@ -1,11 +1,11 @@
 import React from 'react';
 import _ from 'lodash'
-import { requestLedamoterByParams } from '../actions'
+import { requestLedamoterByParams, setSelectedLedamot } from '../actions'
 import { connect } from 'react-redux'
 import { ledamoter_api } from '../services'
 import Spinner from 'react-spinkit'
+import Attendance from '../components/Attendance';
 import LedamotComponent from '../components/LedamotComponent/ledamotcomponent';
-import { RadarChart } from 'react-chartjs'
 
 class Ledamot extends React.Component{
     constructor(props){
@@ -60,12 +60,12 @@ class Ledamot extends React.Component{
         const { ledamot, error } = this.state
         if(!error){
             return (
-                <div>
-                    <div className="ledamot_component_container">
+                <div >
+                     <div className="ledamot_component_container">
                         <LedamotComponent ledamot={ledamot} />
                     </div>
-                    {/* <img src={ledamot.bild_url_192}></img>
-                    <p>{ledamot.tilltalsnamn} {ledamot.efternamn} ({ledamot.parti})</p>  */}
+
+
                 </div>
             )
         }
@@ -88,7 +88,7 @@ class Ledamot extends React.Component{
             <div>
                 {!hasFetched ? 
                 (isFetching ? <Spinner name="cube-grid"  fadeIn="none" /> : "" ):
-                <div> {this.renderPersonData()} </div>}
+                <div> {this.renderPersonData()}<Attendance ledamot={this.state.ledamot}/></div>}
             </div>
         )
     }

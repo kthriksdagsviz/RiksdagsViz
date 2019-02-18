@@ -2,11 +2,12 @@ import { request } from "http";
 
 const base_url = '/api/v1/'
 
-export const getVoteringById = async (id) =>{
-	let response = await fetch(base_url + 'votering/')
+export const getLedamotVoteringById = async (id) =>{
+	let response = await fetch(base_url + 'votering/id?iid=' + id)
 	let data = await response.json();
 	return data
 }
+	//id == ledamotId
 
 
 export const getVoteringByYear = async (years, parti) =>{
