@@ -8,7 +8,8 @@ export default class RiksdagsSeats extends Component {
     constructor(props){
         super(props)
         this.state={
-            selectedSeats: ledamoter[85].id
+            selectedSeats: ledamoter[85].id,
+            selectedName: "Jakob Forssmed"
         }
     }
 
@@ -16,23 +17,29 @@ export default class RiksdagsSeats extends Component {
     buildSVG = () => {
         
         return(
-            <SvgLoader path="/RiksdagStolar.svg" style={{width:'100%', height:'50vh'}} >
+            <SvgLoader path="/RiksdagStolar.svg" style={{width:'100%', height:'40vh'}} >
                 <SvgProxy selector={this.state.selectedSeats} fill={"green"}  />
             </SvgLoader>
         )
     }
 
     setSeat = (e) => {
+        let RiksdagStolar = d3.select('.riksdags_map')
         if(e.target.id !== "") {
+            RiksdagStolar.select("svg").select("#Welcome").selectAll("path").attr("fill", "gray")
+            RiksdagStolar.select("svg").select("#Welcome").select("#"+e.target.id).attr("fill", "green")
+            let result = ledamoter.filter(ledamot => {
+                return ledamot.id === "#"+e.target.id
+              })
             this.props.selectLedamot()
             this.setState({
-                selectedSeats: '#' + e.target.id
+                selectedSeats: '#' + e.target.id,
+                selectedName: result[0].name
             })
         }
     }
 
-    setTransition = (e) => {
-        this.setSeat(e)
+    setTransition = () => {
         let RiksdagStolar = d3.select('.riksdags_map')
         var ypaddingfactor = 0.1;
         var mstolar = 0;
@@ -164,8 +171,10 @@ export default class RiksdagsSeats extends Component {
     render() {
         return (
             // <div className="riksdags_map" onClick= {(e) => this.setSeat(e)}>
-             <div className="riksdags_map" onClick={(e) => this.setTransition(e)}>
+             <div className="riksdags_map" onClick={(e) => this.setSeat(e)}>
                 {this.buildSVG()}
+                <p>{this.state.selectedName}</p>
+                <button onClick={(e) => this.setTransition()}>Group by party</button>
             </div>
         )
     }
