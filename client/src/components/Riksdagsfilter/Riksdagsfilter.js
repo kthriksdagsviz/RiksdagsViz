@@ -23,7 +23,7 @@ const styles = theme => ({
     },
     formControl: {
         margin: theme.spacing.unit,
-        width: '48%',
+        width: '100%',
 
       },
     formControlGroup:{
@@ -160,25 +160,6 @@ class Riksdagsfilter extends Component {
 
                         </Select>
                     </FormControl>
-
-                    <FormControl className={classes.formControl} >
-                        <InputLabel htmlFor="lan-simple">Län</InputLabel>
-                        <Select
-                        value={this.state.lan}
-                        onChange={this.handleChange}
-                        inputProps={{
-                            name: 'lan',
-                            id: 'lan-simple',
-                        }}
-                        >
-                        <MenuItem value="">
-                            <em>None</em>
-                        </MenuItem>
-                        <MenuItem value={'sthml_lan'}>Stockholms län</MenuItem>
-                        <MenuItem value={'dal_lan'}>Dalarnas län</MenuItem>
-                        </Select>
-                    </FormControl>
-
                     
                     </div>
                     <FormControl className={classes.formControlGroup} >
