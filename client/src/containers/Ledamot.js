@@ -85,7 +85,7 @@ class Ledamot extends React.Component{
             <div>
                 {!hasFetched ? 
                 (isFetching ? <Spinner name="cube-grid"  fadeIn="none" /> : "" ):
-                <div> {this.renderPersonData()}<Attendance/></div>}
+                <div> {this.renderPersonData()}<Attendance ledamot={this.state.ledamot}/></div>}
             </div>
         )
     }
