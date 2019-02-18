@@ -3,7 +3,7 @@ import { requestLedamoterByParams, setSelectedLedamot } from '../actions'
 import { connect } from 'react-redux'
 import RiksdagsSeats from "../components/RiksdagsSeats/RiksdagsSeats"
 import Riksdagsfilter from '../components/Riksdagsfilter/Riksdagsfilter';
-
+import {ledamoter_api} from '../services'
 
 class RiksdagsMap extends Component {
 
@@ -30,6 +30,16 @@ class RiksdagsMap extends Component {
         
     }
 
+    fetchSingleLedamot = (fname, ename) => {
+        this.setState({isFetching: true})
+        ledamoter_api.getLedamoterByName({
+            fname: fname, ename: ename
+        }).then((data) => {
+            console.log(data)
+             this.props.setSelectedLedamot(data.personlista.person)
+        })
+    }
+
     renderPersonData = () => {
         if (this.props.ledamoter.list.person) {
             const data =  this.props.ledamoter.list.person.map((person) => {
@@ -45,7 +55,7 @@ class RiksdagsMap extends Component {
     }
 
     componentDidMount(){
-        this.fetchData()
+        //this.fetchData()
     }
 
 
@@ -59,7 +69,7 @@ class RiksdagsMap extends Component {
                 (isFetching ? <Spinner name="cube-grid"  fadeIn="none" /> : "" ):
                 <div style={{display:'flex', flexDirection:'row'}}> {this.renderPersonData()} </div>} */}
                 
-                <RiksdagsSeats selectLedamot={this.selectLedamot}/>
+                <RiksdagsSeats selectLedamot={this.fetchSingleLedamot}/>
                 <Riksdagsfilter />
             {/* <RiksdagsSearch/> */}
             

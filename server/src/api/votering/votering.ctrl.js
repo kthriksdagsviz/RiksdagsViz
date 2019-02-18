@@ -4,6 +4,7 @@ export default {
     fillDb,
     getVoteringarById,
     getVoteringarByDate,
+    getVoteringarByLedamotId,
     getDb
 }
 
@@ -18,7 +19,15 @@ function fillDb(req, res){
 }
 
 function getDb(req, res){
-    VoteringDa.getRiksdagsVoteringar()
+    const { rm, parti } =  req.query;
+    let listOfYears = rm.split(',')
+
+    let params = {
+        rm: listOfYears,
+        parties: parti
+    }
+
+    VoteringDa.getRiksdagsVoteringar(params)
         .then((data)=>   res.json({data}))
         .catch((error) => console.log("there was an error"))
 }
@@ -26,10 +35,17 @@ function getDb(req, res){
    * Get voteringar by id
 */
 function getVoteringarById(req, res){
-    const { id } = req.params;
+    const { id } = req.query;
     VoteringDa.VoteringById(id)
         .then((votering) => res.status(200).json(votering))
         .catch(() => res.sendStatus(422))
+}
+
+function getVoteringarByLedamotId(req, res){
+    const { iid } = req.query
+    console.log(iid)
+    VoteringDa.getVoteringByLedamotId(iid)
+        .then((data) => res.status(200).json(data) )
 }
 
 
@@ -38,7 +54,6 @@ function getVoteringarById(req, res){
 */
 function getVoteringarByDate(req, res){
     const { date } = req.params;
-    console.log(date)
     VoteringDa.VoteringarByDate(date)
         .then((voteringar) => res.status(200).json(voteringar))
         .catch(() => res.sendStatus(422))

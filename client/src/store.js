@@ -57,6 +57,8 @@ export default  () => {
 	),
 	)
 	 const persistor = persistStore(store);
+
+	 window.persistor = persistor
 	 sagaMiddleware.run(mySaga);
 
 	return { store, persistor }

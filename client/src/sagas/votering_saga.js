@@ -17,8 +17,24 @@ function* getVoteringById(data) {
   }
 }
 
+function* getVoteringByYear(data) {
+  const { payload } = data;
+  try {
+    const data = yield call(votering_api.getVoteringByYear, payload.year, payload.parties)
+    let dataToSend = {
+      data,
+      year: payload.year
+    }
+   
+    yield put(actions.receivedVoteringarByYear(dataToSend));
 
+  } catch (e) {
+    console.log(e);
+  }
+}
 
 export function* watchVoteringSaga() {
-  yield takeLatest(types.REQUEST_VOTERING_BY_ID, getVoteringById);
+  
+  
+  yield takeLatest(types.REQUEST_VOTERING_BY_YEAR, getVoteringByYear);
 }

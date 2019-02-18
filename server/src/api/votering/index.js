@@ -12,8 +12,8 @@ router
     .get(ctrl.fillDb)
 
 router
-    .route('/votering/:id')
-    .get(ctrl.getVoteringarById)
+    .route('/votering/id')
+    .get(ctrl.getVoteringarByLedamotId)
 
 router
     .route('/votering/date/:date')

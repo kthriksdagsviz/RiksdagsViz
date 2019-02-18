@@ -58,6 +58,14 @@ export default class PartiCompare extends Component {
       this.drawChart(data)
     }
 
+    createInteger = (string) => {
+      var parsed = parseInt(string, 10);
+      if (isNaN(parsed)) { return 0 }
+      return parsed;
+  }
+
+  
+
 
     drawChart(dataset) {
         const diameter = 550;
@@ -85,9 +93,7 @@ export default class PartiCompare extends Component {
             [11,  1341, 11, 11, 1231, 11, 0, 2275],
             [1275,  75, 1275, 75, 75, 2275, 2275, 0]
           ]; */
-
         var data = voteByParty();
-
         var parties = ['V', 'S', 'MP', 'C', 'L', 'KD', 'M', 'SD'];
 
         var colors = [partyColors.partyV, partyColors.partyS, partyColors.partyMP, partyColors.partyC,
@@ -153,6 +159,7 @@ export default class PartiCompare extends Component {
 
 
     render() {
+      
         return (
             <div id="compareContainer">
                 <div id="compareChart"/>

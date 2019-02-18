@@ -12,13 +12,14 @@ class Ledamoter extends React.Component{
     }
 
     componentDidMount(){
-        let numOfHits = parseInt(this.props.ledamoter.list['@hits'] < 1)
-       if(!this.props.fetched && numOfHits){
+        let hasHits = false;
+        if(!_.isEmpty(this.props.ledamoter.list)){
+            hasHits = parseInt(this.props.ledamoter.list['@hits'] < 1)
+        }
+       if(!this.props.ledamoter.fetched){
             this.fetchData()
        }
-       else{
-           this.props.setLedamotFetched()
-       }
+       
         
     }
     componentDidUpdate(nextProps){
@@ -32,7 +33,7 @@ class Ledamoter extends React.Component{
 
     fetchData = () => {
         this.props.ledamoterByParams({
-            size: 100
+            
         })
     }
 
