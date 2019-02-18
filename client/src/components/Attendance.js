@@ -24,10 +24,9 @@ class Attendance extends Component {
         this.setState({isFetching: true})
         votering_api.getLedamotVoteringById(ledamot.intressent_id).then((data) => {
             let path = data.voteringlista.votering[0];
-            console.log(path)
             let kvot = path.Frånvarande[0] / (parseInt(path.Avstår[0]) + parseInt(path.Frånvarande[0]) + parseInt(path.Ja[0]) + parseInt(path.Nej[0]));
             let procent = 100 - kvot*100;
-            this.createGauge(procent, ledamot.parti);
+            this.createGauge(Math.round( procent * 10) / 10, ledamot.parti);
         })
     }
     
@@ -169,6 +168,13 @@ class Attendance extends Component {
             .attr("font-size", textPixels + "px")
             .style("fill", textColor)
             .attr('transform','translate('+radius+','+textRiseScaleY(textVertPosition)+')');
+        var textInfo1 = gaugeGroup.append("text")
+            .text("Attendance")
+            .attr("class", "liquidFillGaugeText")
+            .attr("text-anchor", "middle")
+            .attr("font-size", 20 + "px")
+            .style("fill", textColor)
+            .attr('transform','translate('+radius+','+textRiseScaleY(0.25)+')');
     
         // The clipping wave area.
         var clipArea = d3.area()
@@ -200,6 +206,14 @@ class Attendance extends Component {
             .attr("font-size", textPixels + "px")
             .style("fill", waveTextColor)
             .attr('transform','translate('+radius+','+textRiseScaleY(textVertPosition)+')');
+
+        var textInfo2 = fillCircleGroup.append("text")
+            .text("Attendance")
+            .attr("class", "liquidFillGaugeText")
+            .attr("text-anchor", "middle")
+            .attr("font-size", 20 + "px")
+            .style("fill", waveTextColor)
+            .attr('transform','translate('+radius+','+textRiseScaleY(0.25)+')');
     
         // Make the value count up.
         if(valueCountUp){
@@ -216,6 +230,10 @@ class Attendance extends Component {
             text2.transition()
                 .duration(waveRiseTime)
                 .tween("text", textTween);
+            textInfo1.transition()
+                .duration(waveRiseTime)
+            textInfo2.transition()
+                .duration(waveRiseTime)
         }
     
         // Make the wave rise. wave and waveGroup are separate so that horizontal and vertical movement can be controlled independently.
@@ -270,6 +288,10 @@ class Attendance extends Component {
                 text2.transition()
                     .duration(waveRiseTime)
                     .tween("text", textTween);
+                textInfo1.transition()
+                    .duration(waveRiseTime)
+                textInfo2.transition()
+                    .duration(waveRiseTime)
     
                 var fillPercent = Math.max(minValue, Math.min(maxValue, value))/maxValue;
                 var waveHeight = fillCircleRadius*waveHeightScale(fillPercent*100);
