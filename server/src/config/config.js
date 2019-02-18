@@ -3,7 +3,7 @@
  * @type {{db: string, apiPort: number}}
  */
 
-const GlobalConfig = require('../../config.json')
+const GlobalConfig = require('../config.json')
 const defaultConfig = {
     db: GlobalConfig.development.database,
     apiPort: GlobalConfig.development.node_port

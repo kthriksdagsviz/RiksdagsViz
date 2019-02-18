@@ -1,0 +1,9 @@
+{
+    "development": {
+        "config_id": "development",
+        "app_name": "riksviz",
+        "app_desc": "A visualization of Riksdagen",
+        "node_port": 5000,
+        "database": "mongodb+srv://admin:bomeja2015!@riksdagsviz-7gqgl.mongodb.net/riksdagenViz?retryWrites=true"
+    }
+}
