@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import Attendance from '../components/Attendance';
 
 class Hello extends Component {
     render() {

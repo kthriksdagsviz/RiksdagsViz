@@ -123,8 +123,8 @@ export default class PartiCompare extends Component {
           for (let i = 0; i < partiesLong.length; i++) {
             if (i != group.index) {
               tooltip.append('p').text(() => { 
-                return parties[group.index] + ' => ' + (100 * dataset[group.index][i] / partyVoters[group.index]).toFixed(1) + '% => ' + parties[i]
-              });
+                return '...are in ' + (100 * dataset[group.index][i] / partyVoters[group.index]).toFixed(1) + '% of all cases voting the same as the political line of ' + parties[i]
+              })
             }
           }
         })

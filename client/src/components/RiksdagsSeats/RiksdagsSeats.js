@@ -11,6 +11,8 @@ export default class RiksdagsSeats extends Component {
         super(props)
         this.state={
             selectedSeat: "",
+            build: false,
+            rebuild: false,
             selectedName: "",
             fetchedPerson:{},
             filteredSelection: [{"party": "M", "name": "John Widegren", "id": "#s031"}, {"party": "S", "name": "Johan Andersson", "id": "#s032"}, {"party": "S", "name": "Bj\u00f6rn Petersson", "id": "#s033"}, {"party": "SD", "name": "Mattias B\u00e4ckstr\u00f6m Johansson", "id": "#s034"}, {"party": "S", "name": "Laila Naraghi", "id": "#s035"}, {"party": "M", "name": "Annicka Engblom", "id": "#s036"}, {"party": "SD", "name": "Richard Jomshof", "id": "#s037"}, {"party": "M", "name": "Boriana \u00c5berg", "id": "#s038"}, {"party": "C", "name": "Ola Johansson", "id": "#s039"}, {"party": "S", "name": "Adnan Dibrani", "id": "#s040"}, {"party": "L", "name": "Bengt Eliasson", "id": "#s041"}]
@@ -21,11 +23,12 @@ export default class RiksdagsSeats extends Component {
     buildSVG = () => {
         var map = <SvgLoader path="/RiksdagStolar.svg" style={{width:'100%', height:'40vh'}} >
         {/* <SvgProxy selector={this.state.selectedSeats} fill={"green"}  /> */}
-    </SvgLoader>
+        </SvgLoader>
         return(
             map
         )
     }
+
 
     modifySVG = (selection) => {
         setTimeout(() => {
@@ -68,6 +71,26 @@ export default class RiksdagsSeats extends Component {
         this.setState({filteredSelection: ledlist})
     }
 
+    componentDidUpdate(nextProps){
+        console.log(nextProps, this.props)
+        if(nextProps.groupby != this.props.groupby){
+            console.log(nextProps.groupby, nextProps.groupby == "partiet")
+            if(nextProps.groupby == "default" && this.props.groupby == "partiet"){
+                this.setTransition()
+            }
+            else{
+                //this.destroyMap()
+                //this.forceUpdate()
+            }
+           
+        }
+    }
+
+
+    destroyMap = () => {
+        d3.select('.riksdags_map').remove();
+    }
+
     
 
     setTransition = () => {
@@ -81,7 +104,7 @@ export default class RiksdagsSeats extends Component {
         var kdstolar = 0;
         var sdstolar = 0;
         var cstolar = 0;
-
+        
         RiksdagStolar.select("svg").select("#Welcome").selectAll("path").transition().attr("d", "M508,182 L494,182 C494,182 494,168.612852 494,168.612852 C495.14429,166.980014 497.071117,165 501,165 C504.944852,165 506.85571,166.980014 508,168.612852 C508,168.612852 508,182 508,182 Z", "fill").duration(900)
         setTimeout(() => {
             for (var i=0; i < ledamoter.length; i++ ){
@@ -200,14 +223,15 @@ export default class RiksdagsSeats extends Component {
           }, 1200);
     }
     render() {
+    
         return (
             // <div className="riksdags_map" onClick= {(e) => this.setSeat(e)}>
              <div className="riksdags_map" onClick={(e) => this.setSeat(e)}>
                 {this.buildSVG()}
                 {this.modifySVG(this.state.filteredSelection)}
                 <p>{this.state.selectedName}</p>
-                <button onClick={() => this.setTransition()}>Group by party</button>
-                <button onClick={() => this.setNewGroup()}>Set new group</button>
+                {/* <button onClick={() => this.setTransition()}>Group by party</button>
+                <button onClick={() => this.setNewGroup()}>Set new group</button> */}
             </div>
         )
     }
