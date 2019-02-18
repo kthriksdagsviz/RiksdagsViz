@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { requestLedamoterByParams, setSelectedLedamot } from '../actions'
+import { ledamoter_api } from '../services'
 import partyColors from '../styles/colors.scss';
 import * as d3 from 'd3';
 
@@ -8,15 +10,41 @@ class Attendance extends Component {
 
     constructor(props) {
         super(props);
-        this.createGauge = this.createGauge.bind(this)
+        this.state  = {
+            ledamot: {},
+            isFetching: false,
+            fetched: false,
+            error: false
+        }
+        this.createGauge = this.createGauge.bind(this);
       }
+
+      fetchAttendance = (id) => {
+        console.log("kollahärinnan")
+        this.setState({isFetching: true})
+        ledamoter_api.requestVoteringarById({
+            iid: id
+        }).then((data) => {
+            console.log("kollahär"+data)
+            if(data['@hits'] > 0){
+                //this.setState({ledamot: data.person[0], fetched: true, isFetching: false})
+            }
+            else{
+                this.setState({fetched: true, isFetching: false, error: true})
+            }
+            
+        })
+    }
     
       componentDidMount() {
         const { ledamot } = this.props;
-        this.createGauge(65, ledamot.parti)
+        console.log(ledamot);
+        var id = ledamot.match.params.id;
+        this.fetchAttendance(id);
+        this.createGauge(65, ledamot.parti);
       }
       componentWillReceiveProps({ data }) {
-        this.createGauge(65, ledamot.parti)
+        this.createGauge(65, this.props.ledamot.parti);
       }
 
     createGauge(value, partyID) {
@@ -307,9 +335,16 @@ class Attendance extends Component {
 
 
 const mapStateToProps = state => ({
-    ledamot: state.ledamoter.selectedLedamot
+    ledamot: state.ledamoter
   })
+
+  const mapDispatchToProps = dispatch => {
+    //actions:bindActionCreators(actions, dispatch),
+        return {
+            ledamoterByParams: (params) => dispatch(requestLedamoterByParams(params))
+        }
+    }
   
 
-  export default connect(mapStateToProps, null)(Attendance);
+  export default connect(mapStateToProps, mapDispatchToProps)(Attendance);
     

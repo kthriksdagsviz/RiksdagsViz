@@ -6,7 +6,6 @@ class Hello extends Component {
       return (
         <div className="about_container">
           <h1> About page </h1>
-          <Attendance></Attendance>
         </div>
       );
     }

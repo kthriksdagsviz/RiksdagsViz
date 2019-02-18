@@ -1,9 +1,10 @@
 import React from 'react';
 import _ from 'lodash'
-import { requestLedamoterByParams } from '../actions'
+import { requestLedamoterByParams, setSelectedLedamot } from '../actions'
 import { connect } from 'react-redux'
 import { ledamoter_api } from '../services'
 import Spinner from 'react-spinkit'
+import Attendance from '../components/Attendance';
 
 class Ledamot extends React.Component{
     constructor(props){
@@ -60,7 +61,8 @@ class Ledamot extends React.Component{
             return (
                 <div >
                     <img src={ledamot.bild_url_192}></img>
-                    <p>{ledamot.tilltalsnamn} {ledamot.efternamn} ({ledamot.parti})</p> 
+                    <p>{ledamot.tilltalsnamn} {ledamot.efternamn} ({ledamot.parti})</p>
+
                 </div>
             )
         }
@@ -83,7 +85,7 @@ class Ledamot extends React.Component{
             <div>
                 {!hasFetched ? 
                 (isFetching ? <Spinner name="cube-grid"  fadeIn="none" /> : "" ):
-                <div> {this.renderPersonData()} </div>}
+                <div> {this.renderPersonData()}<Attendance/></div>}
             </div>
         )
     }
