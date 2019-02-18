@@ -30,14 +30,13 @@ class RiksdagsMap extends Component {
         
     }
 
-    fetchSingleLedamot = () => {
+    fetchSingleLedamot = (fname, ename) => {
         this.setState({isFetching: true})
-        ledamoter_api.getLedamoterByParams({
-            iid: "0227531635413"
+        ledamoter_api.getLedamoterByName({
+            fname: fname, ename: ename
         }).then((data) => {
-            if(data['@hits'] > 0){
-                this.props.setSelectedLedamot(data.person[0])
-            }
+            console.log(data)
+             this.props.setSelectedLedamot(data.personlista.person)
         })
     }
 

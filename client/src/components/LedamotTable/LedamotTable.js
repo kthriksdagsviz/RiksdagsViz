@@ -8,7 +8,6 @@ import { connect } from 'react-redux'
  class LedamotTable extends Component{
 
     handleSelect = (event, rowData) =>{
-        console.log(event, rowData)
         this.props.push('/ledamoter/' + rowData.intressent_id)
     }
 

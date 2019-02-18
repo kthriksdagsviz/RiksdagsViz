@@ -29,7 +29,7 @@ import Paper from '@material-ui/core/Paper'
     componentDidUpdate(nextProps){
         if(!_.isEmpty(this.props.ledamot) && (nextProps.ledamot != this.props.ledamot)){
             let name = this.props.ledamot.tilltalsnamn + " "  + this.props.ledamot.efternamn
-            this.getLatestNews(name)
+            //this.getLatestNews(name)
         }
     }
 
@@ -59,7 +59,6 @@ import Paper from '@material-ui/core/Paper'
         const { isFetching, fetched, list } = this.props.nyheter
         const hasFetched = fetched ? fetched : false;
         const hasNews = list.totalResults > 0 ? true : false
-        console.log(isFetching, hasFetched)
         const check = (this.props.nyheter.list.totalResults > 0 )
         return (
             <div className="index__voteringar">

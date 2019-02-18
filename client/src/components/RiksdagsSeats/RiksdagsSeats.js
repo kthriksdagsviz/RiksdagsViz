@@ -2,6 +2,8 @@ import React, { Component } from 'react'
 import { SvgLoader, SvgProxy } from 'react-svgmt';
 import ledamoter from "../../utils/ledamoter.json"
 import * as d3 from 'd3';
+import {ledamoter_api} from '../../services'
+import _ from 'lodash'
 
 export default class RiksdagsSeats extends Component {
 
@@ -10,6 +12,7 @@ export default class RiksdagsSeats extends Component {
         this.state={
             selectedSeat: "",
             selectedName: "",
+            fetchedPerson:{},
             filteredSelection: [{"party": "M", "name": "John Widegren", "id": "#s031"}, {"party": "S", "name": "Johan Andersson", "id": "#s032"}, {"party": "S", "name": "Bj\u00f6rn Petersson", "id": "#s033"}, {"party": "SD", "name": "Mattias B\u00e4ckstr\u00f6m Johansson", "id": "#s034"}, {"party": "S", "name": "Laila Naraghi", "id": "#s035"}, {"party": "M", "name": "Annicka Engblom", "id": "#s036"}, {"party": "SD", "name": "Richard Jomshof", "id": "#s037"}, {"party": "M", "name": "Boriana \u00c5berg", "id": "#s038"}, {"party": "C", "name": "Ola Johansson", "id": "#s039"}, {"party": "S", "name": "Adnan Dibrani", "id": "#s040"}, {"party": "L", "name": "Bengt Eliasson", "id": "#s041"}]
         }
     }
@@ -42,19 +45,23 @@ export default class RiksdagsSeats extends Component {
             let result = ledamoter.filter(ledamot => {
                 return ledamot.id === "#"+e.target.id
               })
+              let fname = result[0].name.split(" ")[0];
+              let ename = result[0].name.split(" ")[1];
               let person ={
                 tilltalsnamn: result[0].name.split()[0],
                 efternamn: result[0].name.split()[1],
                 parti: result[0].party,
                 bild_url_80: "http://data.riksdagen.se/filarkiv/bilder/ledamot/9f5c5d35-c450-4068-923a-2d8d077223d5_80.jpg"
             }
-            this.props.selectLedamot(person)
+            
+            
             this.setState({
                 selectedSeat: '#' + e.target.id,
                 selectedName: result[0].name
-            })
+            }, () => this.props.selectLedamot(fname, ename))
         }
     }
+
 
     setNewGroup = () => {
         let ledlist = [{"party": "M", "name": "Tomas Tob\u00e9", "id": "#s053"}, {"party": "V", "name": "Amineh Kakabaveh", "id": "#s054"}, {"party": "S", "name": "Ingela Nylund Watz", "id": "#s055"}, {"party": "S", "name": "Pyry Niemi", "id": "#s056"}, {"party": "M", "name": "Jessika Roswall", "id": "#s057"}, {"party": "SD", "name": "Markus Wiechel", "id": "#s058"}, {"party": "KD", "name": "Magnus Oscarsson", "id": "#s059"}, {"party": "SD", "name": "Anne Oskarsson", "id": "#s060"}, {"party": "S", "name": "Tomas Kronst\u00e5hl", "id": "#s061"}, {"party": "S", "name": "Magnus Manhammar", "id": "#s062"}, {"party": "SD", "name": "Angelika Bengtsson", "id": "#s063"}, {"party": "S", "name": "Rikard Larsson", "id": "#s064"}, {"party": "SD", "name": "Jennie \u00c5feldt", "id": "#s065"}, {"party": "M", "name": "J\u00f6rgen Warborn", "id": "#s066"}, {"party": "KD", "name": "Larry S\u00f6der", "id": "#s067"}, {"party": "M", "name": "Lars P\u00fcss", "id": "#s068"}, {"party": "MP", "name": "Elisabeth Falkhaven", "id": "#s069"}, {"party": "KD", "name": "Ingemar Kihlstr\u00f6m", "id": "#s070"}, {"party": "SD", "name": "Caroline Nordengrip", "id": "#s071"}, {"party": "SD", "name": "Runar Filper", "id": "#s072"}, {"party": "S", "name": "Mikael Dahlqvist", "id": "#s073"}, {"party": "M", "name": "Jessica Polfj\u00e4rd", "id": "#s074"}, {"party": "L", "name": "Roger Haddad", "id": "#s075"}, {"party": "S", "name": "Ingemar Nilsson", "id": "#s076"}, {"party": "S", "name": "Kristina Nilsson", "id": "#s077"}, {"party": "S", "name": "Anna-Caren S\u00e4therberg", "id": "#s078"}, {"party": "S", "name": "Kalle Olsson", "id": "#s079"}, {"party": "S", "name": "Maria Jacobsson", "id": "#s079"}, {"party": "MP", "name": "\u00c5sa Lindhagen", "id": "#s080"}, {"party": "M", "name": "Johan Forssell", "id": "#s081"}]
