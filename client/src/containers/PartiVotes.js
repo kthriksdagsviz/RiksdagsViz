@@ -7,7 +7,7 @@ import { requestVoteringarByYear } from '../actions'
 import _ from 'lodash'
 class Parti extends Component {
     state = {
-      selectedYear:2002,
+      selectedYear:2001,
       yearReadyToChange: false
     }
 
