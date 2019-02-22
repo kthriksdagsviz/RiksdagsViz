@@ -20,7 +20,7 @@ function* getVoteringById(data) {
 function* getVoteringByYear(data) {
   const { payload } = data;
   try {
-    const data = yield call(votering_api.getVoteringByYear, payload.year, payload.parties)
+    //const data = yield call(votering_api.getVoteringByYear, payload.year, payload.parties)
     let dataToSend = {
       data,
       year: payload.year

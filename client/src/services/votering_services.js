@@ -19,7 +19,7 @@ export const getVoteringByYear = async (years, parti) =>{
 		let promise =  new Promise((resolve, reject) => {
 			fetch(base_url + 'votering/?rm=' + year + '&parti=' + parties)
 				.then((res) => {
-					resolve(res.json())
+					resolve(res)
 				}).catch((error) => console.log(error))
 		})
 		numOfPromises.push(promise)
