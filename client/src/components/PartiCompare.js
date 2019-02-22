@@ -52,21 +52,25 @@ export default class PartiCompare extends Component {
       this.drawChart = this.drawChart.bind(this)
   
       this.state = {
-        votesByYear: partyList
+        votesByYear: partyList,
+        readyToUpdate: true
       }
     }
 
-    chooseVoteYear = (e) => {
-    var newYear = partyList;
-    for (let i = 0; i < previousVotingYears.length; i++) {
-        if (e.target.value === previousVotingYears[i]) {
-            newYear = previousVoteData[i];
-        }
+    chooseVoteYear = (e, years) => {
+      this.setState({readyToUpdate: false})
+      let year = e ? e.target.value : years
+      var newYear = partyList;
+      for (let i = 0; i < previousVotingYears.length; i++) {
+          if (years === previousVotingYears[i]) {
+              newYear = previousVoteData[i];
+          }
+      }
+      this.setState({
+        votesByYear: newYear,
+        readyToUpdate: true
+      }, () => this.props.onYearChange(year));
     }
-    this.setState({
-      votesByYear: newYear
-    });
-}
     
 
     componentDidMount() {
@@ -74,9 +78,62 @@ export default class PartiCompare extends Component {
       this.drawChart(voteByParty(this.state.votesByYear))
     }
 
-    componentDidUpdate() {
+    componentDidUpdate(nextProps) {
       d3.select("#compareChart").selectAll("*").remove()
       this.drawChart(voteByParty(this.state.votesByYear))
+      if(nextProps.selectedYear != this.props.selectedYear){
+        let yearString ="";
+        switch(nextProps.selectedYear){
+          case 2003:
+            yearString = '0304'
+            break
+          case 2004:
+            yearString = '0405'
+            break 
+          case 2005:
+            yearString = '0506'
+            break
+          case 2006:
+            yearString = '0607'
+            break 
+          case 2007:
+            yearString = '0708'
+            break
+          case 2008:
+            yearString = '0809'
+            break 
+          case 2009:
+            yearString = '0910'
+            break
+          case 2010:
+            yearString = '1011'
+            break 
+          case 2011:
+            yearString = '1112'
+            break 
+          case 2012:
+            yearString = '1213'
+            break
+          case 2013:
+            yearString = '1314'
+            break
+          case 2014:
+            yearString = '1415'
+            break 
+          case 2015:
+            yearString = '1516'
+            break
+          case 2016:
+            yearString = '1617'
+            break 
+          case 2017:
+            yearString = '1718'
+            break 
+        }
+        if(this.state.readyToUpdate){
+          this.chooseVoteYear(null, yearString)
+        }
+      }
     }
 
     createInteger = (string) => {

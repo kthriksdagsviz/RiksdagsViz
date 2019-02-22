@@ -6,21 +6,31 @@ import  Spinner  from 'react-spinkit'
 import { requestVoteringarByYear } from '../actions'
 import _ from 'lodash'
 class Parti extends Component {
-
+    state = {
+      selectedYear:2002,
+      yearReadyToChange: false
+    }
 
     componentDidMount(){
       var parties = ['V', 'S', 'MP', 'C', 'L', 'KD', 'M', 'SD'];
       if(!this.props.voteringar.fetched){
-        this.props.voteringarByYear("2018/19,2017/18,2016/17", parties)
+       // this.props.voteringarByYear("2018/19,2017/18,2016/17", parties)
       }
       else if(this.props.voteringar.fetched && _.isEmpty(this.props.voteringar.list)){
-        this.props.voteringarByYear("2018/19,2017/18,2016/17", parties)
+        //this.props.voteringarByYear("2018/19,2017/18,2016/17", parties)
       }
       else{
-        this.props.voteringarByYear("2018/19,2017/18,2016/17", parties)
+        //this.props.voteringarByYear("2018/19,2017/18,2016/17", parties)
       }
 
       
+    }
+
+    onYearChange = (year) => {
+      this.setState({yearReadyToChange: true})
+    }
+    onYearTimelineChange = (year) => {
+      this.setState({selectedYear: year})
     }
 
     render() {
@@ -29,17 +39,15 @@ class Parti extends Component {
         
         <div className="parti_container">
 
-                {!fetched ? 
-                (isFetching ? <Spinner name="cube-grid"  fadeIn="none" /> : "" ):
                 <div style={{width:'99%', height:'99%'}}>
                     <div className="parti_compare">
-                      <PartiCompare data={this.props.voteringar.list['2018/19']}/>
+                      <PartiCompare data={this.props.voteringar.list['2018/19']} onYearChange={this.onYearChange} selectedYear={this.state.selectedYear} />
                     </div>  
-                </div>}
+                </div>
 
           
           <div>
-            <PartiTimeline />
+            <PartiTimeline onYearTimelineChange={this.onYearTimelineChange} />
           </div>
         </div>
       );
