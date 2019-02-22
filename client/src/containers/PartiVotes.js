@@ -4,6 +4,7 @@ import PartiTimeline from '../components/PartiTimeline/partitimeline';
 import { connect } from 'react-redux'
 import  Spinner  from 'react-spinkit'
 import { requestVoteringarByYear } from '../actions'
+import PartiChord from '../components/PartiChord'
 import _ from 'lodash'
 class Parti extends Component {
     state = {
@@ -41,7 +42,8 @@ class Parti extends Component {
 
                 <div style={{width:'99%', height:'99%'}}>
                     <div className="parti_compare">
-                      <PartiCompare data={this.props.voteringar.list['2018/19']} onYearChange={this.onYearChange} selectedYear={this.state.selectedYear} />
+                      <PartiChord  onYearChange={this.onYearChange} selectedYear={this.state.selectedYear}/>
+                      {/* <PartiCompare data={this.props.voteringar.list['2018/19']} onYearChange={this.onYearChange} selectedYear={this.state.selectedYear} /> */}
                     </div>  
                 </div>
 
