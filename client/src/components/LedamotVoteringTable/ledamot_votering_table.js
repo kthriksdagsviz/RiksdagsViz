@@ -9,13 +9,11 @@ import { getVoteringarByParams } from '../../services/votering_services';
  class LedamotVoteringTable extends Component{
 
     handleSelect = (event, rowData) =>{
-        console.log(rowData)
         this.props.push('/voteringar/' + rowData.votering_id)
     }
 
     render(){
         const { classes, data, voteringar } = this.props
-        console.log(this.props)
         return (
             <div style={{  width: '100%', boxShadow: '0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24)'}}>
                 <MaterialTable

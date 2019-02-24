@@ -8,6 +8,7 @@ import Attendance from '../components/Attendance';
 import LedamotComponent from '../components/LedamotComponent/ledamotcomponent';
 import LedamotVoteringTable from '../components/LedamotVoteringTable/ledamot_votering_table'
 import AttendenceGauge from '../components/Attendence/attendence_gauge'
+import LedamotInfo from './LedamotInfo';
 
 class Ledamot extends React.Component{
     constructor(props){
@@ -31,7 +32,6 @@ class Ledamot extends React.Component{
         ledamoter_api.getLedamoterByParams({
             iid: this.props.match.params.id
         }).then((data) => {
-            console.log(data)
             if(data['@hits'] > 0){
                 this.setState({ledamot: data.person[0], fetched: true, isFetching: false})
             }
@@ -51,7 +51,6 @@ class Ledamot extends React.Component{
         }))
         votering_api.getVoteringarByParams(this.props.match.params.id)
             .then((data) => {
-                console.log(data)
                 if(data){
                     let item = {
                         ...this.state.voteringar,
@@ -83,11 +82,9 @@ class Ledamot extends React.Component{
         let persistedLedamot = _.find(this.props.ledamoter.list.person, {'intressent_id':personId})
         //if that person is not defined, fetch new, otherwise just set state with that person
         if(!_.isEmpty(persistedLedamot)){
-            console.log("get from store")
             this.setState({ledamot: persistedLedamot, fetched:true})
         }
         else{
-            console.log("get from store")
             this.fetchSingleLedamot()
         }
         if(!(this.state.voteringar.fetched)){
@@ -133,8 +130,11 @@ class Ledamot extends React.Component{
             <div>
                 {!hasFetched ? 
                 (isFetching ? <Spinner name="cube-grid"  fadeIn="none" /> : "" ):
-                <div style={{display:'flex', flexDirection:'row', alignItems:'center'}}> {this.renderPersonData()}
-                <AttendenceGauge ledamot={this.state.ledamot} />
+                <div style={{display:'flex', flexDirection:'row'}}> 
+                    
+                  <div style={{width:'40%'}}>  {this.renderPersonData()} </div>
+                  <div style={{width:'60%', marginTop:'1em'}}> <LedamotInfo ledamot={this.state.ledamot} /> </div>
+                {/* <AttendenceGauge ledamot={this.state.ledamot} /> */}
                 {/* <Attendance ledamot={this.state.ledamot}/> */}
                 </div>}
             </div>

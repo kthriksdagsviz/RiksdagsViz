@@ -2,7 +2,6 @@ import React from 'react'
 import { votering_api } from '../services'
 import Spinner from 'react-spinkit'
 import {ListGroup, Jumbotron, Container, Table } from 'react-bootstrap'
-import { Divider } from '@material-ui/core';
 
 export default class VoteringPage extends React.Component{
     constructor(props){
