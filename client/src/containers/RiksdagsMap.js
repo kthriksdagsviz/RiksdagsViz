@@ -9,7 +9,9 @@ class RiksdagsMap extends Component {
     constructor(props){
         super(props)
         this.state={
-            groupby:"default"
+            groupby:"default",
+            parti:"None",
+            search:""
         }
     }
     fetchData = () => {
@@ -40,7 +42,6 @@ class RiksdagsMap extends Component {
         ledamoter_api.getLedamoterByName({
             fname: fname, ename: ename
         }).then((data) => {
-            console.log(data)
              this.props.setSelectedLedamot(data.personlista.person)
         })
     }
@@ -64,6 +65,13 @@ class RiksdagsMap extends Component {
         this.setState({groupby: groupBy})
     }
 
+    onPartiChange = (parti) => {
+        this.setState({parti: parti})
+    }
+    onSearchChange = (search) => {
+        this.setState({search})
+    }
+
     componentDidMount(){
         //this.fetchData()
     }
@@ -79,8 +87,8 @@ class RiksdagsMap extends Component {
                 (isFetching ? <Spinner name="cube-grid"  fadeIn="none" /> : "" ):
                 <div style={{display:'flex', flexDirection:'row'}}> {this.renderPersonData()} </div>} */}
                 
-                <RiksdagsSeats selectLedamot={this.fetchSingleLedamot} groupby={this.state.groupby} />
-                <Riksdagsfilter changeGroupBy={this.onGroupByChange} />
+                <RiksdagsSeats selectLedamot={this.fetchSingleLedamot} groupby={this.state.groupby} partiBy={this.state.parti} searchBy={this.state.search} />
+                <Riksdagsfilter changeGroupBy={this.onGroupByChange} changeParti={this.onPartiChange} onSearchChange={this.onSearchChange} parti={this.state.parti}/>
             {/* <RiksdagsSearch/> */}
             
           </div>

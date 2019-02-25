@@ -132,8 +132,8 @@ class Ledamot extends React.Component{
                 (isFetching ? <Spinner name="cube-grid"  fadeIn="none" /> : "" ):
                 <div style={{display:'flex', flexDirection:'row'}}> 
                     
-                  <div style={{width:'40%'}}>  {this.renderPersonData()} </div>
-                  <div style={{width:'60%', marginTop:'1em'}}> <LedamotInfo ledamot={this.state.ledamot} /> </div>
+                  <div style={{width:'50%'}}>  {this.renderPersonData()} </div>
+                  <div style={{width:'50%', marginTop:'1em'}}> <LedamotInfo ledamot={this.state.ledamot} /> </div>
                 {/* <AttendenceGauge ledamot={this.state.ledamot} /> */}
                 {/* <Attendance ledamot={this.state.ledamot}/> */}
                 </div>}

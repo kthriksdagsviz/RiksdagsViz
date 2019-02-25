@@ -15,7 +15,8 @@ export default class RiksdagsSeats extends Component {
             rebuild: false,
             selectedName: "",
             fetchedPerson:{},
-            filteredSelection: [{"party": "M", "name": "John Widegren", "id": "#s031"}, {"party": "S", "name": "Johan Andersson", "id": "#s032"}, {"party": "S", "name": "Bj\u00f6rn Petersson", "id": "#s033"}, {"party": "SD", "name": "Mattias B\u00e4ckstr\u00f6m Johansson", "id": "#s034"}, {"party": "S", "name": "Laila Naraghi", "id": "#s035"}, {"party": "M", "name": "Annicka Engblom", "id": "#s036"}, {"party": "SD", "name": "Richard Jomshof", "id": "#s037"}, {"party": "M", "name": "Boriana \u00c5berg", "id": "#s038"}, {"party": "C", "name": "Ola Johansson", "id": "#s039"}, {"party": "S", "name": "Adnan Dibrani", "id": "#s040"}, {"party": "L", "name": "Bengt Eliasson", "id": "#s041"}]
+            filteredSelection:[]
+            // filteredSelection: [{"party": "M", "name": "John Widegren", "id": "#s031"}, {"party": "S", "name": "Johan Andersson", "id": "#s032"}, {"party": "S", "name": "Bj\u00f6rn Petersson", "id": "#s033"}, {"party": "SD", "name": "Mattias B\u00e4ckstr\u00f6m Johansson", "id": "#s034"}, {"party": "S", "name": "Laila Naraghi", "id": "#s035"}, {"party": "M", "name": "Annicka Engblom", "id": "#s036"}, {"party": "SD", "name": "Richard Jomshof", "id": "#s037"}, {"party": "M", "name": "Boriana \u00c5berg", "id": "#s038"}, {"party": "C", "name": "Ola Johansson", "id": "#s039"}, {"party": "S", "name": "Adnan Dibrani", "id": "#s040"}, {"party": "L", "name": "Bengt Eliasson", "id": "#s041"}]
         }
     }
 
@@ -66,13 +67,23 @@ export default class RiksdagsSeats extends Component {
     }
 
 
-    setNewGroup = () => {
-        let ledlist = [{"party": "M", "name": "Tomas Tob\u00e9", "id": "#s053"}, {"party": "V", "name": "Amineh Kakabaveh", "id": "#s054"}, {"party": "S", "name": "Ingela Nylund Watz", "id": "#s055"}, {"party": "S", "name": "Pyry Niemi", "id": "#s056"}, {"party": "M", "name": "Jessika Roswall", "id": "#s057"}, {"party": "SD", "name": "Markus Wiechel", "id": "#s058"}, {"party": "KD", "name": "Magnus Oscarsson", "id": "#s059"}, {"party": "SD", "name": "Anne Oskarsson", "id": "#s060"}, {"party": "S", "name": "Tomas Kronst\u00e5hl", "id": "#s061"}, {"party": "S", "name": "Magnus Manhammar", "id": "#s062"}, {"party": "SD", "name": "Angelika Bengtsson", "id": "#s063"}, {"party": "S", "name": "Rikard Larsson", "id": "#s064"}, {"party": "SD", "name": "Jennie \u00c5feldt", "id": "#s065"}, {"party": "M", "name": "J\u00f6rgen Warborn", "id": "#s066"}, {"party": "KD", "name": "Larry S\u00f6der", "id": "#s067"}, {"party": "M", "name": "Lars P\u00fcss", "id": "#s068"}, {"party": "MP", "name": "Elisabeth Falkhaven", "id": "#s069"}, {"party": "KD", "name": "Ingemar Kihlstr\u00f6m", "id": "#s070"}, {"party": "SD", "name": "Caroline Nordengrip", "id": "#s071"}, {"party": "SD", "name": "Runar Filper", "id": "#s072"}, {"party": "S", "name": "Mikael Dahlqvist", "id": "#s073"}, {"party": "M", "name": "Jessica Polfj\u00e4rd", "id": "#s074"}, {"party": "L", "name": "Roger Haddad", "id": "#s075"}, {"party": "S", "name": "Ingemar Nilsson", "id": "#s076"}, {"party": "S", "name": "Kristina Nilsson", "id": "#s077"}, {"party": "S", "name": "Anna-Caren S\u00e4therberg", "id": "#s078"}, {"party": "S", "name": "Kalle Olsson", "id": "#s079"}, {"party": "S", "name": "Maria Jacobsson", "id": "#s079"}, {"party": "MP", "name": "\u00c5sa Lindhagen", "id": "#s080"}, {"party": "M", "name": "Johan Forssell", "id": "#s081"}]
-        this.setState({filteredSelection: ledlist})
+    setNewGroup = (parti) => {
+        if(parti){
+            console.log(typeof parti, parti)
+            let partiList = ledamoter.map(a => ({...a}));
+            partiList = partiList.filter(a =>  a.party === parti)
+            this.setState({filteredSelection: partiList})
+
+        }
+        else{
+            let ledlist = [{"party": "M", "name": "Tomas Tob\u00e9", "id": "#s053"}, {"party": "V", "name": "Amineh Kakabaveh", "id": "#s054"}, {"party": "S", "name": "Ingela Nylund Watz", "id": "#s055"}, {"party": "S", "name": "Pyry Niemi", "id": "#s056"}, {"party": "M", "name": "Jessika Roswall", "id": "#s057"}, {"party": "SD", "name": "Markus Wiechel", "id": "#s058"}, {"party": "KD", "name": "Magnus Oscarsson", "id": "#s059"}, {"party": "SD", "name": "Anne Oskarsson", "id": "#s060"}, {"party": "S", "name": "Tomas Kronst\u00e5hl", "id": "#s061"}, {"party": "S", "name": "Magnus Manhammar", "id": "#s062"}, {"party": "SD", "name": "Angelika Bengtsson", "id": "#s063"}, {"party": "S", "name": "Rikard Larsson", "id": "#s064"}, {"party": "SD", "name": "Jennie \u00c5feldt", "id": "#s065"}, {"party": "M", "name": "J\u00f6rgen Warborn", "id": "#s066"}, {"party": "KD", "name": "Larry S\u00f6der", "id": "#s067"}, {"party": "M", "name": "Lars P\u00fcss", "id": "#s068"}, {"party": "MP", "name": "Elisabeth Falkhaven", "id": "#s069"}, {"party": "KD", "name": "Ingemar Kihlstr\u00f6m", "id": "#s070"}, {"party": "SD", "name": "Caroline Nordengrip", "id": "#s071"}, {"party": "SD", "name": "Runar Filper", "id": "#s072"}, {"party": "S", "name": "Mikael Dahlqvist", "id": "#s073"}, {"party": "M", "name": "Jessica Polfj\u00e4rd", "id": "#s074"}, {"party": "L", "name": "Roger Haddad", "id": "#s075"}, {"party": "S", "name": "Ingemar Nilsson", "id": "#s076"}, {"party": "S", "name": "Kristina Nilsson", "id": "#s077"}, {"party": "S", "name": "Anna-Caren S\u00e4therberg", "id": "#s078"}, {"party": "S", "name": "Kalle Olsson", "id": "#s079"}, {"party": "S", "name": "Maria Jacobsson", "id": "#s079"}, {"party": "MP", "name": "\u00c5sa Lindhagen", "id": "#s080"}, {"party": "M", "name": "Johan Forssell", "id": "#s081"}]
+            this.setState({filteredSelection: ledlist})
+
+        }
+        
     }
 
     componentDidUpdate(nextProps){
-        console.log(nextProps, this.props)
         if(nextProps.groupby != this.props.groupby){
             console.log(nextProps.groupby, nextProps.groupby == "partiet")
             if(nextProps.groupby == "default" && this.props.groupby == "partiet"){
@@ -83,6 +94,13 @@ export default class RiksdagsSeats extends Component {
                 //this.forceUpdate()
             }
            
+        }
+        else if(nextProps.partiBy != this.props.partiBy){
+            console.log(nextProps.partiBy, this.props.partiBy)
+            this.setNewGroup(this.props.partiBy)
+        }
+        else if(nextProps.searchBy != this.props.searchBy){
+            this.setState({filteredSelection: this.props.searchBy})
         }
     }
 
