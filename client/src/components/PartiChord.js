@@ -114,9 +114,9 @@ export default class PartiChord extends React.Component{
         .on('mouseover', function(d, i){
             let partyVoters = self.state.partyData.map((x, i) => { return x[i]} );
             for (let j = 0; j < self.state.partyData.length; j++) {
-                // if(i != j){
-                    hoverData.push((100 * self.state.partyData[j][i] / partyVoters[i]).toFixed(3)  + '% av fallen: röstar enligt samma politiska linje som ' + self.parties[j]) 
-                // }
+                if(i != j){
+                  hoverData.push(Math.floor((1000 * self.state.partyData[j][i] / partyVoters[i])/10) + '% av fallen: röstar enligt samma politiska linje som ' + self.parties[j]) 
+                }
               //  console.log(self.state.chordData[i][j], partyVoters)
                 
             }
