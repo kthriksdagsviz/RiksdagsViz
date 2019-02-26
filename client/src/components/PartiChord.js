@@ -110,7 +110,7 @@ export default class PartiChord extends React.Component{
         .on('mouseover', function(d, i){
             for (let j = 0; j < self.partiesLong.length; j++) {
                 if(i != j){
-                    hoverData.push((100 * self.state.chordData[i][j] / partyVoters[i]).toFixed(1)  + '% of all cases voting the same as the political line of ' + self.parties[i]) 
+                    hoverData.push((100 * self.state.chordData[i][j] / partyVoters[i]).toFixed(1)  + '% av fallen: röstar enligt samma politiska linje som ' + self.parties[j]) 
                 }
                // console.log(self.state.chordData[i][j], partyVoters)
                 
