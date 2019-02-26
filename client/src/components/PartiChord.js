@@ -116,7 +116,7 @@ export default class PartiChord extends React.Component{
                 
             }
               
-            self.setState({hoverParty: self.parties[i], hoverData: hoverData})
+            self.setState({hoverParty: self.partiesLong[i], hoverData: hoverData})
 
         }).on('mouseleave', function(d, i){
             hoverData = [];
