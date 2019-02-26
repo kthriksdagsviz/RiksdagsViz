@@ -12,6 +12,7 @@ export default class PartiChord extends React.Component{
         this.state={
             chordData:[],
             hoverParty: '',
+            hoverPartyShort: '',
             partyData:[], 
             hoverData: []
         }
@@ -60,7 +61,7 @@ export default class PartiChord extends React.Component{
               partyListOut[i][j] = partyListOut[i][j] / partiVotes;
             }
         }
-        const newArray = partyListOut.map(a => ([...a]));
+        let newArray = partyListOut.map(a => ([...a]));
 
         partyListOut.map((x,i) => {
             x[i] = 0
@@ -109,20 +110,20 @@ export default class PartiChord extends React.Component{
         let group = svgg.select('g').select('g').select('g:nth-child(2)').selectAll('path')
         .on('mouseover', function(d, i){
             for (let j = 0; j < self.partiesLong.length; j++) {
-                if(i != j){
-                    hoverData.push((100 * self.state.chordData[i][j] / partyVoters[i]).toFixed(1)  + '% av fallen: röstar enligt samma politiska linje som ' + self.parties[j]) 
+                if(i !== j){
+                    hoverData.push((100 * self.state.chordData[j][i] / partyVoters[i]).toFixed(1)  + '% av fallen: röstar enligt samma politiska linje som ' + self.parties[j]) 
                 }
                // console.log(self.state.chordData[i][j], partyVoters)
                 
             }
               
-            self.setState({hoverParty: self.partiesLong[i], hoverData: hoverData})
+            self.setState({hoverParty: self.partiesLong[i], hoverData: hoverData, hoverPartyShort: self.parties[i]})
 
         }).on('mouseleave', function(d, i){
             hoverData = [];
         })
         
-        console.log(group)
+        /* console.log(group) */
 
     }
     
@@ -134,6 +135,9 @@ export default class PartiChord extends React.Component{
         if(nextProps.selectedYear != this.props.selectedYear){
           let yearString ="";
           switch(nextProps.selectedYear){
+            case 2002:
+              yearString = '0203'
+              break
             case 2003:
               yearString = '0304'
               break
@@ -179,6 +183,8 @@ export default class PartiChord extends React.Component{
             case 2017:
               yearString = '1718'
               break 
+            default:
+              yearString = 'now'
           }
           this.chooseVoteYear(yearString)
         }
@@ -258,7 +264,7 @@ export default class PartiChord extends React.Component{
                 
             </div>
             {this.state.hoverParty.length > 0 && (<div>
-                {this.state.hoverParty}
+                <h3><img src={'partyLogos/' + this.state.hoverPartyShort + '.png'} alt="PartyLogo" /> {this.state.hoverParty}</h3>
                 {this.state.hoverData.length > 0 && this.renderToolTip()}
                 </div>)}
             </div>
