@@ -34,9 +34,9 @@ export default class RiksdagsSeats extends Component {
     modifySVG = (selection) => {
         setTimeout(() => {
             let RiksdagStolar = d3.select('.riksdags_map')
-            RiksdagStolar.select("#Welcome").selectAll('path[fill = "blue"]').attr("fill", "gray")
+            RiksdagStolar.select("#Welcome").selectAll("path").attr("fill", "gray")
             for(var i = 0; i < selection.length; i++){
-                RiksdagStolar.select("svg").select("#Welcome").select(selection[i].id).attr("fill", "blue");
+                RiksdagStolar.select("svg").select("#Welcome").select(selection[i].id).attr("fill", selection[i].color);
             }
           }, 300);
     }
