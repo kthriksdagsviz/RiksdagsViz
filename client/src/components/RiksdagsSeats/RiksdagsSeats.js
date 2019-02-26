@@ -32,11 +32,16 @@ export default class RiksdagsSeats extends Component {
 
 
     modifySVG = (selection) => {
+        var filter = d3.select('.riksdags_map').select("svg").append("defs").append("filter").attr("id", "glow");
+        var gauss = filter.append('feGaussianBlur').attr("stdDeviation", 2.5).attr("result","coloredBlur")
+        var merge = filter.append('feMerge')
+        merge.append('feMergeNode').attr("in", "coloredBlur")
+        merge.append('feMergeNode').attr("in", "SourceGraphic")
         setTimeout(() => {
             let RiksdagStolar = d3.select('.riksdags_map')
-            RiksdagStolar.select("#Welcome").selectAll("path").attr("fill", "gray")
+            RiksdagStolar.select("#Welcome").selectAll(".colored").attr("fill", "gray").classed("colored", false)
             for(var i = 0; i < selection.length; i++){
-                RiksdagStolar.select("svg").select("#Welcome").select(selection[i].id).attr("fill", selection[i].color);
+                RiksdagStolar.select("svg").select("#Welcome").select(selection[i].id).attr("fill", selection[i].color).classed("colored", true);
             }
           }, 300);
     }
@@ -44,8 +49,12 @@ export default class RiksdagsSeats extends Component {
     setSeat = (e) => {
         let RiksdagStolar = d3.select('.riksdags_map')
         if(e.target.id !== "") {
-            RiksdagStolar.select("svg").select("#Welcome").selectAll("path").attr("fill", "gray")
-            RiksdagStolar.select("svg").select("#Welcome").select("#"+e.target.id).attr("fill", "green")
+            let filteredledamot = ledamoter.filter(ledamot => {
+                return ledamot.id === "#"+e.target.id
+              })
+            RiksdagStolar.select("svg").select("#Welcome").selectAll(".glow").style("filter", null).attr("fill", "gray").attr("class", null)
+            RiksdagStolar.select("svg").select("#Welcome").select("#"+e.target.id).attr("fill", filteredledamot[0].color).attr("class", "glow").attr("fill-opacity", 1).style("filter", "url(#glow)")
+            RiksdagStolar.select("svg").select("#Welcome").selectAll("path:not(.glow)").attr("fill-opacity", 0.4)
             let result = ledamoter.filter(ledamot => {
                 return ledamot.id === "#"+e.target.id
               })
