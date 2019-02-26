@@ -29,3 +29,11 @@
     height   : 4em;
   }
 
+  .Riksdagsfilter-chip-13 {
+    transition: all 400ms cubic-bezier(.47,1.64,.41,.8);
+  }
+  
+  .Riksdagsfilter-chip-13:hover {
+    transform: scale(1.06);
+  }
+
