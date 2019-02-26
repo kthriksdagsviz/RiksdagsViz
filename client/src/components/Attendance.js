@@ -169,7 +169,7 @@ class Attendance extends Component {
             .style("fill", textColor)
             .attr('transform','translate('+radius+','+textRiseScaleY(textVertPosition)+')');
         var textInfo1 = gaugeGroup.append("text")
-            .text("Attendance")
+            .text("Närvaro")
             .attr("class", "liquidFillGaugeText")
             .attr("text-anchor", "middle")
             .attr("font-size", 20 + "px")
@@ -208,7 +208,7 @@ class Attendance extends Component {
             .attr('transform','translate('+radius+','+textRiseScaleY(textVertPosition)+')');
 
         var textInfo2 = fillCircleGroup.append("text")
-            .text("Attendance")
+            .text("Närvaro")
             .attr("class", "liquidFillGaugeText")
             .attr("text-anchor", "middle")
             .attr("font-size", 20 + "px")

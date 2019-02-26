@@ -164,7 +164,7 @@ class Riksdagsfilter extends Component {
                             notchedOutline: classes.notchedOutline,
                         },
                         }}
-                        label="Search for riksdags members"
+                        label="Sök efter riksdagsledmot"
                         variant="outlined"
                         id="custom-css-outlined-input"
                     />
@@ -190,7 +190,7 @@ class Riksdagsfilter extends Component {
                         }}
                         >
                         <MenuItem value="None">
-                            <em>None</em>
+                            <em>Inget</em>
                         </MenuItem>
                         <MenuItem value={'M'}>Moderata samlingspartiet</MenuItem>
                         <MenuItem value={'C'}>Centerpartier</MenuItem>
@@ -206,7 +206,7 @@ class Riksdagsfilter extends Component {
                     
                     </div>
                     <FormControl className={classes.formControlGroup} >
-                        <InputLabel htmlFor="lan-simple">Group by</InputLabel>
+                        <InputLabel htmlFor="lan-simple">Gruppera efter</InputLabel>
                         <Select
                         value={this.state.groupby}
                         onChange={this.handleChange}
@@ -216,9 +216,9 @@ class Riksdagsfilter extends Component {
                         }}
                         >
                         <MenuItem value="default">
-                            <em>By real life positions</em>
+                            <em>Kammarplacering</em>
                         </MenuItem>
-                        <MenuItem value={'partiet'}>By partier</MenuItem>
+                        <MenuItem value={'partiet'}>Parti</MenuItem>
                         </Select>
                     </FormControl>
                     </form>

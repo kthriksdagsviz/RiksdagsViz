@@ -62,7 +62,7 @@ import Paper from '@material-ui/core/Paper'
         const check = (this.props.nyheter.list.totalResults > 0 )
         return (
             <div className="index__voteringar">
-                Latest news 
+                Senaste nytt
                 {!hasFetched ? 
                 (isFetching ? <Spinner name="cube-grid"  fadeIn="none" /> : "" ):
                 <div> {check && this.renderLatestNews() }</div>}

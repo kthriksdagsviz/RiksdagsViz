@@ -17,23 +17,23 @@ import { connect } from 'react-redux'
             <div style={{  width: '100%'}}>
                 <MaterialTable
                     columns={[
-                        { title: 'Picture', field: 'bild_url_80',
+                        { title: 'Bild', field: 'bild_url_80',
                             render: rowData =>{
                                 return(
                                     <img style={{borderRadius:'100%', height:'45px'}} src={rowData.bild_url_80}></img>
                                 )
                             }
                         },
-                        { title: 'First Name', field: 'tilltalsnamn' },
-                        { title: 'Last Name', field: 'efternamn' },
-                        { title: 'Birth year', field:'fodd_ar'},
-                        { title: 'Party', field: 'parti' },
-                        { title: 'Region', field:'valkrets'},
+                        { title: 'Förnamn', field: 'tilltalsnamn' },
+                        { title: 'Efternamn', field: 'efternamn' },
+                        { title: 'Födelseår', field:'fodd_ar'},
+                        { title: 'Parti', field: 'parti' },
+                        { title: 'Valkrets', field:'valkrets'},
 
 
                     ]}
                     data={data.list.person}
-                    title="Ledamoter"
+                    title="Ledamöter"
                     options={{
                         paging: true,
                         pageSize: 10,

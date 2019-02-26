@@ -18,13 +18,13 @@ const LedamotComponent = ({ledamot, numberOfVotes}) => (
         </div>
 
         <div className="cardStat">
-            <div><h1>{numberOfVotes}</h1><p>Votes<br/>2018/19</p></div>
+            <div><h1>{numberOfVotes}</h1><p>Antal voteringar<br/>2018/19</p></div>
             <div><h1>23</h1><p>Lorem ipsum<br/>2018/19</p></div>
-            <div><h1>90%</h1><p>Attendance<br/>2018/19</p></div>
+            <div><h1>90%</h1><p>Deltagande<br/>2018/19</p></div>
         </div>
 
         <div className="cardVote">
-            <h2>Latest votes</h2>  
+            <h2>Senaste voteringar</h2>  
             <ul>
                 <li><p>2018/19: FiU14, votering punkt 2, sakfrågan, ja</p></li>
                 <li><p>2018/19: FiU14, votering punkt 3, sakfrågan, ja</p></li>
