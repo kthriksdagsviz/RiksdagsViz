@@ -17,7 +17,7 @@ export default class RiksdagsSeats extends Component {
             selectedName: "",
             fetchedPerson:{},
             filteredSelection:[],
-            zoom:1
+            zoom:0.9
             // filteredSelection: [{"party": "M", "name": "John Widegren", "id": "#s031"}, {"party": "S", "name": "Johan Andersson", "id": "#s032"}, {"party": "S", "name": "Bj\u00f6rn Petersson", "id": "#s033"}, {"party": "SD", "name": "Mattias B\u00e4ckstr\u00f6m Johansson", "id": "#s034"}, {"party": "S", "name": "Laila Naraghi", "id": "#s035"}, {"party": "M", "name": "Annicka Engblom", "id": "#s036"}, {"party": "SD", "name": "Richard Jomshof", "id": "#s037"}, {"party": "M", "name": "Boriana \u00c5berg", "id": "#s038"}, {"party": "C", "name": "Ola Johansson", "id": "#s039"}, {"party": "S", "name": "Adnan Dibrani", "id": "#s040"}, {"party": "L", "name": "Bengt Eliasson", "id": "#s041"}]
         }
         this.zoom = zoom()
@@ -278,7 +278,6 @@ export default class RiksdagsSeats extends Component {
              <div className="riksdags_map" onClick={(e) => this.setSeat(e)}>
                 {this.buildSVG()}
                 {this.modifySVG(this.state.filteredSelection)}
-                <p>{this.state.selectedName}</p>
                 {/* <button onClick={() => this.setTransition()}>Group by party</button>
                 <button onClick={() => this.setNewGroup()}>Set new group</button> */}
                 <button onClick={this.resetZoom}>reset zoom</button>
