@@ -14,6 +14,7 @@ import Select from '@material-ui/core/Select';
 import TextField from '@material-ui/core/TextField';
 import purple from '@material-ui/core/colors/purple';
 import Paper from '@material-ui/core/Paper';
+import ledamoter from '../../utils/ledamoter.json'
 
 
 const styles = theme => ({
@@ -88,24 +89,58 @@ class Riksdagsfilter extends Component {
             this.props.changeGroupBy(this.state.dropDown)
         })
         
-        console.log(this.state.dropDown)
     }
     handleChange = (event) => {
         this.setState({
             ...this.state,
             [event.target.name]: event.target.value,
         }, () => {
-           console.log(event.target.name)
            if(event.target.name == "groupby"){
                this.props.changeGroupBy(event.target.value)
+           }
+           else if(event.target.name=="parti"){
+               this.props.changeParti(event.target.value)
            }
         })
     }
 
+    componentDidUpdate(prevProps, prevState){
+        if(prevState != this.state){
+            let filteredData = ledamoter.filter(
+                seatData => {
+                    if(this.props.parti != "None")
+                        return seatData.name.toLowerCase().indexOf(this.state.search.toLowerCase()) !== -1 && seatData.party.toLowerCase().indexOf(this.props.parti.toLowerCase()) !== -1;
+                    else
+                        return seatData.name.toLowerCase().indexOf(this.state.search.toLowerCase()) !== -1
+                }
+            );
+            if(filteredData.length == ledamoter.length){
+                filteredData = []
+            }
+            this.props.onSearchChange(filteredData)      
+        }
+        else if(prevProps.parti != this.props.parti){
+            if(this.props.parti != "None"){
+                let filteredData = ledamoter.filter(
+                    seatData => {
+                            return seatData.name.toLowerCase().indexOf(this.state.search.toLowerCase()) !== -1 && seatData.party.toLowerCase().indexOf(this.props.parti.toLowerCase()) !== -1;
+                    }
+                );
+                this.props.onSearchChange(filteredData)      
+
+            }
+            
+        }
+        
+    }
+
     render(){
-        let filteredData = seatData.filter(
+        let filteredData = ledamoter.filter(
             seatData => {
-                return seatData.name.toLowerCase().indexOf(this.state.search.toLowerCase()) !== -1 && seatData.party.toLowerCase().indexOf(this.state.dropDown.toLowerCase()) !== -1;
+                if(this.props.parti != "None")
+                    return seatData.name.toLowerCase().indexOf(this.state.search.toLowerCase()) !== -1 && seatData.party.toLowerCase().indexOf(this.props.parti.toLowerCase()) !== -1;
+                else
+                    return seatData.name.toLowerCase().indexOf(this.state.search.toLowerCase()) !== -1
             }
         );
         const { classes } = this.props
@@ -138,8 +173,8 @@ class Riksdagsfilter extends Component {
                     {/* Show parti members */}
 
                      <div className="search-seat-list"> 
-                        {filteredData.map((seat)=>{ return(
-                            <div key={seat.id}> {seat.name}, {seat.party}, plats: {seat.id} </div>
+                        {filteredData.map((seat, i)=>{ return(
+                            <div key={i}> {seat.name}, {seat.party} </div>
                         )
                         })}
                     </div>
@@ -154,7 +189,7 @@ class Riksdagsfilter extends Component {
                             id: 'parti-simple',
                         }}
                         >
-                        <MenuItem value="">
+                        <MenuItem value="None">
                             <em>None</em>
                         </MenuItem>
                         <MenuItem value={'M'}>Moderata samlingspartiet</MenuItem>

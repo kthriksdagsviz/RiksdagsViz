@@ -2,6 +2,8 @@ import React, { Component } from 'react'
 import * as d3 from 'd3'
 import partyList from './PartiCompareRawData'
 import partyColors from '../styles/colors.scss'
+
+
 import { votes1718, votes1617, votes1516, votes1415, votes1314, votes1213, votes1112, votes1011, votes0910, votes0809, votes0708, votes0607, votes0506, votes0405, votes0304, votes0203 } from './oldVoteData/oldVoteExport'
 
 const previousVoteData = [partyList, votes1718, votes1617, votes1516, votes1415, votes1314, votes1213, votes1112, votes1011, votes0910, votes0809, votes0708, votes0607, votes0506, votes0405, votes0304, votes0203];
@@ -177,6 +179,8 @@ export default class PartiCompare extends Component {
                       partyColors.partyL, partyColors.partyKD, partyColors.partyM, partyColors.partySD];
 
         var partyVoters = dataset.map((x, i) => { return x[i]});
+       
+
 
         dataset.map((x,i) => {
           return x[i] = 0;
@@ -209,7 +213,7 @@ export default class PartiCompare extends Component {
 
           tooltip.selectAll("*").remove()
           tooltip.append('h1').text(partiesLong[group.index])
-
+          
           for (let i = 0; i < partiesLong.length; i++) {
             if (i != group.index) {
               tooltip.append('p').text(() => { 

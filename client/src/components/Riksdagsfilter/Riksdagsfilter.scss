@@ -8,9 +8,11 @@
 
 .search-seat-list{
     display: flex;
-    margin: 1em 0;
+    overflow-y: auto;
+    margin: 1em 0 0 0;
     width: 100%;
     flex-direction: column;
+    height: 125px;
     
 }
 
