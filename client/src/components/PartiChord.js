@@ -132,7 +132,8 @@ export default class PartiChord extends React.Component{
     }
     
     changeToolTip = (y) => {
-        return ((100 * y).toFixed(1) + " %");
+        //return ((100 * y).toFixed(1) + " %");
+        return this.state.wonkyData;
     }
 
     componentDidUpdate(nextProps) {
@@ -243,7 +244,7 @@ export default class PartiChord extends React.Component{
                         ribbonHoverOthersOpacity={0.25}
                         animate={true}
                         motionStiffness={90}
-                        tooltipFormat={this.changeToolTip}
+                        theme={{tooltip: {container: {display: 'none'}}}}
                         motionDamping={17}
                         legends={[
                             {
