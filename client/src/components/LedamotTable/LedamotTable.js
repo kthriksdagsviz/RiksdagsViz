@@ -24,7 +24,7 @@ import { connect } from 'react-redux'
                                 )
                             }
                         },
-                        { title: 'Förnamn', field: 'tilltalsnamn' },
+                        { title: 'Tilltalsnamn', field: 'tilltalsnamn' },
                         { title: 'Efternamn', field: 'efternamn' },
                         { title: 'Födelseår', field:'fodd_ar'},
                         { title: 'Parti', field: 'parti' },
