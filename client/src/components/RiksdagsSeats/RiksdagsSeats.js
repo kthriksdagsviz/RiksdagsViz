@@ -48,41 +48,29 @@ export default class RiksdagsSeats extends Component {
 
 
     modifySVG = (selection) => {
+        var filter = d3.select('.riksdags_map').select("svg").append("defs").append("filter").attr("id", "glow");
+        var gauss = filter.append('feGaussianBlur').attr("stdDeviation", 2.5).attr("result","coloredBlur")
+        var merge = filter.append('feMerge')
+        merge.append('feMergeNode').attr("in", "coloredBlur")
+        merge.append('feMergeNode').attr("in", "SourceGraphic")
         setTimeout(() => {
             let RiksdagStolar = d3.select('.riksdags_map')
-            RiksdagStolar.select("#Welcome").selectAll('path[fill = "blue"]').attr("fill", "gray")
+            RiksdagStolar.select("#Welcome").selectAll(".colored").attr("fill", "gray").classed("colored", false)
             for(var i = 0; i < selection.length; i++){
-                RiksdagStolar.select("svg").select("#Welcome").select(selection[i].id).attr("fill", "blue");
+                RiksdagStolar.select("svg").select("#Welcome").select(selection[i].id).attr("fill", selection[i].color).classed("colored", true);
             }
           }, 300);
     }
 
     setSeat = (e) => {
         let RiksdagStolar = d3.select('.riksdags_map')
-        if(e.target.id !='riksmap') {
-            RiksdagStolar.select("svg").select("#Welcome").selectAll("path").attr("fill", "gray")
-            RiksdagStolar.select("svg").select("#Welcome").select("#"+e.target.id).attr("fill", "green")
-
-            // var root = document.getElementById("riksmap");
-            // var path = document.getElementById(e.target.id);
-            // console.log(e.clientX, e.clientY)
-            // var point = root.createSVGPoint();
-            // point.x = 960;  // replace this with the x co-ordinate of the path segment
-            // point.y = 500;  // replace this with the y co-ordinate of the path segment
-            // var svgP = point.matrixTransform(root.getScreenCTM().inverse());
-
-            
-            // var matrix = path.getTransformToElement(root);
-            // var position = point.matrixTransform(matrix);
-            // let transformObject = {
-            //     k:2,
-            //     x: -(svgP.x/2),
-            //     y:-(-svgP.y)
-            // }
-            // console.log(svgP);
-            // d3.select('#Welcome').attr("transform", "translate(" + transformObject.x + ", " + transformObject.y + ")scale(" + 1 + ")");
-
-
+        if(e.target.id !== "") {
+            let filteredledamot = ledamoter.filter(ledamot => {
+                return ledamot.id === "#"+e.target.id
+              })
+            RiksdagStolar.select("svg").select("#Welcome").selectAll(".glow").style("filter", null).attr("fill", "gray").attr("class", null)
+            RiksdagStolar.select("svg").select("#Welcome").select("#"+e.target.id).attr("fill", filteredledamot[0].color).attr("class", "glow").attr("fill-opacity", 1).style("filter", "url(#glow)")
+            RiksdagStolar.select("svg").select("#Welcome").selectAll("path:not(.glow)").attr("fill-opacity", 0.4)
             let result = ledamoter.filter(ledamot => {
                 return ledamot.id === "#"+e.target.id
               })

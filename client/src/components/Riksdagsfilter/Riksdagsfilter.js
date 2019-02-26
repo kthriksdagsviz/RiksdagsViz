@@ -151,7 +151,7 @@ class Riksdagsfilter extends Component {
             if(this.props.parti != "None"){
                 let filteredData = ledamoter.filter(
                     seatData => {
-                            return seatData.name.toLowerCase().indexOf(this.state.search.toLowerCase()) !== -1 && seatData.party.toLowerCase().indexOf(this.props.parti.toLowerCase()) !== -1;
+                            return seatData.name.toLowerCase().indexOf(this.state.search.toLowerCase()) !== -1 && seatData.party.toLowerCase() === this.props.parti.toLowerCase();
                     }
                 );
                 this.props.onSearchChange(filteredData)      
