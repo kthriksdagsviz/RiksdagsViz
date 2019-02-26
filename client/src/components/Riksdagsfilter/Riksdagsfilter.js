@@ -175,7 +175,7 @@ class Riksdagsfilter extends Component {
             let url = person.bild_url_80
             return url
         }
-        return ""
+        return "/placeholder.png"
     }
     getChipColor = (seat) => {
         // let filteredData = ledamoter.filter(

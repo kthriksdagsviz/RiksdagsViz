@@ -278,7 +278,6 @@ export default class RiksdagsSeats extends Component {
              <div className="riksdags_map" onClick={(e) => this.setSeat(e)}>
                 {this.buildSVG()}
                 {this.modifySVG(this.state.filteredSelection)}
-                <p>{this.state.selectedName}</p>
                 {/* <button onClick={() => this.setTransition()}>Group by party</button>
                 <button onClick={() => this.setNewGroup()}>Set new group</button> */}
                 <button onClick={this.resetZoom}>reset zoom</button>
