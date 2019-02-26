@@ -10,17 +10,17 @@ export default class PartiTimeline extends Component{
         super(props)
         this.state = {
             hasLoaded: false,
-            value:2000,
+            value:2002,
             isPlaying: false, 
             duration: 0,
-            min: 2000,
-            max: 2019
+            min: 2002,
+            max: 2018
           }
     }
 
     _onPlay = () => {
         this.setState({isPlaying: true})
-        this.timeInterval = setInterval(() => this.onUpdateTimeline(), 1000)
+        this.timeInterval = setInterval(() => this.onUpdateTimeline(), 100)
     }
 
     _onPaus = () => {
@@ -28,10 +28,18 @@ export default class PartiTimeline extends Component{
         clearInterval(this.timeInterval)
     }
 
+    onSliderChange = (val) => {
+        this.setState({value: val}, () => this.props.onYearTimelineChange(Math.floor(this.state.value)))
+    }
+
     onUpdateTimeline = () => {
-        console.log("called every 1 s");
-        if(this.state.value + 1 <= this.state.max){
-            this.setState({value: this.state.value + 1})
+        if(this.state.value + 0.1 <= this.state.max){
+            this.setState({value: this.state.value + 0.1}, 
+                () => this.props.onYearTimelineChange(Math.floor(this.state.value)))
+        }
+        else{
+            clearInterval(this.timeInterval)
+            this.setState({isPlaying: false})
         }
         
     }
@@ -40,7 +48,7 @@ export default class PartiTimeline extends Component{
     render(){
         return(
             <div className="partitimeline_container">
-                {this.state.value}
+                {Math.floor(this.state.value)}
                 <div className="playButton">
                 { this.state.isPlaying ? 
                     <FontAwesomeIcon icon={faPauseCircle} size="3x" onClick={this._onPaus}/> :
@@ -48,7 +56,7 @@ export default class PartiTimeline extends Component{
                 }
                 </div>
 
-                <Slider min={this.state.min} max={this.state.max} value={this.state.value}/>
+                <Slider min={this.state.min} max={this.state.max} value={this.state.value} step={0.1} onChange={this.onSliderChange} />
             </div>
         )
     }

@@ -2,10 +2,13 @@ import React from 'react';
 import _ from 'lodash'
 import { requestLedamoterByParams, setSelectedLedamot } from '../actions'
 import { connect } from 'react-redux'
-import { ledamoter_api } from '../services'
+import { ledamoter_api, votering_api } from '../services'
 import Spinner from 'react-spinkit'
 import Attendance from '../components/Attendance';
 import LedamotComponent from '../components/LedamotComponent/ledamotcomponent';
+import LedamotVoteringTable from '../components/LedamotVoteringTable/ledamot_votering_table'
+import AttendenceGauge from '../components/Attendence/attendence_gauge'
+import LedamotInfo from './LedamotInfo';
 
 class Ledamot extends React.Component{
     constructor(props){
@@ -14,7 +17,13 @@ class Ledamot extends React.Component{
             ledamot: {},
             isFetching: false,
             fetched: false,
-            error: false
+            error: false,
+            voteringar:{
+                fetched: false,
+                isFetching: false,
+                list:{},
+                thisYear:0
+            }
         }
     }
 
@@ -23,7 +32,6 @@ class Ledamot extends React.Component{
         ledamoter_api.getLedamoterByParams({
             iid: this.props.match.params.id
         }).then((data) => {
-            console.log(data)
             if(data['@hits'] > 0){
                 this.setState({ledamot: data.person[0], fetched: true, isFetching: false})
             }
@@ -34,25 +42,54 @@ class Ledamot extends React.Component{
         })
     }
 
-    componentDidMount(){
+    fetchLedamotVoteringar = () => {
+        this.setState(prevState => ({
+            voteringar: {
+                ...prevState.voteringar,
+                isFetching: true
+            }
+        }))
+        votering_api.getVoteringarByParams(this.props.match.params.id)
+            .then((data) => {
+                if(data){
+                    let item = {
+                        ...this.state.voteringar,
+                        fetched: true,
+                        isFetching:false,
+                        list:data
+                    }
+                    this.setState({voteringar:item})
+                }
+        })
+        
+        votering_api.getNumberOfVotesByLedamot(this.props.match.params.id)
+            .then((data) => {
+                if(data){
+                    this.setState(prevState => ({
+                        voteringar: {
+                            ...prevState.voteringar,
+                            thisYear: data
+                        }
+                    }))
+                }
+            })
+    }
 
+    componentDidMount(){
         let personId = this.props.match.params.id;
 
         //get the person from the redux store
         let persistedLedamot = _.find(this.props.ledamoter.list.person, {'intressent_id':personId})
-
         //if that person is not defined, fetch new, otherwise just set state with that person
         if(!_.isEmpty(persistedLedamot)){
-            console.log("get from store")
             this.setState({ledamot: persistedLedamot, fetched:true})
         }
         else{
-            console.log("get from store")
             this.fetchSingleLedamot()
         }
-
-       
-        
+        if(!(this.state.voteringar.fetched)){
+            this.fetchLedamotVoteringar()
+        }
     }
 
 
@@ -60,10 +97,17 @@ class Ledamot extends React.Component{
         const { ledamot, error } = this.state
         if(!error){
             return (
-                <div >
-                    <img src={ledamot.bild_url_192}></img>
-                    <p>{ledamot.tilltalsnamn} {ledamot.efternamn} ({ledamot.parti})</p>
+                <div style={{margin:'0 1em 0 0'}}>
+                     <div className="ledamot_component_container">
+                        <LedamotComponent ledamot={ledamot} numberOfVotes={this.state.voteringar.thisYear} />
+                        
+                    </div>
 
+                    <div style={{textAlign:'center'}}>
+                    {!this.state.voteringar.fetched ? 
+                        (this.state.voteringar.isFetching ? <Spinner name="line-scale"  fadeIn="none" style={{marginTop: '1em'}} /> : "" ):
+                        <LedamotVoteringTable data={ledamot.ledamot} voteringar={this.state.voteringar.list} />}
+                    </div>
                 </div>
             )
         }
@@ -86,7 +130,13 @@ class Ledamot extends React.Component{
             <div>
                 {!hasFetched ? 
                 (isFetching ? <Spinner name="cube-grid"  fadeIn="none" /> : "" ):
-                <div> {this.renderPersonData()}<Attendance ledamot={this.state.ledamot}/></div>}
+                <div style={{display:'flex', flexDirection:'row'}}> 
+                    
+                  <div style={{width:'50%'}}>  {this.renderPersonData()} </div>
+                  <div style={{width:'50%', marginTop:'1em'}}> <LedamotInfo ledamot={this.state.ledamot} /> </div>
+                {/* <AttendenceGauge ledamot={this.state.ledamot} /> */}
+                {/* <Attendance ledamot={this.state.ledamot}/> */}
+                </div>}
             </div>
         )
     }

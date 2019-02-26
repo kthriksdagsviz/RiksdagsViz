@@ -53,8 +53,6 @@ function getLedamotByName(fname,ename){
     return new Promise((resolve, reject) => {
         axios.get(encodeURI(url))
             .then((response) => {
-                console.log(response.data)
-
                 resolve(response.data)
             })
             .catch((error) => {

@@ -3,42 +3,48 @@ import * as d3 from 'd3'
 import partyList from './PartiCompareRawData'
 import partyColors from '../styles/colors.scss'
 
+
+import { votes1718, votes1617, votes1516, votes1415, votes1314, votes1213, votes1112, votes1011, votes0910, votes0809, votes0708, votes0607, votes0506, votes0405, votes0304, votes0203 } from './oldVoteData/oldVoteExport'
+
+const previousVoteData = [partyList, votes1718, votes1617, votes1516, votes1415, votes1314, votes1213, votes1112, votes1011, votes0910, votes0809, votes0708, votes0607, votes0506, votes0405, votes0304, votes0203];
+const previousVotingYears = ["now", "1718", "1617", "1516", "1415", "1314", "1213", "1112", "1011", "0910", "0809", "0708", "0607", "0506", "0405", "0304", "0203"];
+
 const createInteger = (string) => {
     var parsed = parseInt(string, 10);
     if (isNaN(parsed)) { return 0 }
     return parsed;
 }
 
-const voteByParty = () => {
-    // [V, S, MP, C, L, KD, M SD]
-    var partyListOut = [
-        [0, 0, 0, 0, 0, 0, 0, 0],
-        [0, 0, 0, 0, 0, 0, 0, 0],
-        [0, 0, 0, 0, 0, 0, 0, 0],
-        [0, 0, 0, 0, 0, 0, 0, 0],
-        [0, 0, 0, 0, 0, 0, 0, 0],
-        [0, 0, 0, 0, 0, 0, 0, 0],
-        [0, 0, 0, 0, 0, 0, 0, 0],
-        [0, 0, 0, 0, 0, 0, 0, 0]
-    ];
+const voteByParty = (partyListIn) => {
+    // [V, S, MP, C, L, KD, M, SD]
+    var partyListOut = [...Array(partyListIn.length)].map(e => Array(partyListIn.length).fill(0));
 
-    /* let partyNameList = ['V', 'S', 'MP', 'C', 'L', 'KD', 'M', 'SD']; */
-    for (var i = 0; i < partyList.length; i++) {
-        for (var j = i + 1; j < partyList.length; j++) {
-            for (var k = 0; k < partyList[i].length; k++) {
-                let partyIn1 = partyList[i][k];
+    for (var i = 0; i < partyListIn.length; i++) {
+        for (var j = 0; j < partyListIn.length; j++) {
+            for (var k = 0; k < partyListIn[i].length; k++) {
+                let partyIn1 = partyListIn[i][k];
+                let partyIn2 = partyListIn[j][k];               
                 delete partyIn1.votering_id;
                 delete partyIn1.Frånvarande;
-                let partyIn2 = partyList[j][k];
                 delete partyIn2.votering_id;
                 delete partyIn2.Frånvarande;
+
                 let party1 = Object.keys(partyIn1).reduce(function (a, b) { return partyIn1[a] > partyIn1[b] ? a : b });
                 let party2 = Object.keys(partyIn2).reduce(function (a, b) { return partyIn2[a] > partyIn2[b] ? a : b });
+
                 partyListOut[i][j] += createInteger(partyIn1[party2]);
                 partyListOut[j][i] += createInteger(partyIn2[party1]);
-            }
+          }
         }
     }
+
+    for (let i = 0; i < partyListOut.length; i++) {
+        let partiVotes = partyListOut[i].reduce((a, b) => a + b, 0)
+        for (let j = 0; j < partyListOut.length; j++) {
+          partyListOut[i][j] = partyListOut[i][j] / partiVotes;
+        }
+    }
+
     return partyListOut;
 }
 
@@ -48,14 +54,88 @@ export default class PartiCompare extends Component {
       this.drawChart = this.drawChart.bind(this)
   
       this.state = {
-      
+        votesByYear: partyList,
+        readyToUpdate: true
       }
+    }
+
+    chooseVoteYear = (e, years) => {
+      this.setState({readyToUpdate: false})
+      let year = e ? e.target.value : years
+      var newYear = partyList;
+      for (let i = 0; i < previousVotingYears.length; i++) {
+          if (years === previousVotingYears[i]) {
+              newYear = previousVoteData[i];
+          }
+      }
+      this.setState({
+        votesByYear: newYear,
+        readyToUpdate: true
+      }, () => this.props.onYearChange(year));
     }
     
 
     componentDidMount() {
       const { data } = this.props;
-      this.drawChart(data)
+      this.drawChart(voteByParty(this.state.votesByYear))
+    }
+
+    componentDidUpdate(nextProps) {
+      d3.select("#compareChart").selectAll("*").remove()
+      this.drawChart(voteByParty(this.state.votesByYear))
+      if(nextProps.selectedYear != this.props.selectedYear){
+        let yearString ="";
+        switch(nextProps.selectedYear){
+          case 2003:
+            yearString = '0304'
+            break
+          case 2004:
+            yearString = '0405'
+            break 
+          case 2005:
+            yearString = '0506'
+            break
+          case 2006:
+            yearString = '0607'
+            break 
+          case 2007:
+            yearString = '0708'
+            break
+          case 2008:
+            yearString = '0809'
+            break 
+          case 2009:
+            yearString = '0910'
+            break
+          case 2010:
+            yearString = '1011'
+            break 
+          case 2011:
+            yearString = '1112'
+            break 
+          case 2012:
+            yearString = '1213'
+            break
+          case 2013:
+            yearString = '1314'
+            break
+          case 2014:
+            yearString = '1415'
+            break 
+          case 2015:
+            yearString = '1516'
+            break
+          case 2016:
+            yearString = '1617'
+            break 
+          case 2017:
+            yearString = '1718'
+            break 
+        }
+        if(this.state.readyToUpdate){
+          this.chooseVoteYear(null, yearString)
+        }
+      }
     }
 
     createInteger = (string) => {
@@ -78,32 +158,37 @@ export default class PartiCompare extends Component {
             .attr("class", "chord")
             .attr("transform", `translate(${diameter/2 + 25}, ${diameter/2 + 25})`);
 
-        
-        // [V, S, MP, C, L, KD, M, SD]
-        var partySize = [28, 100, 16, 31, 20, 22, 70, 62];
-
-        /* var data = [
-            // [V, S, MP, C, L, KD, M, SD]
-            [0,  80000, 4916, 2868, 2000, 250, 11, 1275],
-            [8000,  0, 8916, 2868, 2000, 2500, 1341, 75],
-            [4916,  8196, 0, 2868, 2000, 250, 11, 1275],
-            [2868,  2868, 2868, 0, 2000, 2500, 11, 75],
-            [2000,  2000, 2000, 2000, 0, 250, 1231, 75],
-            [250,  2500, 250, 2500, 250, 0, 11, 2275],
-            [11,  1341, 11, 11, 1231, 11, 0, 2275],
-            [1275,  75, 1275, 75, 75, 2275, 2275, 0]
-          ]; */
-        var data = voteByParty();
         var parties = ['V', 'S', 'MP', 'C', 'L', 'KD', 'M', 'SD'];
+        var partiesLong = ['Vänsterpartiet', 'Socialdemokraterna', 'Miljöpartiet', 'Centerpartiet', 
+                           'Liberalerna', 'Kristdemokraterna', 'Moderaterna', 'Sverigedemokraterna'];
 
         var colors = [partyColors.partyV, partyColors.partyS, partyColors.partyMP, partyColors.partyC,
                       partyColors.partyL, partyColors.partyKD, partyColors.partyM, partyColors.partySD];
 
+        var partyVoters = dataset.map((x, i) => { return x[i]});
+       
+
+
+        dataset.map((x,i) => {
+          return x[i] = 0;
+        })
+
         var highlight = (group => {
           links
+            .style("fill", d => { 
+              if (d.source.index == group.index) { 
+                return colors[d.target.index];
+              }
+              else if (d.target.index == group.index) { 
+                return colors[d.source.index];
+              }
+              else {
+                return colors[d.source.index];
+              }
+            })
             .style("opacity", d => { 
               if (d.source.index != group.index && d.target.index != group.index) { 
-                return 0.1; 
+                return 0.075; 
               }
             })
             .sort(d => { 
@@ -112,18 +197,32 @@ export default class PartiCompare extends Component {
                 }
               else return 1; 
           });
+
+          tooltip.selectAll("*").remove()
+          tooltip.append('h1').text(partiesLong[group.index])
+          
+          for (let i = 0; i < partiesLong.length; i++) {
+            if (i != group.index) {
+              tooltip.append('p').text(() => { 
+                return '...are in ' + (100 * dataset[group.index][i] / partyVoters[group.index]).toFixed(1) + '% of all cases voting the same as the political line of ' + parties[i]
+              })
+            }
+          }
         })
 
         var unhighlight = (group => {
           links
+            .style("fill", d => { 
+                return colors[d.source.index];
+            })
             .style('opacity', 1)
             .sort();
         })
 
         var res = d3.chord()
-          .padAngle(0.05)     // padding between entities (black arc)
+          .padAngle(0.05)
           .sortSubgroups(d3.descending)
-          (data)
+          (dataset)
 
         var groups = svg.datum(res).append("g").selectAll("g")
           .data(d => { return d.groups; })
@@ -135,8 +234,8 @@ export default class PartiCompare extends Component {
           .on("mouseover", highlight)
           .on("mouseleave", unhighlight)
           .attr("d", d3.arc()
-            .innerRadius(diameter/2)
-            .outerRadius(diameter/2 + 20))
+            .innerRadius(diameter/2 + 1)
+            .outerRadius(diameter/2 + 21))
             
         var groupLabel = groups.append("text")
           .attr("x", "5")
@@ -145,6 +244,8 @@ export default class PartiCompare extends Component {
             .attr("xlink:href", d => { return "#group-" + d.index; })
             .text(d => {return parties[d.index]})
             .style("fill", "#fff")
+            .on("mouseover", highlight)
+            .on("mouseleave", unhighlight)
 
         var links = svg.datum(res).append("g").selectAll("path")
           .data(d => { return d; })
@@ -155,14 +256,36 @@ export default class PartiCompare extends Component {
             )
             .style("fill", d => { return(colors[d.source.index]) })
             .style("stroke", "#fff");
+
+        var tooltip = d3.select("#compareTooltip");
     }
 
 
     render() {
       
         return (
-            <div id="compareContainer">
-                <div id="compareChart"/>
+            <div id="compareContainer" style={{display: 'flex', justifyContent: 'center'}}>
+                <div id="compareChart" />
+                <div id="changeYearButtons" style={{display: 'flex', flexFlow: 'column wrap'}}>
+                  <button id="now" value="now" onClick={this.chooseVoteYear}>Now</button>
+                  <button id="1718" value="1718" onClick={this.chooseVoteYear}>17/18</button>
+                  <button id="1617" value="1617" onClick={this.chooseVoteYear}>16/17</button>
+                  <button id="1516" value="1516" onClick={this.chooseVoteYear}>15/16</button>
+                  <button id="1415" value="1415" onClick={this.chooseVoteYear}>14/15</button>
+                  <button id="1314" value="1314" onClick={this.chooseVoteYear}>13/14</button>
+                  <button id="1213" value="1213" onClick={this.chooseVoteYear}>12/13</button>
+                  <button id="1112" value="1112" onClick={this.chooseVoteYear}>11/12</button>
+                  <button id="1011" value="1011" onClick={this.chooseVoteYear}>10/11</button>
+                  <button id="0910" value="0910" onClick={this.chooseVoteYear}>09/10</button>
+                  <button id="0809" value="0809" onClick={this.chooseVoteYear}>08/09</button>
+                  <button id="0708" value="0708" onClick={this.chooseVoteYear}>07/08</button>
+                  <button id="0607" value="0607" onClick={this.chooseVoteYear}>06/07</button>
+                  <button id="0506" value="0506" onClick={this.chooseVoteYear}>05/06</button>
+                  <button id="0405" value="0405" onClick={this.chooseVoteYear}>04/05</button>
+                  <button id="0304" value="0304" onClick={this.chooseVoteYear}>03/04</button>
+                  <button id="0203" value="0203" onClick={this.chooseVoteYear}>02/03</button>
+                </div>
+                <div id="compareTooltip" style={{margin: '100px 0px 0px 100px'}}/>
             </div>
         )
     }
