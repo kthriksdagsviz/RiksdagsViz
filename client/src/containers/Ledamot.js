@@ -114,7 +114,7 @@ class Ledamot extends React.Component{
         else{
             return(
                 <div>
-                    There is no ledamot with that id!
+                    Det tycks inte finnas någon ledamot med det id:t!
                 </div>
             )
         }
