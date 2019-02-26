@@ -56,11 +56,11 @@ export default  () => {
 		)
 	),
 	)
-	 const persistor = persistStore(store);
+	 //const persistor = persistStore(store);
 
 	// window.persistor = persistor
 	 sagaMiddleware.run(mySaga);
-			// return { store }
-	return { store, persistor }
+			return { store }
+	// return { store, persistor }
 }
  

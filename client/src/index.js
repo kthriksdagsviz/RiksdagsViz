@@ -14,15 +14,15 @@ React.PropTypes = PT;
 
 console.disableYellowBox = true;
 
-const { store, persistor } =configureStore()
-//  const { store } =configureStore()
+// const { store, persistor } =configureStore()
+ const { store } =configureStore()
 
 const render = () => {
     ReactDOM.render(
         <Provider store={store}>
-        <PersistGate persistor={persistor} loading={null}>
+        {/* <PersistGate persistor={persistor} loading={null}> */}
           <App history={history} />
-          </PersistGate>
+          {/* </PersistGate> */}
         </Provider>,
       document.getElementById('root')
     )
