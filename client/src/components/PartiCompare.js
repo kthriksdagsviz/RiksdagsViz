@@ -54,13 +54,16 @@ export default class PartiCompare extends Component {
       this.drawChart = this.drawChart.bind(this)
   
       this.state = {
-        votesByYear: partyList,
+        votesByYear: "",
         readyToUpdate: true
       }
+
+      this.previousVoteData = [partyList, votes1718, votes1617, votes1516, votes1415, votes1314, votes1213, votes1112, votes1011, votes0910, votes0809, votes0708, votes0607, votes0506, votes0405, votes0304, votes0203];
+      this.previousVotingYears = ["now", "1718", "1617", "1516", "1415", "1314", "1213", "1112", "1011", "0910", "0809", "0708", "0607", "0506", "0405", "0304", "0203"];
+
     }
 
     chooseVoteYear = (e, years) => {
-      this.setState({readyToUpdate: false})
       let year = e ? e.target.value : years
       var newYear = partyList;
       for (let i = 0; i < previousVotingYears.length; i++) {
@@ -69,23 +72,30 @@ export default class PartiCompare extends Component {
           }
       }
       this.setState({
-        votesByYear: newYear,
-        readyToUpdate: true
-      }, () => this.props.onYearChange(year));
+        votesByYear: newYear
+      }, () => {
+        this.props.onYearChange(year)
+        d3.select("#compareChart").selectAll("*").remove()
+
+        this.drawChart(voteByParty(this.state.votesByYear))
+      })
     }
     
 
     componentDidMount() {
       const { data } = this.props;
-      this.drawChart(voteByParty(this.state.votesByYear))
+      this.chooseVoteYear(null, '0506')
+     
     }
 
     componentDidUpdate(nextProps) {
-      d3.select("#compareChart").selectAll("*").remove()
-      this.drawChart(voteByParty(this.state.votesByYear))
+      //this.drawChart(voteByParty(this.state.votesByYear))
       if(nextProps.selectedYear != this.props.selectedYear){
         let yearString ="";
         switch(nextProps.selectedYear){
+          case 2002:
+            yearString = '0203'
+            break
           case 2003:
             yearString = '0304'
             break
@@ -130,12 +140,15 @@ export default class PartiCompare extends Component {
             break 
           case 2017:
             yearString = '1718'
-            break 
+            break
+          default:
+            yearString ='0203' 
         }
-        if(this.state.readyToUpdate){
-          this.chooseVoteYear(null, yearString)
-        }
+        this.chooseVoteYear(null, yearString)
+        
       }
+      
+
     }
 
     createInteger = (string) => {

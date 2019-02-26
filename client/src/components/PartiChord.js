@@ -40,7 +40,8 @@ export default class PartiChord extends React.Component{
             for (var j = 0; j < partyListIn.length; j++) {
                 for (var k = 0; k < partyListIn[i].length; k++) {
                     let partyIn1 = partyListIn[i][k];
-                    let partyIn2 = partyListIn[j][k];               
+                    let partyIn2 = partyListIn[j][k];
+
                     delete partyIn1.votering_id;
                     delete partyIn1.Frånvarande;
                     delete partyIn2.votering_id;
@@ -103,17 +104,20 @@ export default class PartiChord extends React.Component{
         //         console.log(group, i)
         // })
 
-        var partyVoters = this.state.partyData.map((x, i) => { return x[i]});
+        // var partyVoters = this.state.partyData.map((x, i) => { return x[i]} );
         let hoverData = []
+
+        // console.log(this.state.partyData[1][1])
 
         let self = this;
         let group = svgg.select('g').select('g').select('g:nth-child(2)').selectAll('path')
         .on('mouseover', function(d, i){
-            for (let j = 0; j < self.partiesLong.length; j++) {
-                if(i !== j){
-                    hoverData.push((100 * self.state.chordData[j][i] / partyVoters[i]).toFixed(1)  + '% av fallen: röstar enligt samma politiska linje som ' + self.parties[j]) 
-                }
-               // console.log(self.state.chordData[i][j], partyVoters)
+            let partyVoters = self.state.partyData.map((x, i) => { return x[i]} );
+            for (let j = 0; j < self.state.partyData.length; j++) {
+                // if(i != j){
+                    hoverData.push((100 * self.state.partyData[j][i] / partyVoters[i]).toFixed(3)  + '% av fallen: röstar enligt samma politiska linje som ' + self.parties[j]) 
+                // }
+              //  console.log(self.state.chordData[i][j], partyVoters)
                 
             }
               
@@ -123,7 +127,7 @@ export default class PartiChord extends React.Component{
             hoverData = [];
         })
         
-        /* console.log(group) */
+        // console.log(group)
 
     }
     
@@ -192,8 +196,8 @@ export default class PartiChord extends React.Component{
     renderToolTip = () => {
         return (
             <div>
-                {this.state.hoverData.map((row)=> (
-                   <p> {row} </p> 
+                {this.state.hoverData.map((row, i)=> (
+                   <p key={i}> {row} </p> 
                 ))}
             </div>
         )

@@ -10,10 +10,10 @@ export default class PartiTimeline extends Component{
         super(props)
         this.state = {
             hasLoaded: false,
-            value:2002,
+            value:2001,
             isPlaying: false, 
             duration: 0,
-            min: 2002,
+            min: 2001,
             max: 2018
           }
     }
@@ -29,13 +29,18 @@ export default class PartiTimeline extends Component{
     }
 
     onSliderChange = (val) => {
+        clearInterval(this.timeInterval)
+        this.setState({isPlaying: false})
         this.setState({value: val}, () => this.props.onYearTimelineChange(Math.floor(this.state.value)))
     }
 
     onUpdateTimeline = () => {
         if(this.state.value + 0.1 <= this.state.max){
             this.setState({value: this.state.value + 0.1}, 
-                () => this.props.onYearTimelineChange(Math.floor(this.state.value)))
+                () => {
+                    let yearToChangeTo = Math.round(this.state.value)
+                    this.props.onYearTimelineChange(yearToChangeTo)
+                })
         }
         else{
             clearInterval(this.timeInterval)
