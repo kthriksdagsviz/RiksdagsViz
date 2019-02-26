@@ -21,6 +21,7 @@ class Partier extends React.Component{
                     <li><Link to='/partier/KD'> Kristdemokraterna</Link></li>
                     <li><Link to='/partier/S'> Socialdemokraterna</Link></li>
                     <li><Link to='/partier/V'> Vänsterpartiet</Link></li>
+                    <li><Link to='/partier/MP'> Miljöpartiet</Link></li>
 
                 </ul>
             </div>
