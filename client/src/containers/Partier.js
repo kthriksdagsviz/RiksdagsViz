@@ -13,7 +13,7 @@ class Partier extends React.Component{
     render(){   
         return(
             <div className="partier_page_container">
-                Partier page 
+                Riksdagspartier
                 <ul>
                     <li><Link to='/partier/M'> Moderaterna</Link></li>
                     <li><Link to='/partier/SD'> Sverigedemokraterna</Link></li>
