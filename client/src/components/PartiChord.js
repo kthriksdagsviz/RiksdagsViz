@@ -102,16 +102,8 @@ export default class PartiChord extends React.Component{
         let div = svg.selectAll('div')
         let secDiv = div.select('div')
         let svgg = secDiv.select('svg')
-        // var groups = svg.selectAll("path")
-        // groups
-        //     .on("click", function(group, i){
-        //         console.log(group, i)
-        // })
 
-        // var partyVoters = this.state.partyData.map((x, i) => { return x[i]} );
         let hoverData = []
-
-        // console.log(this.state.partyData[1][1])
 
         let self = this;
         let group = svgg.select('g').select('g').select('g:nth-child(2)').selectAll('path')
@@ -119,7 +111,7 @@ export default class PartiChord extends React.Component{
             let partyVoters = self.state.partyData.map((x, i) => { return x[i]} );
             for (let j = 0; j < self.state.partyData.length; j++) {
               if(i !== j){
-                hoverData.push(<ListGroup.Item>{Math.floor((1000 * self.state.partyData[j][i] / partyVoters[i]) / 10)  + '% av fallen: röstar enligt samma politiska linje som ' + self.parties[j]}</ListGroup.Item>) 
+                hoverData.push(Math.floor((1000 * self.state.partyData[j][i] / partyVoters[i]) / 10)  + '% av fallen: röstar enligt samma politiska linje som ' + self.parties[j]) 
               }
             }
               
@@ -198,7 +190,7 @@ export default class PartiChord extends React.Component{
         return (
             <div>
                 {this.state.hoverData.map((row, i)=> (
-                   <p key={i}> {row} </p> 
+                   <ListGroup.Item key={i}> {row} </ListGroup.Item> 
                 ))}
             </div>
         )
