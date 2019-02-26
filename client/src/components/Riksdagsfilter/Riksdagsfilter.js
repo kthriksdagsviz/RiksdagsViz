@@ -4,18 +4,16 @@ import seatData from '../../utils'
 
 import './Riksdagsfilter.scss'
 import { withStyles } from '@material-ui/core/styles';
-import Input from '@material-ui/core/Input';
-import OutlinedInput from '@material-ui/core/OutlinedInput';
-import FilledInput from '@material-ui/core/FilledInput';
 import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import TextField from '@material-ui/core/TextField';
 import purple from '@material-ui/core/colors/purple';
-import Paper from '@material-ui/core/Paper';
 import ledamoter from '../../utils/ledamoter.json'
-
+import Chip from '@material-ui/core/Chip';
+import Avatar from '@material-ui/core/Avatar';
+import _ from 'lodash'
 
 const styles = theme => ({
     root: {
@@ -29,19 +27,19 @@ const styles = theme => ({
       },
     formControlGroup:{
         margin: theme.spacing.unit,
-        width: '100%',
+        width: '25%',
     },
     formContainer:{
         display:'flex',
         flexDirection: 'row',
-        width: '100%'
+        width: '25%'
     },
     input: {
         margin: theme.spacing.unit,
-        width:'100%'
+        width:'75%'
     },
     textField: {
-        width:'100%'
+        width:'75%'
     },
     cssLabel: {
         '&$cssFocused': {
@@ -65,6 +63,10 @@ const styles = theme => ({
           marginTop: theme.spacing.unit * 3,
         },
       },
+      chip: {
+        margin: theme.spacing.unit / 2,
+        cursor:'pointer'
+      },
   });
 
 class Riksdagsfilter extends Component {
@@ -76,7 +78,8 @@ class Riksdagsfilter extends Component {
             name:'',
             search: '',
             dropDown: '',
-            groupby:'default'
+            groupby:'default',
+            selectedSeat: ""
         }
     }
 
@@ -103,6 +106,31 @@ class Riksdagsfilter extends Component {
            }
         })
     }
+
+    handleChipClick = (seat) => {
+        let filteredData = ledamoter.filter(
+            seatData => {
+                if(this.props.parti != "None")
+                    return seatData.name.toLowerCase().indexOf(this.state.search.toLowerCase()) !== -1 && seatData.party.toLowerCase().indexOf(this.props.parti.toLowerCase()) !== -1;
+                else
+                    return seatData.name.toLowerCase().indexOf(this.state.search.toLowerCase()) !== -1
+            }
+        );
+        if(seat.selected){
+            seat.selected =false 
+            this.props.onSelectedLedamotChange("")
+
+        }
+        else{
+            filteredData.map((data) => data.selected = false)
+            seat.selected = true;
+            this.props.onSelectedLedamotChange(seat)
+        }
+        
+        
+        
+    }
+
 
     componentDidUpdate(prevProps, prevState){
         if(prevState != this.state){
@@ -133,6 +161,36 @@ class Riksdagsfilter extends Component {
         }
         
     }
+    getLedamotImage = (name) => {
+        let fname = name.split(" ")[0];
+        let ename = name.split(" ")[1];
+        let person = _.find(this.props.ledamoter.list.person, (ledamot) => {
+            if(ledamot.tilltalsnamn == fname){
+                if(ledamot.efternamn.split(" ").includes(ename)){
+                    return ledamot
+                }
+            }
+        })
+        if(person){
+            let url = person.bild_url_80
+            return url
+        }
+        return ""
+    }
+    getChipColor = (seat) => {
+        // let filteredData = ledamoter.filter(
+        //     seatData => {
+        //         if(this.props.parti != "None")
+        //             return seatData.name.toLowerCase().indexOf(this.state.search.toLowerCase()) !== -1 && seatData.party.toLowerCase().indexOf(this.props.parti.toLowerCase()) !== -1;
+        //         else
+        //             return seatData.name.toLowerCase().indexOf(this.state.search.toLowerCase()) !== -1
+        //     }
+        // );
+
+        // let a = _.find(filteredData, {id: this.state.selectedId})
+        // return seat.id == a.id ? "primary" : "secondary"
+        return "primary"
+    }
 
     render(){
         let filteredData = ledamoter.filter(
@@ -145,7 +203,7 @@ class Riksdagsfilter extends Component {
         );
         const { classes } = this.props
         return (
-            <Paper className="search-container" elevation={1}>
+            <div className="search-container" >
                 <form className={classes.root} autoComplete="off">
 
                     <TextField
@@ -168,16 +226,6 @@ class Riksdagsfilter extends Component {
                         variant="outlined"
                         id="custom-css-outlined-input"
                     />
-
-
-                    {/* Show parti members */}
-
-                     <div className="search-seat-list"> 
-                        {filteredData.map((seat, i)=>{ return(
-                            <div key={i}> {seat.name}, {seat.party} </div>
-                        )
-                        })}
-                    </div>
                     <div className={classes.formContainer}>
                     <FormControl className={classes.formControl} >
                         <InputLabel htmlFor="age-simple">Parti</InputLabel>
@@ -205,7 +253,7 @@ class Riksdagsfilter extends Component {
                     </FormControl>
                     
                     </div>
-                    <FormControl className={classes.formControlGroup} >
+                    {/* <FormControl className={classes.formControlGroup} >
                         <InputLabel htmlFor="lan-simple">Group by</InputLabel>
                         <Select
                         value={this.state.groupby}
@@ -220,9 +268,26 @@ class Riksdagsfilter extends Component {
                         </MenuItem>
                         <MenuItem value={'partiet'}>By partier</MenuItem>
                         </Select>
-                    </FormControl>
+                    </FormControl> */}
+
+                    {/* Show parti members */}
+
+                     <div className="search-seat-list"> 
+                        {filteredData.map((seat, i)=>{ return(
+                            <Chip key={i} 
+                            label={seat.name}
+                            color={seat.selected ? "primary": "default"}
+                            className={classes.chip}
+                            onClick={() => this.handleChipClick(seat)}
+                            avatar={<Avatar alt="avt" src={this.getLedamotImage(seat.name)} />}
+                            />
+                            // <div key={i}> {seat.name}, {seat.party} </div>
+                        )
+                        })}
+                    </div>
+                    
                     </form>
-            </Paper>
+            </div>
         )
     }  
 }

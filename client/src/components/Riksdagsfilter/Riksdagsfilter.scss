@@ -1,8 +1,7 @@
 .search-container{
-    height: 49vh;
+    height: 20vh;
     padding: 1em;
-    width: 29%;
-    margin-left: 0.5%;
+    width: 100%;
 
 }
 
@@ -11,8 +10,8 @@
     overflow-y: auto;
     margin: 1em 0 0 0;
     width: 100%;
-    flex-direction: column;
-    height: 125px;
-    
+    flex-direction: row;
+    height: 124px;
+    flex-wrap: wrap;
 }
 

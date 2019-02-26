@@ -70,7 +70,6 @@ class LedamotInfo extends Component {
 
 
     render() {
-        console.log(this.props.ledamot)
       return (  
         <div className="ledamot_info_container">
              <Container>

@@ -22,7 +22,7 @@ export default class RiksdagsSeats extends Component {
 
   
     buildSVG = () => {
-        var map = <SvgLoader path="/RiksdagStolar.svg" style={{width:'100%', height:'40vh'}} >
+        var map = <SvgLoader path="/RiksdagStolar.svg" style={{width:'100%', height:'60vh'}} >
         {/* <SvgProxy selector={this.state.selectedSeats} fill={"green"}  /> */}
         </SvgLoader>
         return(
@@ -69,7 +69,6 @@ export default class RiksdagsSeats extends Component {
 
     setNewGroup = (parti) => {
         if(parti){
-            console.log(typeof parti, parti)
             let partiList = ledamoter.map(a => ({...a}));
             partiList = partiList.filter(a =>  a.party === parti)
             this.setState({filteredSelection: partiList})
@@ -85,7 +84,6 @@ export default class RiksdagsSeats extends Component {
 
     componentDidUpdate(nextProps){
         if(nextProps.groupby != this.props.groupby){
-            console.log(nextProps.groupby, nextProps.groupby == "partiet")
             if(nextProps.groupby == "default" && this.props.groupby == "partiet"){
                 this.setTransition()
             }
@@ -96,11 +94,14 @@ export default class RiksdagsSeats extends Component {
            
         }
         else if(nextProps.partiBy != this.props.partiBy){
-            console.log(nextProps.partiBy, this.props.partiBy)
             this.setNewGroup(this.props.partiBy)
         }
         else if(nextProps.searchBy != this.props.searchBy){
             this.setState({filteredSelection: this.props.searchBy})
+        }
+        else if(nextProps.selectedLedamot != this.props.selectedLedamot){
+            this.setState({filteredSelection: [this.props.selectedLedamot]})
+
         }
     }
 

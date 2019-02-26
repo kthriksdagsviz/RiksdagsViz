@@ -65,7 +65,6 @@ export default class PartiChord extends React.Component{
         partyListOut.map((x,i) => {
             x[i] = 0
         })
-        console.log(newArray)
         this.setState({chordData: partyListOut, partyData: newArray} )
     }
  
@@ -122,7 +121,6 @@ export default class PartiChord extends React.Component{
             hoverData = [];
         })
         
-        console.log(group)
 
     }
     
