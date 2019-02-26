@@ -18,6 +18,7 @@ class Ledamot extends React.Component{
             isFetching: false,
             fetched: false,
             error: false,
+            attendence:0,
             voteringar:{
                 fetched: false,
                 isFetching: false,
@@ -34,10 +35,23 @@ class Ledamot extends React.Component{
         }).then((data) => {
             if(data['@hits'] > 0){
                 this.setState({ledamot: data.person[0], fetched: true, isFetching: false})
+                this.fetchAttendance(data.person[0])
             }
             else{
                 this.setState({fetched: true, isFetching: false, error: true})
             }
+            
+        })
+    }
+
+    fetchAttendance = (ledamot) => {
+        this.setState({isFetching: true})
+        votering_api.getLedamotVoteringById(ledamot.intressent_id).then((data) => {
+            var path = data.voteringlista.votering[0];
+            var kvot = path.Frånvarande[0] / (parseInt(path.Avstår[0]) + parseInt(path.Frånvarande[0]) + parseInt(path.Ja[0]) + parseInt(path.Nej[0]));
+            var procent = 100 - kvot*100;
+            var num = Math.round(procent * 10) / 10;
+            this.setState({attendence: num})
             
         })
     }
@@ -75,6 +89,8 @@ class Ledamot extends React.Component{
             })
     }
 
+    
+
     componentDidMount(){
         let personId = this.props.match.params.id;
 
@@ -83,12 +99,14 @@ class Ledamot extends React.Component{
         //if that person is not defined, fetch new, otherwise just set state with that person
         if(!_.isEmpty(persistedLedamot)){
             this.setState({ledamot: persistedLedamot, fetched:true})
+            this.fetchAttendance(persistedLedamot)
         }
         else{
             this.fetchSingleLedamot()
         }
         if(!(this.state.voteringar.fetched)){
             this.fetchLedamotVoteringar()
+            
         }
     }
 
@@ -99,7 +117,7 @@ class Ledamot extends React.Component{
             return (
                 <div style={{margin:'0 1em 0 0'}}>
                      <div className="ledamot_component_container">
-                        <LedamotComponent ledamot={ledamot} numberOfVotes={this.state.voteringar.thisYear} />
+                        <LedamotComponent ledamot={ledamot} numberOfVotes={this.state.voteringar.thisYear} votering={this.state.attendence} />
                         
                     </div>
 
@@ -130,10 +148,10 @@ class Ledamot extends React.Component{
             <div>
                 {!hasFetched ? 
                 (isFetching ? <Spinner name="cube-grid"  fadeIn="none" /> : "" ):
-                <div style={{display:'flex', flexDirection:'row'}}> 
+                <div style={{display:'flex', flexDirection:'row', height:'100vh', overflowY:'auto'}}> 
                     
-                  <div style={{width:'50%'}}>  {this.renderPersonData()} </div>
-                  <div style={{width:'50%', marginTop:'1em'}}> <LedamotInfo ledamot={this.state.ledamot} /> </div>
+                  <div style={{width:'100%', height:'100%', overflowY:'auto'}}>  {this.renderPersonData()} </div>
+                  <div > <LedamotInfo ledamot={this.state.ledamot} /> </div>
                 {/* <AttendenceGauge ledamot={this.state.ledamot} /> */}
                 {/* <Attendance ledamot={this.state.ledamot}/> */}
                 </div>}

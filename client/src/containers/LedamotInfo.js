@@ -3,8 +3,9 @@ import { connect } from 'react-redux'
 import  Spinner  from 'react-spinkit'
 import { requestVoteringarByYear } from '../actions'
 import {Jumbotron, Container, Card, CardDeck, Row, Col, Tabs, Tab } from 'react-bootstrap'
-
+import Paper from '@material-ui/core/Paper'
 import _ from 'lodash'
+import IndexNews from './IndexNews';
 class LedamotInfo extends Component {
     state = {
       a:0
@@ -46,7 +47,7 @@ class LedamotInfo extends Component {
     }
     renderPersonUppdrag = () =>{
         let ledamotUppdrag = this.props.ledamot.personuppdrag.uppdrag
-        const numberOfRows = Math.ceil(ledamotUppdrag.length / 3)
+        const numberOfRows = 1
        let a = Array(numberOfRows).fill().map((_, rowIndex) => (
             <Row key={rowIndex} style={{marginBottom:'30px'}}>
             {
@@ -56,8 +57,8 @@ class LedamotInfo extends Component {
                 <Card.Header> {uppdrag.roll_kod} </Card.Header>
                     <Card.Body>
                         <Card.Text>
-                            <p> Från: {uppdrag.from} - Till: {uppdrag.tom} </p>
-                            <p> Status: {uppdrag.status}</p>
+                            <div> Från: {uppdrag.from} - Till: {uppdrag.tom} </div>
+                            <div> Status: {uppdrag.status}</div>
                         </Card.Text>
                     </Card.Body>
                 </Card>
@@ -70,15 +71,18 @@ class LedamotInfo extends Component {
 
 
     render() {
+        console.log(this.props.ledamot)
       return (  
         <div className="ledamot_info_container">
              <Container>
-            <Jumbotron>
+            <Paper style={{margin:'1em 0', padding:'1em'}}>
                 {this.renderPersonUppgift()}
                 
-            </Jumbotron>
-                <h2>Senaste uppdrag</h2>
-                {this.renderPersonUppdrag()}
+            </Paper>
+                {/* <h2>Senaste uppdrag</h2> */}
+                {/* {this.renderPersonUppdrag()} */}
+                <h3>   Senaste nyheter om denna person (eller relaterat) </h3>
+                <IndexNews ledamot={this.props.ledamot}/>
             </Container>
         </div>
       );
