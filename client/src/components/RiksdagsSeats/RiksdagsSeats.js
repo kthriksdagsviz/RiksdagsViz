@@ -4,6 +4,7 @@ import ledamoter from "../../utils/ledamoter.json"
 import * as d3 from 'd3';
 import {ledamoter_api} from '../../services'
 import _ from 'lodash'
+import {zoom } from 'd3-zoom'
 
 export default class RiksdagsSeats extends Component {
 
@@ -15,16 +16,31 @@ export default class RiksdagsSeats extends Component {
             rebuild: false,
             selectedName: "",
             fetchedPerson:{},
-            filteredSelection:[]
+            filteredSelection:[],
+            zoom:1
             // filteredSelection: [{"party": "M", "name": "John Widegren", "id": "#s031"}, {"party": "S", "name": "Johan Andersson", "id": "#s032"}, {"party": "S", "name": "Bj\u00f6rn Petersson", "id": "#s033"}, {"party": "SD", "name": "Mattias B\u00e4ckstr\u00f6m Johansson", "id": "#s034"}, {"party": "S", "name": "Laila Naraghi", "id": "#s035"}, {"party": "M", "name": "Annicka Engblom", "id": "#s036"}, {"party": "SD", "name": "Richard Jomshof", "id": "#s037"}, {"party": "M", "name": "Boriana \u00c5berg", "id": "#s038"}, {"party": "C", "name": "Ola Johansson", "id": "#s039"}, {"party": "S", "name": "Adnan Dibrani", "id": "#s040"}, {"party": "L", "name": "Bengt Eliasson", "id": "#s041"}]
         }
+        this.zoom = zoom()
+            .scaleExtent([1, 3])
+            .on('zoom', this.zoomed.bind())
+        
+    }
+    zoomed = () =>{
+        
+        d3.select('#Welcome').attr("transform", d3.event.transform);
+    }
+
+    resetZoom = () =>{
+        d3.select('#Welcome').attr("transform",null);
     }
 
   
     buildSVG = () => {
         var map = <SvgLoader path="/RiksdagStolar.svg" style={{width:'100%', height:'60vh'}} >
+        
         {/* <SvgProxy selector={this.state.selectedSeats} fill={"green"}  /> */}
         </SvgLoader>
+        
         return(
             map
         )
@@ -43,9 +59,30 @@ export default class RiksdagsSeats extends Component {
 
     setSeat = (e) => {
         let RiksdagStolar = d3.select('.riksdags_map')
-        if(e.target.id !== "") {
+        if(e.target.id !='riksmap') {
             RiksdagStolar.select("svg").select("#Welcome").selectAll("path").attr("fill", "gray")
             RiksdagStolar.select("svg").select("#Welcome").select("#"+e.target.id).attr("fill", "green")
+
+            // var root = document.getElementById("riksmap");
+            // var path = document.getElementById(e.target.id);
+            // console.log(e.clientX, e.clientY)
+            // var point = root.createSVGPoint();
+            // point.x = 960;  // replace this with the x co-ordinate of the path segment
+            // point.y = 500;  // replace this with the y co-ordinate of the path segment
+            // var svgP = point.matrixTransform(root.getScreenCTM().inverse());
+
+            
+            // var matrix = path.getTransformToElement(root);
+            // var position = point.matrixTransform(matrix);
+            // let transformObject = {
+            //     k:2,
+            //     x: -(svgP.x/2),
+            //     y:-(-svgP.y)
+            // }
+            // console.log(svgP);
+            // d3.select('#Welcome').attr("transform", "translate(" + transformObject.x + ", " + transformObject.y + ")scale(" + 1 + ")");
+
+
             let result = ledamoter.filter(ledamot => {
                 return ledamot.id === "#"+e.target.id
               })
@@ -80,6 +117,11 @@ export default class RiksdagsSeats extends Component {
 
         }
         
+    }
+
+    componentDidMount(){
+        d3.select('.riksdags_map').call(this.zoom)
+              
     }
 
     componentDidUpdate(nextProps){
@@ -251,6 +293,7 @@ export default class RiksdagsSeats extends Component {
                 <p>{this.state.selectedName}</p>
                 {/* <button onClick={() => this.setTransition()}>Group by party</button>
                 <button onClick={() => this.setNewGroup()}>Set new group</button> */}
+                <button onClick={this.resetZoom}>reset zoom</button>
             </div>
         )
     }
