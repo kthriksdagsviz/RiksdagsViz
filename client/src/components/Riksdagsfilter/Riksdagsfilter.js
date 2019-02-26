@@ -193,7 +193,7 @@ class Riksdagsfilter extends Component {
                             <em>Inget</em>
                         </MenuItem>
                         <MenuItem value={'M'}>Moderata samlingspartiet</MenuItem>
-                        <MenuItem value={'C'}>Centerpartier</MenuItem>
+                        <MenuItem value={'C'}>Centerpartiet</MenuItem>
                         <MenuItem value={'SD'}>Sverigedemokraterna</MenuItem>
                         <MenuItem value={'KD'}>Kristdemokraterna</MenuItem>
                         <MenuItem value={'S'}>Socialdemokraterna</MenuItem>
