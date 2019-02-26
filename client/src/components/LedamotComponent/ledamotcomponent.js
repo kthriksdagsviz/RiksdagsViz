@@ -5,7 +5,7 @@ import '../../styles/indexLedamot.scss'
 import _ from 'lodash'
 import { Link } from 'react-router-dom'
 
-const LedamotComponent = ({ledamot, numberOfVotes}) => (         
+const LedamotComponent = ({ledamot, numberOfVotes, votering}) => (         
     <div className="ledamot_container">
         <div className="cardHead">
             <Media>
@@ -20,7 +20,7 @@ const LedamotComponent = ({ledamot, numberOfVotes}) => (
         <div className="cardStat">
             <div><h1>{numberOfVotes}</h1><p>Votes<br/>2018/19</p></div>
             <div><h1>23</h1><p>Lorem ipsum<br/>2018/19</p></div>
-            <div><h1>{votering}</h1><p>Attendance<br/>2018/19</p></div>
+            <div><h1>{votering}%</h1><p>Attendance<br/>2018/19</p></div>
         </div>
 
         <div className="cardVote">

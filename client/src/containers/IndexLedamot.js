@@ -19,7 +19,7 @@ class IndexLedamot extends Component{
         super(props);
         this.state  = {
             ledamot: {},
-            attendance: {},
+            attendance: 0,
             isFetching: false,
             fetched: false,
             error: false
@@ -29,23 +29,32 @@ class IndexLedamot extends Component{
       fetchAttendance = (ledamot) => {
         this.setState({isFetching: true})
         votering_api.getLedamotVoteringById(ledamot.intressent_id).then((data) => {
-            let path = data.voteringlista.votering[0];
-            let kvot = path.Frånvarande[0] / (parseInt(path.Avstår[0]) + parseInt(path.Frånvarande[0]) + parseInt(path.Ja[0]) + parseInt(path.Nej[0]));
-            let procent = 100 - kvot*100;
-            let attendance = Math.round(procent * 10) / 10;
+            var path = data.voteringlista.votering[0];
+            var kvot = path.Frånvarande[0] / (parseInt(path.Avstår[0]) + parseInt(path.Frånvarande[0]) + parseInt(path.Ja[0]) + parseInt(path.Nej[0]));
+            var procent = 100 - kvot*100;
+            var num = Math.round(procent * 10) / 10;
+            this.setState({attendance: num})
         })
     }
 
     componentDidMount() {
-        const {ledamot} = this.props
-        this.fetchAttendance(ledamot);
+        if(!_.isEmpty(this.props.ledamot)){
+            const {ledamot} = this.props
+            this.fetchAttendance(ledamot);
+        }
+      }
+      componentDidUpdate(nextProps) {
+        if(!_.isEmpty(this.props.ledamot) && (nextProps.ledamot != this.props.ledamot)){
+            const {ledamot} = this.props
+            this.fetchAttendance(ledamot);
+        }
       }
 
     renderLedamot = () => {
         if(!_.isEmpty(this.props.ledamot)){
-            const {ledamot} = this.props 
+            const {ledamot} = this.props
             return (
-                <LedamotComponent ledamot={ledamot} voteringar={this.attendance}/>
+                <LedamotComponent ledamot={ledamot} votering={this.state.attendance}/>
             )
         }
     }
