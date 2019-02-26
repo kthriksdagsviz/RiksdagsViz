@@ -55,19 +55,22 @@ export default class PartiChord extends React.Component{
               }
             }
         }
+
+        let newArray = partyListOut.map(a => ([...a]));
     
+        partyListOut.map((x,i) => {
+          x[i] = 0
+        })
+
         for (let i = 0; i < partyListOut.length; i++) {
             let partiVotes = partyListOut[i].reduce((a, b) => a + b, 0)
+            let partiVotes2 = newArray[i].reduce((a, b) => a + b, 0)
             for (let j = 0; j < partyListOut.length; j++) {
               partyListOut[i][j] = partyListOut[i][j] / partiVotes;
+              newArray[i][j] = newArray[i][j] / partiVotes2;
             }
         }
-        let newArray = partyListOut.map(a => ([...a]));
 
-        partyListOut.map((x,i) => {
-            x[i] = 0
-        })
-        console.log(newArray)
         this.setState({chordData: partyListOut, partyData: newArray} )
     }
  
@@ -117,8 +120,6 @@ export default class PartiChord extends React.Component{
                 if(i != j){
                   hoverData.push(Math.floor((1000 * self.state.partyData[j][i] / partyVoters[i])/10) + '% av fallen: röstar enligt samma politiska linje som ' + self.parties[j]) 
                 }
-              //  console.log(self.state.chordData[i][j], partyVoters)
-                
             }
               
             self.setState({hoverParty: self.partiesLong[i], hoverData: hoverData, hoverPartyShort: self.parties[i]})
@@ -126,15 +127,13 @@ export default class PartiChord extends React.Component{
         }).on('mouseleave', function(d, i){
             hoverData = [];
         })
-        
-        // console.log(group)
 
     }
     
-  
     changeToolTip = (y) => {
         return y + " %"
     }
+
     componentDidUpdate(nextProps) {
         if(nextProps.selectedYear != this.props.selectedYear){
           let yearString ="";
