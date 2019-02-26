@@ -3,7 +3,9 @@ import React from 'react'
 import { votes1718, votes1617, votes1516, votes1415, votes1314, votes1213, votes1112, votes1011, votes0910, votes0809, votes0708, votes0607, votes0506, votes0405, votes0304, votes0203 } from './oldVoteData/oldVoteExport'
 import partyList from './PartiCompareRawData'
 import partyColors from '../styles/colors.scss'
+import '../styles/partiChord.scss'
 import * as d3 from 'd3'
+import { ListGroup } from 'react-bootstrap'
 
 
 export default class PartiChord extends React.Component{
@@ -12,6 +14,7 @@ export default class PartiChord extends React.Component{
         this.state={
             chordData:[],
             hoverParty: '',
+            hoverPartyShort: '',
             partyData:[], 
             hoverData: []
         }
@@ -39,7 +42,8 @@ export default class PartiChord extends React.Component{
             for (var j = 0; j < partyListIn.length; j++) {
                 for (var k = 0; k < partyListIn[i].length; k++) {
                     let partyIn1 = partyListIn[i][k];
-                    let partyIn2 = partyListIn[j][k];               
+                    let partyIn2 = partyListIn[j][k];
+
                     delete partyIn1.votering_id;
                     delete partyIn1.Frånvarande;
                     delete partyIn2.votering_id;
@@ -53,18 +57,22 @@ export default class PartiChord extends React.Component{
               }
             }
         }
+
+        let newArray = partyListOut.map(a => ([...a]));
     
+        partyListOut.map((x,i) => {
+          x[i] = 0
+        })
+
         for (let i = 0; i < partyListOut.length; i++) {
             let partiVotes = partyListOut[i].reduce((a, b) => a + b, 0)
+            let partiVotes2 = newArray[i].reduce((a, b) => a + b, 0)
             for (let j = 0; j < partyListOut.length; j++) {
               partyListOut[i][j] = partyListOut[i][j] / partiVotes;
+              newArray[i][j] = newArray[i][j] / partiVotes2;
             }
         }
-        const newArray = partyListOut.map(a => ([...a]));
 
-        partyListOut.map((x,i) => {
-            x[i] = 0
-        })
         this.setState({chordData: partyListOut, partyData: newArray} )
     }
  
@@ -87,7 +95,6 @@ export default class PartiChord extends React.Component{
     componentDidMount(){
         this.voteByParty(this.previousVoteData[0])
         setTimeout(() => this.selectSvg(), 100)
-        
     }
 
     selectSvg = () =>{
@@ -101,37 +108,40 @@ export default class PartiChord extends React.Component{
         //         console.log(group, i)
         // })
 
-        var partyVoters = this.state.partyData.map((x, i) => { return x[i]});
+        // var partyVoters = this.state.partyData.map((x, i) => { return x[i]} );
         let hoverData = []
+
+        // console.log(this.state.partyData[1][1])
 
         let self = this;
         let group = svgg.select('g').select('g').select('g:nth-child(2)').selectAll('path')
         .on('mouseover', function(d, i){
-            for (let j = 0; j < self.partiesLong.length; j++) {
-                if(i != j){
-                    hoverData.push((100 * self.state.chordData[i][j] / partyVoters[i]).toFixed(1)  + '% of all cases voting the same as the political line of ' + self.parties[i]) 
-                }
-               // console.log(self.state.chordData[i][j], partyVoters)
-                
+            let partyVoters = self.state.partyData.map((x, i) => { return x[i]} );
+            for (let j = 0; j < self.state.partyData.length; j++) {
+              if(i !== j){
+                hoverData.push(<ListGroup.Item>{Math.floor((1000 * self.state.partyData[j][i] / partyVoters[i]) / 10)  + '% av fallen: röstar enligt samma politiska linje som ' + self.parties[j]}</ListGroup.Item>) 
+              }
             }
               
-            self.setState({hoverParty: self.parties[i], hoverData: hoverData})
+            self.setState({hoverParty: self.partiesLong[i], hoverData: hoverData, hoverPartyShort: self.parties[i]})
 
         }).on('mouseleave', function(d, i){
             hoverData = [];
         })
-        
 
     }
     
-  
     changeToolTip = (y) => {
-        return y + " %"
+        return ((100 * y).toFixed(1) + " %");
     }
+
     componentDidUpdate(nextProps) {
         if(nextProps.selectedYear != this.props.selectedYear){
           let yearString ="";
           switch(nextProps.selectedYear){
+            case 2002:
+              yearString = '0203'
+              break
             case 2003:
               yearString = '0304'
               break
@@ -177,15 +187,18 @@ export default class PartiChord extends React.Component{
             case 2017:
               yearString = '1718'
               break 
+            default:
+              yearString = 'now'
           }
           this.chooseVoteYear(yearString)
         }
     }
     renderToolTip = () => {
+      this.selectSvg();
         return (
             <div>
-                {this.state.hoverData.map((row)=> (
-                   <p> {row} </p> 
+                {this.state.hoverData.map((row, i)=> (
+                   <p key={i}> {row} </p> 
                 ))}
             </div>
         )
@@ -255,9 +268,11 @@ export default class PartiChord extends React.Component{
                 />
                 
             </div>
-            {this.state.hoverParty.length > 0 && (<div>
-                {this.state.hoverParty}
-                {this.state.hoverData.length > 0 && this.renderToolTip()}
+            {this.state.hoverParty.length > 0 && (<div className="partyHoverInfo">
+                <h2><img src={'partyLogos/' + this.state.hoverPartyShort + '.png'} alt="PartyLogo" /> {this.state.hoverParty}</h2>
+                <ListGroup>
+                  {this.state.hoverData.length > 0 && this.renderToolTip()}
+                </ListGroup>
                 </div>)}
             </div>
         )
