@@ -61,7 +61,7 @@ export default class PartiChord extends React.Component{
         let newArray = partyListOut.map(a => ([...a]));
     
         partyListOut.map((x,i) => {
-          x[i] = 0
+          return x[i] = 0
         })
 
         for (let i = 0; i < partyListOut.length; i++) {
@@ -89,6 +89,9 @@ export default class PartiChord extends React.Component{
             }
         }
         this.voteByParty(newYear)
+
+        this.changeToolTip();
+
         this.props.onYearChange(year);
       }
 
@@ -103,34 +106,31 @@ export default class PartiChord extends React.Component{
         let secDiv = div.select('div')
         let svgg = secDiv.select('svg')
 
-        let hoverData = []
-
         let self = this;
-        let group = svgg.select('g').select('g').select('g:nth-child(2)').selectAll('path')
-        .on('mouseover', function(d, i){
-            let partyVoters = self.state.partyData.map((x, i) => { return x[i]} );
-            for (let j = 0; j < self.state.partyData.length; j++) {
-              if(i !== j){
-                hoverData.push(Math.floor((1000 * self.state.partyData[j][i] / partyVoters[i]) / 10)  + '% av fallen: röstar enligt samma politiska linje som ' + self.parties[j]) 
-              }
-            }
-              
-            self.setState({hoverParty: self.partiesLong[i], hoverData: hoverData, hoverPartyShort: self.parties[i]})
-
-        }).on('mouseleave', function(d, i){
-            hoverData = [];
-        })
-
+        svgg.select('g').select('g').select('g:nth-child(2)').selectAll('path')
+          .on('mouseover', function(d, i){
+            self.setState({hoverParty: self.partiesLong[i], hoverPartyShort: self.parties[i]})
+            self.changeToolTip(); 
+          })
     }
     
-    changeToolTip = (y) => {
-        //return ((100 * y).toFixed(1) + " %");
-        return this.state.wonkyData;
+    changeToolTip = () => {
+      let hoverData = []
+      let hoverPartyIndex = this.parties.indexOf(this.state.hoverPartyShort);
+      let partyVoters = this.state.partyData.map((x, i) => { return x[i]} );
+
+      for (let j = 0; j < this.state.partyData.length; j++) {
+        if(hoverPartyIndex !== j){
+          hoverData.push(Math.floor((1000 * this.state.partyData[j][hoverPartyIndex] / partyVoters[hoverPartyIndex]) / 10)  + '% av fallen: röstar enligt samma politiska linje som ' + this.parties[j]) 
+        }
+      }
+
+      this.setState({hoverData: hoverData})
     }
 
     componentDidUpdate(nextProps) {
-        if(nextProps.selectedYear != this.props.selectedYear){
-          let yearString ="";
+        if(nextProps.selectedYear !== this.props.selectedYear){
+          let yearString = "";
           switch(nextProps.selectedYear){
             case 2002:
               yearString = '0203'
