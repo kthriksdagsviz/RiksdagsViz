@@ -207,16 +207,16 @@ export default class PartiChord extends React.Component{
     
     render(){
         return(
-            <div style={{height: '500px', width:'100%', display:'flex', alignItems:'center'}}>
-            <div id="respCord" style={{height: '500px', width:'50%'}}>
+            <div style={{height: '550px', width:'100%', display:'flex', alignItems:'center'}}>
+            <div id="respCord" style={{height: '550px', width:'50%'}}>
                 <ResponsiveChord
                     matrix={this.state.chordData}
                     keys={this.parties}
                     margin={{
-                        "top": 20,
-                        "right": 20,
-                        "bottom": 70,
-                        "left": 20
+                        "top": 10,
+                        "right": 10,
+                        "bottom": 10,
+                        "left": 10
                     }}
                        
                         onMouseMove={this.handleMouseMove}
