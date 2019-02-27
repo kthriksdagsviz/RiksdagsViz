@@ -286,7 +286,7 @@ export default class RiksdagsSeats extends Component {
              <div className="riksdags_map" onClick={(e) => this.setSeat(e)}>
                 {this.buildSVG()}
                 {this.modifySVG(this.state.filteredSelection)}
-            <RiksdagsModal open={this.state.open}/>
+            <RiksdagsModal open={this.state.open} person={this.props.person.data}/>
             </div>
         )
     }

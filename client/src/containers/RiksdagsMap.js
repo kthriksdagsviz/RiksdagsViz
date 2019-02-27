@@ -12,7 +12,8 @@ class RiksdagsMap extends Component {
             groupby:"default",
             parti:"None",
             search:"",
-            selectedFromFilter:""
+            selectedFromFilter:"",
+            person: {data: {efternamn: " ", tilltalsnamn: " "}}
         }
     }
     fetchData = () => {
@@ -43,6 +44,7 @@ class RiksdagsMap extends Component {
         ledamoter_api.getLedamoterByName({
             fname: fname, ename: ename
         }).then((data) => {
+            this.setState({person: this.props.setSelectedLedamot(data.personlista.person)})
              this.props.setSelectedLedamot(data.personlista.person)
         })
     }
@@ -100,7 +102,8 @@ class RiksdagsMap extends Component {
                     onSearchChange={this.onSearchChange} 
                     selectLedamot={this.fetchSingleLedamot} 
                     parti={this.state.parti}/>
-                <RiksdagsSeats 
+                <RiksdagsSeats
+                    person={this.state.person}
                     selectLedamot={this.fetchSingleLedamot}
                     selectedLedamot={this.state.selectedFromFilter}
                     groupby={this.state.groupby} 

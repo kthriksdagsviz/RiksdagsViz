@@ -75,7 +75,7 @@ class RiksdagsModal extends React.Component {
           open={this.props.open}
         >
           <DialogTitle id="customized-dialog-title" onClose={this.handleClose}>
-            Modal title
+            {this.props.person.tilltalsnamn + " " +  this.props.person.efternamn}
           </DialogTitle>
           <DialogContent>
             <Typography gutterBottom>
@@ -95,7 +95,7 @@ class RiksdagsModal extends React.Component {
           </DialogContent>
           <DialogActions>
             <Button onClick={this.handleClose} color="primary">
-              Save changes
+              Go to profile
             </Button>
           </DialogActions>
         </Dialog>
