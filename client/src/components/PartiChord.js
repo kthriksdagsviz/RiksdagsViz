@@ -5,7 +5,7 @@ import partyList from './PartiCompareRawData'
 import partyColors from '../styles/colors.scss'
 import '../styles/partiChord.scss'
 import * as d3 from 'd3'
-import { ListGroup } from 'react-bootstrap'
+import { ListGroup, ProgressBar } from 'react-bootstrap'
 
 
 export default class PartiChord extends React.Component{
@@ -195,13 +195,36 @@ export default class PartiChord extends React.Component{
           this.chooseVoteYear(yearString)
         }
     }
+
+
     renderToolTip = () => {
       this.selectSvg();
+
+      let hoverPartyIndex = this.parties.indexOf(this.state.hoverPartyShort);
+
+      let self = this;
+      var listGroup = this.state.hoverData.map((row, i) => {
+        let colorIndex = i;
+        if (colorIndex >= hoverPartyIndex) colorIndex += 1;
+
+        var progress;
+        if (!(row.includes('ej i Riksdagen'))) {
+            progress = (<ProgressBar>
+                          <ProgressBar now={(row.slice(0, row.indexOf('%')))} key={1} style={{backgroundColor: self.colors[colorIndex]}}/>
+                        </ProgressBar>)
+        }
+
+        return ( 
+          <ListGroup.Item key={i}> 
+            {row} 
+            {progress}
+        </ListGroup.Item> 
+      )});
+
+
         return (
             <div>
-                {this.state.hoverData.map((row, i)=> (
-                   <ListGroup.Item key={i}> {row} </ListGroup.Item> 
-                ))}
+                {listGroup}
             </div>
         )
     }
