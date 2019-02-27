@@ -54,12 +54,12 @@ const styles = theme => ({
     input: {
         marginLeft: 8,
         flex: 1,
-        fontSize:'1.2em'
+        fontSize:'1.4em'
 
     },
     iconButton: {
         padding: 10,
-        fontSize:'1.2em'
+        fontSize:'1.4em'
       },
     textField: {
         width:'75%'
@@ -116,6 +116,7 @@ class Riksdagsfilter extends Component {
     }
 
     handleChipClick = (seat) => {
+        console.log(seat, this.props.selectedLedamotFromSeats)
         let filteredData = ledamoter.filter(
             seatData => {
                 if(this.props.parti != "None")
@@ -127,8 +128,8 @@ class Riksdagsfilter extends Component {
         if(seat.selected){
             seat.selected =false 
             this.props.onSelectedLedamotChange("")
-
         }
+        
         else{
             filteredData.map((data) => data.selected = false)
             seat.selected = true;
@@ -167,6 +168,22 @@ class Riksdagsfilter extends Component {
             }
             
         }
+        else if(prevProps.selectedLedamotFromSeats.id != this.props.selectedLedamotFromSeats.id){
+            let seat = _.find(ledamoter, {id: "#" +this.props.selectedLedamotFromSeats.id})
+            if(seat){
+                seat.selected = true;
+                this.setState({search:this.props.selectedLedamotFromSeats.fname + " " +this.props.selectedLedamotFromSeats.ename })
+            }
+            else{
+                ledamoter.map((data) => data.selected = false)
+                this.props.onSelectedLedamotChange("")
+                this.setState({search:""})
+
+            }
+        
+        }
+       
+        
         
     }
     getLedamotImage = (name) => {
@@ -209,6 +226,8 @@ class Riksdagsfilter extends Component {
                     return seatData.name.toLowerCase().indexOf(this.state.search.toLowerCase()) !== -1
             }
         );
+        
+
         const { classes } = this.props
         return (
             <div className="search-container" >
@@ -217,7 +236,7 @@ class Riksdagsfilter extends Component {
                     <IconButton className={classes.iconButton} aria-label="Search">
                         <SearchIcon fontSize="large" />
                     </IconButton>
-                    <InputBase className={classes.input} placeholder="Sök efter en riksdagsledamot" onChange={this.updateSearch} />
+                    <InputBase className={classes.input} placeholder="Sök efter en riksdagsledamot" value={this.state.search} onChange={this.updateSearch} />
                     
                     
                     <div className={classes.formContainer}>

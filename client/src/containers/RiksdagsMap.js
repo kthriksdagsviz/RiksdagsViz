@@ -12,7 +12,12 @@ class RiksdagsMap extends Component {
             groupby:"default",
             parti:"None",
             search:"",
-            selectedFromFilter:""
+            selectedFromFilter:"",
+            selectedLedamotFromSeats:{
+                id:"",
+                fname:"",
+                ename:""
+            }
         }
     }
     fetchData = () => {
@@ -38,8 +43,13 @@ class RiksdagsMap extends Component {
         
     }
 
-    fetchSingleLedamot = (fname, ename) => {
-        this.setState({isFetching: true})
+    fetchSingleLedamot = (fname, ename, seat) => {
+        let p ={
+            id: seat,
+            fname: fname, 
+            ename: ename
+        }
+        this.setState({isFetching: true, selectedLedamotFromSeats: p})
         ledamoter_api.getLedamoterByName({
             fname: fname, ename: ename
         }).then((data) => {
@@ -96,6 +106,7 @@ class RiksdagsMap extends Component {
                     ledamoter={this.props.ledamoter}
                     changeGroupBy={this.onGroupByChange} 
                     changeParti={this.onPartiChange} 
+                    selectedLedamotFromSeats={this.state.selectedLedamotFromSeats}
                     onSelectedLedamotChange ={this.onSelectedLedamotChange}
                     onSearchChange={this.onSearchChange} 
                     selectLedamot={this.fetchSingleLedamot} 

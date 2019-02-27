@@ -81,11 +81,11 @@ export default class RiksdagsSeats extends Component {
                 bild_url_80: "http://data.riksdagen.se/filarkiv/bilder/ledamot/9f5c5d35-c450-4068-923a-2d8d077223d5_80.jpg"
             }
             
-            
+            let seatId = e.target.id;
             this.setState({
                 selectedSeat: '#' + e.target.id,
                 selectedName: result[0].name
-            }, () => this.props.selectLedamot(fname, ename))
+            }, () => this.props.selectLedamot(fname, ename, seatId))
         }
         else {
             RiksdagStolar.select("svg").select("#Welcome").selectAll(".glow").attr("fill", "gray").style("filter", null).classed("glow", false)
@@ -136,7 +136,25 @@ export default class RiksdagsSeats extends Component {
             this.setState({filteredSelection: this.props.searchBy})
         }
         else if(nextProps.selectedLedamot != this.props.selectedLedamot){
+            if(this.props.selectedLedamot){
+                let object ={
+                    target:{
+                        id: this.props.selectedLedamot.id.slice(1)
+                    }
+                }
+                this.setSeat(object)
+
+            }
+            else if(this.props.selectedLedamot == ""){
+                let object ={
+                    target:{
+                        id: ""
+                    }
+                }
+                this.setSeat(object)
+            }
             this.setState({filteredSelection: [this.props.selectedLedamot]})
+
 
         }
     }
