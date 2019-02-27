@@ -3,6 +3,7 @@ import { SvgLoader, SvgProxy } from 'react-svgmt';
 import ledamoter from "../../utils/ledamoter.json"
 import * as d3 from 'd3';
 import _ from 'lodash'
+import './SweMap.scss'
 
 export default class SweMap extends Component {
 
@@ -35,16 +36,21 @@ export default class SweMap extends Component {
     }
 
     selectCounty = (id) => {
-        console.log(id.sort());
+        console.log(id[Object.keys(id)[0]]);
+        console.log(Object.keys(id).length);
         var num = 1 / id.length;
         setTimeout(() => {
             let sweMap = d3.select('.swe_map')
-            for (var i = 0; i < id.length; i++) {
+            for (var i = 0; i < Object.keys(id).length; i++) {
                 var opacity = 1/(i+1);
-                console.log(opacity);
-                sweMap.select("#"+id[i]).style("fill", "rgb(90, 150, 255,"+opacity+")");
-                sweMap.select("#"+id[i]).selectAll('path').style("fill", "rgb(90, 150, 255,"+opacity+")");
-                sweMap.select("#"+id[i]).selectAll('polygon').style("fill", "rgb(90, 150, 255,"+opacity+")");
+                var newID = "#" + Object.keys(id)[i];
+                sweMap.select(newID).style("fill", "rgb(90, 150, 255,"+opacity+")");
+                sweMap.select(newID).selectAll('path').style("fill", "rgb(90, 150, 255,"+opacity+")");
+                sweMap.select(newID).selectAll('polygon').style("fill", "rgb(90, 150, 255,"+opacity+")");
+
+                sweMap.select(newID).attr("class", "info");
+                sweMap.select(newID).selectAll('path').innerHTML += "<span class='infotext'>Antal ledamöter: "+ id[Object.keys(id)[i]] +"</span>";
+                sweMap.select(newID).selectAll('polygon').innerHTML += "<span class='infotext'>Antal ledamöter: "+ id[Object.keys(id)[i]] +"</span>";
             }
             
           }, 300);
@@ -59,11 +65,10 @@ export default class SweMap extends Component {
     render() {
     
         return (
-            // <div className="swe_map" onClick= {(e) => this.setSeat(e)}>
              <div className="swe_map" width="400px" height="700px">
                 {this.buildSVG()}
                 {this.modifySVG()}
-                {this.selectCounty(["W", "AB", "H", "W", "AB"])}
+                {this.selectCounty({"W":5, "AB":2, "H":3, "G":1})}
             </div>
         )
     }

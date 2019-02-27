@@ -1,0 +1,27 @@
+.info {
+    position: relative;
+    display: inline-block;
+    border-bottom: 1px solid black;
+  }
+
+.info .infotext{
+    visibility: hidden;
+    width: 120px;
+    background-color: black;
+    color: #FFF;
+    text-align: center;
+    border-radius: 6px;
+    padding: 5px 0;
+    position: absolute;
+    z-index: 1;
+    bottom: 100%;
+    left: 50%;
+    margin-left: -60px;
+    opacity: 0;
+    transition: opacity 1s;
+  }
+
+  .info:hover .infotext {
+      visibility: visible;
+      opacity: 1;
+  }
