@@ -5,7 +5,9 @@ import partyList from './PartiCompareRawData'
 import partyColors from '../styles/colors.scss'
 import '../styles/partiChord.scss'
 import * as d3 from 'd3'
-import { ListGroup } from 'react-bootstrap'
+import axios from 'axios'
+import xml2js from 'xml2js'
+import { ListGroup, ProgressBar } from 'react-bootstrap'
 
 
 export default class PartiChord extends React.Component{
@@ -18,7 +20,7 @@ export default class PartiChord extends React.Component{
             partyData:[], 
             hoverData: []
         }
-        this.previousVoteData = [partyList, votes1718, votes1617, votes1516, votes1415, votes1314, votes1213, votes1112, votes1011, votes0910, votes0809, votes0708, votes0607, votes0506, votes0405, votes0304, votes0203];
+        this.previousVoteData = [[], votes1718, votes1617, votes1516, votes1415, votes1314, votes1213, votes1112, votes1011, votes0910, votes0809, votes0708, votes0607, votes0506, votes0405, votes0304, votes0203];
         this.previousVotingYears = ["1819", "1718", "1617", "1516", "1415", "1314", "1213", "1112", "1011", "0910", "0809", "0708", "0607", "0506", "0405", "0304", "0203"];
         this.parties = ['V', 'S', 'MP', 'C', 'L', 'KD', 'M', 'SD'];
         this.colors = [partyColors.partyV, partyColors.partyS, partyColors.partyMP, partyColors.partyC,
@@ -32,6 +34,14 @@ export default class PartiChord extends React.Component{
         var parsed = parseInt(string, 10);
         if (isNaN(parsed)) { return 0 }
         return parsed;
+    }
+
+    urlMaker = (nameList) => {
+      var urlList = []
+      for (let name in nameList) {
+        urlList.push("http://data.riksdagen.se/voteringlista/?rm=2018%2F19&bet=&punkt=&parti=" + nameList[name] + "&valkrets=&rost=&iid=&sz=100000&utformat=xml&gruppering=votering_id");
+      }
+      return urlList;
     }
 
     voteByParty = (partyListIn) => {
@@ -97,9 +107,54 @@ export default class PartiChord extends React.Component{
         
       }
 
+    getRecentVotes = () => {
+      let partiesShort = ['V', 'S', 'MP', 'C', 'L', 'KD', 'M', 'SD'];
+      let votesOut = [0, 0, 0, 0, 0, 0, 0, 0];
+      let urls = this.urlMaker(partiesShort);
+      axios.all([
+        axios.get(urls[0]),
+        axios.get(urls[1]),
+        axios.get(urls[2]),
+        axios.get(urls[3]),
+        axios.get(urls[4]),
+        axios.get(urls[5]),
+        axios.get(urls[6]),
+        axios.get(urls[7])
+      ])
+        .then(axios.spread((vRes, sRes, mpRes, cRes, lRes, kdRes, mRes, sdRes) => {
+          xml2js.parseString(vRes.data, function (err, result) {
+            votesOut[0] = result.voteringlista.votering;
+          });
+          xml2js.parseString(sRes.data, function (err, result) {
+            votesOut[1] = result.voteringlista.votering;
+          })
+          xml2js.parseString(mpRes.data, function (err, result) {
+            votesOut[2] = result.voteringlista.votering;
+          })
+          xml2js.parseString(cRes.data, function (err, result) {
+            votesOut[3] = result.voteringlista.votering;
+          })
+          xml2js.parseString(lRes.data, function (err, result) {
+            votesOut[4] = result.voteringlista.votering;
+          })
+          xml2js.parseString(kdRes.data, function (err, result) {
+            votesOut[5] = result.voteringlista.votering;
+          })
+          xml2js.parseString(mRes.data, function (err, result) {
+            votesOut[6] = result.voteringlista.votering;
+          })
+          xml2js.parseString(sdRes.data, function (err, result) {
+            votesOut[7] = result.voteringlista.votering;
+          })
+          this.previousVoteData[0] = votesOut;
+          this.voteByParty(votesOut);
+        }))
+    }
+
     componentDidMount(){
         this.voteByParty(this.previousVoteData[0])
-        setTimeout(() => this.selectSvg(), 100)
+        this.getRecentVotes();
+        setTimeout(() => this.selectSvg(), 500);
     }
 
     selectSvg = () =>{
@@ -195,13 +250,36 @@ export default class PartiChord extends React.Component{
           this.chooseVoteYear(yearString)
         }
     }
+
+
     renderToolTip = () => {
       this.selectSvg();
+
+      let hoverPartyIndex = this.parties.indexOf(this.state.hoverPartyShort);
+
+      let self = this;
+      var listGroup = this.state.hoverData.map((row, i) => {
+        let colorIndex = i;
+        if (colorIndex >= hoverPartyIndex) colorIndex += 1;
+
+        var progress;
+        if (!(row.includes('ej i Riksdagen'))) {
+            progress = (<ProgressBar>
+                          <ProgressBar now={(row.slice(0, row.indexOf('%')))} key={1} style={{backgroundColor: self.colors[colorIndex]}}/>
+                        </ProgressBar>)
+        }
+
+        return ( 
+          <ListGroup.Item key={i}> 
+            {row} 
+            {progress}
+        </ListGroup.Item> 
+      )});
+
+
         return (
             <div>
-                {this.state.hoverData.map((row, i)=> (
-                   <ListGroup.Item key={i}> {row} </ListGroup.Item> 
-                ))}
+                {listGroup}
             </div>
         )
     }
