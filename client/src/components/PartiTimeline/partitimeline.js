@@ -10,7 +10,7 @@ export default class PartiTimeline extends Component{
         super(props)
         this.state = {
             hasLoaded: false,
-            value:2002,
+            value: 2018,
             isPlaying: false, 
             duration: 0,
             min: 2002,
@@ -19,6 +19,9 @@ export default class PartiTimeline extends Component{
     }
 
     _onPlay = () => {
+        if (this.state.value == this.state.max) {
+            this.setState({value: this.state.min});
+        }
         this.setState({isPlaying: true})
         this.timeInterval = setInterval(() => this.onUpdateTimeline(), 100)
     }
@@ -31,29 +34,28 @@ export default class PartiTimeline extends Component{
     onSliderChange = (val) => {
         clearInterval(this.timeInterval)
         this.setState({isPlaying: false})
-        this.setState({value: val}, () => this.props.onYearTimelineChange(Math.floor(this.state.value)))
+        this.setState({value: val}, () => this.props.onYearTimelineChange(Math.round(this.state.value)))
     }
 
     onUpdateTimeline = () => {
         if(this.state.value + 0.05 <= this.state.max){
             this.setState({value: this.state.value + 0.05}, 
                 () => {
-                    let yearToChangeTo = Math.floor(this.state.value)
+                    let yearToChangeTo = Math.round(this.state.value)
                     this.props.onYearTimelineChange(yearToChangeTo)
                 })
         }
         else{
             clearInterval(this.timeInterval)
+            this.setState({value: this.state.max})
             this.setState({isPlaying: false})
         }
-        
     }
 
 
     render(){
         return(
             <div className="partitimeline_container">
-                {Math.floor(this.state.value)}
                 <div className="playButton">
                 { this.state.isPlaying ? 
                     <FontAwesomeIcon icon={faPauseCircle} size="3x" onClick={this._onPaus}/> :

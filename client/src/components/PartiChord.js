@@ -19,7 +19,7 @@ export default class PartiChord extends React.Component{
             hoverData: []
         }
         this.previousVoteData = [partyList, votes1718, votes1617, votes1516, votes1415, votes1314, votes1213, votes1112, votes1011, votes0910, votes0809, votes0708, votes0607, votes0506, votes0405, votes0304, votes0203];
-        this.previousVotingYears = ["now", "1718", "1617", "1516", "1415", "1314", "1213", "1112", "1011", "0910", "0809", "0708", "0607", "0506", "0405", "0304", "0203"];
+        this.previousVotingYears = ["1819", "1718", "1617", "1516", "1415", "1314", "1213", "1112", "1011", "0910", "0809", "0708", "0607", "0506", "0405", "0304", "0203"];
         this.parties = ['V', 'S', 'MP', 'C', 'L', 'KD', 'M', 'SD'];
         this.colors = [partyColors.partyV, partyColors.partyS, partyColors.partyMP, partyColors.partyC,
             partyColors.partyL, partyColors.partyKD, partyColors.partyM, partyColors.partySD];
@@ -61,7 +61,7 @@ export default class PartiChord extends React.Component{
         let newArray = partyListOut.map(a => ([...a]));
     
         partyListOut.map((x,i) => {
-          x[i] = 0
+          return x[i] = 0
         })
 
         for (let i = 0; i < partyListOut.length; i++) {
@@ -74,6 +74,8 @@ export default class PartiChord extends React.Component{
         }
 
         this.setState({chordData: partyListOut, partyData: newArray} )
+
+        setTimeout(() => this.changeToolTip(), 100)
     }
  
     getColor = (e) => {
@@ -88,8 +90,11 @@ export default class PartiChord extends React.Component{
                 newYear = this.previousVoteData[i];
             }
         }
-        this.voteByParty(newYear)
+        this.voteByParty(newYear);
+        
         this.props.onYearChange(year);
+
+        
       }
 
     componentDidMount(){
@@ -102,43 +107,37 @@ export default class PartiChord extends React.Component{
         let div = svg.selectAll('div')
         let secDiv = div.select('div')
         let svgg = secDiv.select('svg')
-        // var groups = svg.selectAll("path")
-        // groups
-        //     .on("click", function(group, i){
-        //         console.log(group, i)
-        // })
-
-        // var partyVoters = this.state.partyData.map((x, i) => { return x[i]} );
-        let hoverData = []
-
-        // console.log(this.state.partyData[1][1])
 
         let self = this;
-        let group = svgg.select('g').select('g').select('g:nth-child(2)').selectAll('path')
-        .on('mouseover', function(d, i){
-            let partyVoters = self.state.partyData.map((x, i) => { return x[i]} );
-            for (let j = 0; j < self.state.partyData.length; j++) {
-              if(i !== j){
-                hoverData.push(<ListGroup.Item>{Math.floor((1000 * self.state.partyData[j][i] / partyVoters[i]) / 10)  + '% av partiets voteringsbeslut överrensstämmer med ' + self.parties[i]}</ListGroup.Item>) 
-              }
-            }
-              
-            self.setState({hoverParty: self.partiesLong[i], hoverData: hoverData, hoverPartyShort: self.parties[i]})
-
-        }).on('mouseleave', function(d, i){
-            hoverData = [];
-        })
-
+        svgg.select('g').select('g').select('g:nth-child(2)').selectAll('path')
+          .on('mouseover', function(d, i){
+            self.setState({hoverParty: self.partiesLong[i], hoverPartyShort: self.parties[i]})
+            self.changeToolTip(); 
+          })
     }
     
-    changeToolTip = (y) => {
-        return ((100 * y).toFixed(1) + " %");
+    changeToolTip = () => {
+      let hoverData = []
+      let hoverPartyIndex = this.parties.indexOf(this.state.hoverPartyShort);
+      let partyVoters = this.state.partyData.map((x, i) => { return x[i]} );
+
+      for (let j = 0; j < this.state.partyData.length; j++) {
+        if(this.state.partyData[j][hoverPartyIndex] !== undefined && hoverPartyIndex !== j){
+          hoverData.push(Math.floor((1000 * this.state.partyData[j][hoverPartyIndex] / partyVoters[hoverPartyIndex]) / 10)  + '% av fallen: röstar enligt samma politiska linje som ' + this.parties[j]) 
+        }
+      }
+      
+      if (hoverData.length == 0) {
+        hoverData.push(this.partiesLong[hoverPartyIndex] + ' satt ej i Riksdagen detta år.');
+      }
+
+      this.setState({hoverData: hoverData})
     }
 
     componentDidUpdate(nextProps) {
-        if(nextProps.selectedYear != this.props.selectedYear){
-          let yearString ="";
-          switch(nextProps.selectedYear){
+        if(nextProps.selectedYear !== this.props.selectedYear){
+          let yearString = "";
+          switch(this.props.selectedYear){
             case 2002:
               yearString = '0203'
               break
@@ -186,9 +185,12 @@ export default class PartiChord extends React.Component{
               break 
             case 2017:
               yearString = '1718'
-              break 
+              break
+            case 2018:
+              yearString = '1819'
+              break
             default:
-              yearString = 'now'
+              yearString = '1819'
           }
           this.chooseVoteYear(yearString)
         }
@@ -198,7 +200,7 @@ export default class PartiChord extends React.Component{
         return (
             <div>
                 {this.state.hoverData.map((row, i)=> (
-                   <p key={i}> {row} </p> 
+                   <ListGroup.Item key={i}> {row} </ListGroup.Item> 
                 ))}
             </div>
         )
@@ -207,16 +209,16 @@ export default class PartiChord extends React.Component{
     
     render(){
         return(
-            <div style={{height: '600px', width:'100%', display:'flex', alignItems:'center'}}>
-            <div id="respCord" style={{height: '600px', width:'50%'}}>
+            <div style={{height: '550px', width:'100%', display:'flex', alignItems:'center'}}>
+            <div id="respCord" style={{height: '550px', width:'50%'}}>
                 <ResponsiveChord
                     matrix={this.state.chordData}
                     keys={this.parties}
                     margin={{
-                        "top": 60,
-                        "right": 60,
-                        "bottom": 90,
-                        "left": 60
+                        "top": 10,
+                        "right": 10,
+                        "bottom": 10,
+                        "left": 10
                     }}
                        
                         onMouseMove={this.handleMouseMove}
@@ -243,28 +245,28 @@ export default class PartiChord extends React.Component{
                         ribbonHoverOthersOpacity={0.25}
                         animate={true}
                         motionStiffness={90}
-                        tooltipFormat={this.changeToolTip}
+                        theme={{tooltip: {container: {display: 'none'}}}}
                         motionDamping={17}
-                        legends={[
-                            {
-                                "anchor": "bottom",
-                                "direction": "row",
-                                "translateY": 70,
-                                "itemWidth": 80,
-                                "itemHeight": 14,
-                                "itemTextColor": "#999",
-                                "symbolSize": 12,
-                                "symbolShape": "circle",
-                                "effects": [
-                                    {
-                                        "on": "hover",
-                                        "style": {
-                                            "itemTextColor": "#000"
-                                        }
-                                    }
-                                ]
-                            }
-                        ]}
+                        // legends={[
+                        //     {
+                        //         "anchor": "bottom",
+                        //         "direction": "row",
+                        //         "translateY": 60,
+                        //         "itemWidth": 80,
+                        //         "itemHeight": 14,
+                        //         "itemTextColor": "#999",
+                        //         "symbolSize": 12,
+                        //         "symbolShape": "circle",
+                        //         "effects": [
+                        //             {
+                        //                 "on": "hover",
+                        //                 "style": {
+                        //                     "itemTextColor": "#000"
+                        //                 }
+                        //             }
+                        //         ]
+                        //     }
+                        // ]}
                 />
                 
             </div>
