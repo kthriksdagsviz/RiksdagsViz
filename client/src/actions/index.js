@@ -17,6 +17,9 @@ Ledamoter actions
 export const requestLedamoterByParams = (params) => ({type: types.REQUEST_LEDAMOTER,payload: {params}})
 export const receivedLedamoterByParams = data => ({type:types.RECEIVED_LEDAMOTER, data})
 
+export const requestLedamoterByParty = (params) => ({type: types.REQUEST_LEDAMOTER_BY_PARTY,payload: {params}})
+export const receivedLedamoterByParty = data => ({type:types.RECEIVED_LEDAMOTER_BY_PARTY, data})
+
 export const toggleVoteringFetched = () => ({type:types.TOGGLE_VOTERING_FETCHED})
 
 export const setSelectedLedamot = (data) => ({type: types.SET_LEDAMOT, data})

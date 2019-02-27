@@ -16,6 +16,18 @@ function* getLedamoterByParams(data) {
   }
 }
 
+function* getLedamoterByParty(data) {
+  const { payload } = data;
+  try {
+    const data = yield call(ledamoter_api.getLedamoterByParty, payload.params)
+    //console.log(data)
+    yield put(actions.receivedLedamoterByParty(data));
+
+  } catch (e) {
+    console.log(e);
+  }
+}
+
 export function* watchLedamoterSaga() {
   yield takeLatest(types.REQUEST_LEDAMOTER, getLedamoterByParams);
 
