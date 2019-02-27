@@ -29,20 +29,22 @@ export default class SweMap extends Component {
     modifySVG = () => {
         setTimeout(() => {
             let sweMap = d3.select('.swe_map')
-            sweMap.selectAll("path").style("fill", "#e9f0fc");
-            sweMap.selectAll("polygon").style("fill", "#e9f0fc");
+            sweMap.selectAll("path").style("fill", "white");
+            sweMap.selectAll("polygon").style("fill", "white");
           }, 300);
     }
 
     selectCounty = (id) => {
-        console.log(id.length);
+        console.log(id.sort());
         var num = 1 / id.length;
         setTimeout(() => {
             let sweMap = d3.select('.swe_map')
             for (var i = 0; i < id.length; i++) {
                 var opacity = 1/(i+1);
                 console.log(opacity);
-                sweMap.select("#"+id[i]).style("fill", "rgb(137, 176, 242,"+opacity+")");
+                sweMap.select("#"+id[i]).style("fill", "rgb(90, 150, 255,"+opacity+")");
+                sweMap.select("#"+id[i]).selectAll('path').style("fill", "rgb(90, 150, 255,"+opacity+")");
+                sweMap.select("#"+id[i]).selectAll('polygon').style("fill", "rgb(90, 150, 255,"+opacity+")");
             }
             
           }, 300);
@@ -61,7 +63,7 @@ export default class SweMap extends Component {
              <div className="swe_map" width="400px" height="700px">
                 {this.buildSVG()}
                 {this.modifySVG()}
-                {this.selectCounty(["W", "AB", "H"])}
+                {this.selectCounty(["W", "AB", "H", "W", "AB"])}
             </div>
         )
     }
