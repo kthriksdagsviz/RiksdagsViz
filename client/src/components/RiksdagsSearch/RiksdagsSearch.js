@@ -18,7 +18,6 @@ export default class RiksdagsSearch extends Component {
 
     updateDropDown(event) {
         this.setState({dropDown:event.target.value})
-        console.log(this.state.dropDown)
     }
 
     render(){

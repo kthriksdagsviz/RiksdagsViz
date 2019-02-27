@@ -14,7 +14,7 @@ export const getLedamotVoteringById = async (id) =>{
 }
 export const getVoteringByVoteringId = async (id) =>{
 	return new Promise((resolve, reject) => {
-		let url ="http://data.riksdagen.se/votering/" + id + "/xml"
+		let url ="https://data.riksdagen.se/votering/" + id + "/xml"
 		axios.get(url)
 			.then((response) => {
 				xml2js.parseString(response.data, function (err, result) {
@@ -41,7 +41,7 @@ export const getVoteringByVoteringId = async (id) =>{
 
 export const getVoteringarByParams = async (id) =>{
 	return new Promise((resolve, reject) => {
-		let url ="http://data.riksdagen.se/voteringlista/?bet=&punkt=&valkrets=&rost=&iid=" + id +"&sz=10000&utformat=xml&gruppering="
+		let url ="https://data.riksdagen.se/voteringlista/?bet=&punkt=&valkrets=&rost=&iid=" + id +"&sz=10000&utformat=xml&gruppering="
 		axios.get(url)
 			.then((response) => {
 				xml2js.parseString(response.data, function (err, result) {
@@ -63,7 +63,7 @@ export const getVoteringarByParams = async (id) =>{
 
 export const getNumberOfVotesByLedamot = async (id) =>{
 	return new Promise((resolve, reject) => {
-		let url ="http://data.riksdagen.se/voteringlista/?rm=2018%2F19&bet=&punkt=&valkrets=&rost=&iid=" + id + "&sz=10000&utformat=xml&gruppering="
+		let url ="https://data.riksdagen.se/voteringlista/?rm=2018%2F19&bet=&punkt=&valkrets=&rost=&iid=" + id + "&sz=10000&utformat=xml&gruppering="
 		axios.get(url)
 			.then((response) => {
 				xml2js.parseString(response.data, function (err, result) {

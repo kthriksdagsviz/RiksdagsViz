@@ -4,6 +4,7 @@ import ledamoter from "../../utils/ledamoter.json"
 import * as d3 from 'd3';
 import {ledamoter_api} from '../../services'
 import _ from 'lodash'
+import {zoom } from 'd3-zoom'
 
 export default class RiksdagsSeats extends Component {
 
@@ -15,16 +16,31 @@ export default class RiksdagsSeats extends Component {
             rebuild: false,
             selectedName: "",
             fetchedPerson:{},
-            filteredSelection:[]
+            filteredSelection:[],
+            zoom:0.9
             // filteredSelection: [{"party": "M", "name": "John Widegren", "id": "#s031"}, {"party": "S", "name": "Johan Andersson", "id": "#s032"}, {"party": "S", "name": "Bj\u00f6rn Petersson", "id": "#s033"}, {"party": "SD", "name": "Mattias B\u00e4ckstr\u00f6m Johansson", "id": "#s034"}, {"party": "S", "name": "Laila Naraghi", "id": "#s035"}, {"party": "M", "name": "Annicka Engblom", "id": "#s036"}, {"party": "SD", "name": "Richard Jomshof", "id": "#s037"}, {"party": "M", "name": "Boriana \u00c5berg", "id": "#s038"}, {"party": "C", "name": "Ola Johansson", "id": "#s039"}, {"party": "S", "name": "Adnan Dibrani", "id": "#s040"}, {"party": "L", "name": "Bengt Eliasson", "id": "#s041"}]
         }
+        this.zoom = zoom()
+            .scaleExtent([1, 3])
+            .on('zoom', this.zoomed.bind())
+        
+    }
+    zoomed = () =>{
+        
+        d3.select('#Welcome').attr("transform", d3.event.transform);
+    }
+
+    resetZoom = () =>{
+        d3.select('#Welcome').attr("transform",null);
     }
 
   
     buildSVG = () => {
-        var map = <SvgLoader path="/RiksdagStolar.svg" style={{width:'100%', height:'40vh'}} >
+        var map = <SvgLoader path="/RiksdagStolar.svg" style={{width:'100%', height:'60vh'}} >
+        
         {/* <SvgProxy selector={this.state.selectedSeats} fill={"green"}  /> */}
         </SvgLoader>
+        
         return(
             map
         )
@@ -32,11 +48,16 @@ export default class RiksdagsSeats extends Component {
 
 
     modifySVG = (selection) => {
+        var filter = d3.select('.riksdags_map').select("svg").append("defs").append("filter").attr("id", "glow");
+        var gauss = filter.append('feGaussianBlur').attr("stdDeviation", 2.5).attr("result","coloredBlur")
+        var merge = filter.append('feMerge')
+        merge.append('feMergeNode').attr("in", "coloredBlur")
+        merge.append('feMergeNode').attr("in", "SourceGraphic")
         setTimeout(() => {
             let RiksdagStolar = d3.select('.riksdags_map')
-            RiksdagStolar.select("#Welcome").selectAll('path[fill = "blue"]').attr("fill", "gray")
+            RiksdagStolar.select("#Welcome").selectAll(".colored").attr("fill", "gray").classed("colored", false)
             for(var i = 0; i < selection.length; i++){
-                RiksdagStolar.select("svg").select("#Welcome").select(selection[i].id).attr("fill", "blue");
+                RiksdagStolar.select("svg").select("#Welcome").select(selection[i].id).attr("fill", selection[i].color).classed("colored", true);
             }
           }, 300);
     }
@@ -44,8 +65,12 @@ export default class RiksdagsSeats extends Component {
     setSeat = (e) => {
         let RiksdagStolar = d3.select('.riksdags_map')
         if(e.target.id !== "") {
-            RiksdagStolar.select("svg").select("#Welcome").selectAll("path").attr("fill", "gray")
-            RiksdagStolar.select("svg").select("#Welcome").select("#"+e.target.id).attr("fill", "green")
+            let filteredledamot = ledamoter.filter(ledamot => {
+                return ledamot.id === "#"+e.target.id
+              })
+            RiksdagStolar.select("svg").select("#Welcome").selectAll(".glow").style("filter", null).attr("fill", "gray").attr("class", null)
+            RiksdagStolar.select("svg").select("#Welcome").select("#"+e.target.id).attr("fill", filteredledamot[0].color).attr("class", "glow").attr("fill-opacity", 1).style("filter", "url(#glow)")
+            RiksdagStolar.select("svg").select("#Welcome").selectAll("path:not(.glow)").attr("fill-opacity", 0.4)
             let result = ledamoter.filter(ledamot => {
                 return ledamot.id === "#"+e.target.id
               })
@@ -69,7 +94,6 @@ export default class RiksdagsSeats extends Component {
 
     setNewGroup = (parti) => {
         if(parti){
-            console.log(typeof parti, parti)
             let partiList = ledamoter.map(a => ({...a}));
             partiList = partiList.filter(a =>  a.party === parti)
             this.setState({filteredSelection: partiList})
@@ -83,9 +107,13 @@ export default class RiksdagsSeats extends Component {
         
     }
 
+    componentDidMount(){
+        d3.select('.riksdags_map').call(this.zoom)
+              
+    }
+
     componentDidUpdate(nextProps){
         if(nextProps.groupby != this.props.groupby){
-            console.log(nextProps.groupby, nextProps.groupby == "partiet")
             if(nextProps.groupby == "default" && this.props.groupby == "partiet"){
                 this.setTransition()
             }
@@ -96,11 +124,14 @@ export default class RiksdagsSeats extends Component {
            
         }
         else if(nextProps.partiBy != this.props.partiBy){
-            console.log(nextProps.partiBy, this.props.partiBy)
             this.setNewGroup(this.props.partiBy)
         }
         else if(nextProps.searchBy != this.props.searchBy){
             this.setState({filteredSelection: this.props.searchBy})
+        }
+        else if(nextProps.selectedLedamot != this.props.selectedLedamot){
+            this.setState({filteredSelection: [this.props.selectedLedamot]})
+
         }
     }
 
@@ -247,9 +278,9 @@ export default class RiksdagsSeats extends Component {
              <div className="riksdags_map" onClick={(e) => this.setSeat(e)}>
                 {this.buildSVG()}
                 {this.modifySVG(this.state.filteredSelection)}
-                <p>{this.state.selectedName}</p>
                 {/* <button onClick={() => this.setTransition()}>Group by party</button>
                 <button onClick={() => this.setNewGroup()}>Set new group</button> */}
+                <button onClick={this.resetZoom}>reset zoom</button>
             </div>
         )
     }

@@ -6,26 +6,39 @@ html {
     box-sizing: inherit;
   }
 
+
+.App_container{
+    margin-left: 100px;
+    width: calc(100% - 100px);
+    width: -moz-calc(100% - 100px);
+    width: -webkit-calc(100% - 100px);
+    width: -o-calc(100% - 100px);
+}
+
 .App{
     display: flex;
     flex-direction: column;
     height: 100vh;
-    width:calc(100% - 1em);
-    margin: 0 .5em;
+    // width:calc(100% - 1em);
+    // margin: 0 .5em;
 }
 
 
 .index__map{
     width: 100%;
+    background-color: white;
+    background-image: linear-gradient(315deg, #f1dfd145 0%, #f8f9fa 74%);
     /* margin: .5em; */
-    box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
-     padding: 1em 0 ;
-    height:50vh;
+    // box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+    // padding: 1em 0 ;
+    flex-direction: column;
+    height:100vh;
     display: flex;
-    justify-content: flex-start;
+    justify-content: space-between;
     align-items: center;
     .riksdags_map{
-        width: 70%;
+        width: 100%;
+        margin-bottom: 1em;
     }
 }
 
@@ -44,11 +57,12 @@ html {
     height:50vh;   
 }
 
+
+
 .index__voteringar{
-    width: 50%;
+    width: 100%;
+    
     /* margin: .5em; */
-    padding: 1em;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
     overflow-x:hidden;
     overflow-y: auto;
 }
@@ -74,7 +88,11 @@ html {
 
 .ledamot_component_container{
     // width: 600px;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+    // box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
     padding: 1em;
     margin-bottom: 1em;
+}
+.ledamot_info_container{
+    height: 100vh;
+    overflow-y: auto;
 }

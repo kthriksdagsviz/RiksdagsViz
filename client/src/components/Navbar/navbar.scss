@@ -58,6 +58,22 @@
             }
         }
     }
+    .navbar_link_parties{
+        height: 20vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-bottom: 1px solid white;
+        margin: 0;
+
+        .fa-handshake{
+            transition: .1s all;
+            &:hover{
+                color:lightpink;
+                transform: scale(1.1);
+            }
+        }
+    }
 
     .navbar_link_about{
         height: 20vh;

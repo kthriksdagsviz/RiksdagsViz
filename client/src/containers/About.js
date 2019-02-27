@@ -5,8 +5,7 @@ class Hello extends Component {
     render() {
       return (
         <div className="about_container">
-          <h1> About page </h1>
-          <SweMap/>
+          <h1> Om projektet </h1>
         </div>
       );
     }

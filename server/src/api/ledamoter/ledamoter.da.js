@@ -10,7 +10,7 @@ export default {
 
 function getLedamoterByParams(params, size){
     
-    let url = "http://data.riksdagen.se/personlista/";
+    let url = "https://data.riksdagen.se/personlista/";
     Object.keys(params).map((key) => {
         if(params[key] == undefined){
             params[key] = "";
@@ -49,7 +49,7 @@ function getLedamotByName(fname,ename){
     if(!ename){
         ename=""
     }
-    let url = "http://data.riksdagen.se/personlista/?iid=&fnamn="+ fname +  "&enamn=" + ename + "&f_ar=&kn=&parti=&valkrets=&rdlstatus=tjanst&org=&utformat=json&termlista="
+    let url = "https://data.riksdagen.se/personlista/?iid=&fnamn="+ fname +  "&enamn=" + ename + "&f_ar=&kn=&parti=&valkrets=&rdlstatus=tjanst&org=&utformat=json&termlista="
     return new Promise((resolve, reject) => {
         axios.get(encodeURI(url))
             .then((response) => {
@@ -68,11 +68,11 @@ function getLedamotByName(fname,ename){
 }
 
 function getLedamoterBySize(size){
-    let url = "http://data.riksdagen.se/personlista/?iid=&fnamn=&enamn=&f_ar=&kn=&parti=&valkrets=&rdlstatus=tjanst&org=&utformat=json&termlista="
+    let url = "https://data.riksdagen.se/personlista/?iid=&fnamn=&enamn=&f_ar=&kn=&parti=&valkrets=&rdlstatus=tjanst&org=&utformat=json&termlista="
 }
 
 function getLedamoterByGroup(group){
-    let url = "http://data.riksdagen.se/personlista/?iid=&fnamn=&enamn=&f_ar=&kn=&parti=&valkrets=&rdlstatus=&org=&utformat=json&termlista=" + group;
+    let url = "http:s//data.riksdagen.se/personlista/?iid=&fnamn=&enamn=&f_ar=&kn=&parti=&valkrets=&rdlstatus=&org=&utformat=json&termlista=" + group;
     return new Promise((resolve, reject) => {
         axios.get(url)
             .then((response) => {      
