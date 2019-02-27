@@ -183,7 +183,10 @@ export default class PartiChord extends React.Component{
               break 
             case 2017:
               yearString = '1718'
-              break 
+              break
+            case 2018:
+              yearString = 'now'
+              break
             default:
               yearString = 'now'
           }
