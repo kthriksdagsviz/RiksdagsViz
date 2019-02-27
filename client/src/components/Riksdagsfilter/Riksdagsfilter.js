@@ -214,7 +214,7 @@ class Riksdagsfilter extends Component {
                     <IconButton className={classes.iconButton} aria-label="Search">
                         <SearchIcon fontSize="large" />
                     </IconButton>
-                    <InputBase className={classes.input} placeholder="Sök på en ledamot" onChange={this.updateSearch} />
+                    <InputBase className={classes.input} placeholder="Sök efter en riksdagsledamot" onChange={this.updateSearch} />
                     
                     
                     <div className={classes.formContainer}>

@@ -119,7 +119,7 @@ export default class PartiChord extends React.Component{
             let partyVoters = self.state.partyData.map((x, i) => { return x[i]} );
             for (let j = 0; j < self.state.partyData.length; j++) {
               if(i !== j){
-                hoverData.push(<ListGroup.Item>{Math.floor((1000 * self.state.partyData[j][i] / partyVoters[i]) / 10)  + '% av fallen: röstar enligt samma politiska linje som ' + self.parties[j]}</ListGroup.Item>) 
+                hoverData.push(<ListGroup.Item>{Math.floor((1000 * self.state.partyData[j][i] / partyVoters[i]) / 10)  + '% av partiets voteringsbeslut överrensstämmer med ' + self.parties[i]}</ListGroup.Item>) 
               }
             }
               

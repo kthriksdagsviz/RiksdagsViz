@@ -22,6 +22,7 @@ const routes = (
           <Route exact path="/ledamoter" render={() =><Ledamoter />} />
           <Route exact path="/ledamoter/:id" render={(props) => <Ledamot {...props} />} />
           <Route exact path="/partier" render={() => <Parti />} />
+          <Route exact path="/parties" render={() => <Partier />} />
           <Route exact path="/voteringar/:id" render={(props) => <VoteringPage {...props}  />} /> 
           {/* <Route exact path="/partier/:parti" render={(props) => <Parti {...props} />} /> */}
           <Route exact path="/about" render={() => <About />} />

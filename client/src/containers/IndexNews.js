@@ -43,7 +43,7 @@ import Paper from '@material-ui/core/Paper'
         
         const data =  this.props.nyheter.list.articles.map((article, index) => {
         return (
-            <Paper key={index} className="newsBox" elevation={1}>
+            <div key={index} className="newsBox" elevation={1}>
                 <div className="articleImageBox">
                     <img src={article.urlToImage} alt={article.title}></img>
                 </div>
@@ -54,7 +54,7 @@ import Paper from '@material-ui/core/Paper'
                         <p>{this.shortenNewsDescription(article.description)}</p>
                     </a>
                 </div>
-            </Paper>
+            </div>
         )
         })
     return data
