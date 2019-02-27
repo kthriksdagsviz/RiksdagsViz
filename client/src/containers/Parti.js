@@ -6,13 +6,13 @@ import { push } from 'connected-react-router'
 import SweMap from "../components/SweMap/SweMap.js"
 import { ledamoter_api } from '../services'
 import { requestLedamoterByParty } from '../actions'
+import DonutChart from 'react-d3-donut';
 
 class PartiPage extends React.Component{
     constructor(props){
         super(props);
         this.state  = {
-            man: 0,
-            kvinnor: 0,
+            genderData: [],
             isFetching: false,
             fetched: false,
             error: false,
@@ -37,7 +37,7 @@ class PartiPage extends React.Component{
                               "Stockholms län":"AB","Stockholms kommun":"AB",
                               "Södermanlands län":"D","Uppsala län":"C",
                               "Värmlands län":"S","Västerbottens län":"AC",
-                              "Västernorrlands län":"Y","Västermanlands län":"U",
+                              "Västernorrlands län":"Y","Västmanlands län":"U",
                               "Västra Götalands läns norra":"O","Västra Götalands läns västra":"O","Västra Götalands läns östra":"O",
                               "Västra Götalands läns södra":"O","Örebro län":"T",
                               "Östergötlands län":"E"}
@@ -56,17 +56,16 @@ class PartiPage extends React.Component{
                         temp.push(data.person[i].valkrets);
                     }
                 }
-                this.setState({man: m, kvinnor: k})
+                this.setState({genderData: [{name: "Antal Män",count: Math.round((m/(m+k))*100),color: '#00BFFF'},{name: "Antal Kvinnor",count: Math.round((k/(m+k))*100),color: '#FF69B4'}]});
                 for (var j = 0; j < temp.length; j++) {
                     valkretsList.push(valkretsar[temp[j]]);
                 }
-                console.log(valkretsList.sort());
+                console.log(valkretsList);
                 this.setState({ledamoter: data.person, fetched: true, isFetching: false})
             }
             else{
                 this.setState({fetched: true, isFetching: false, error: true})
             }
-            
         })
     }
 
@@ -81,12 +80,22 @@ class PartiPage extends React.Component{
     }
 
     render(){ 
-        const { match } = this.props;  
+        const { match } = this.props;
+        var a = [{name: "Antal Män", count: 71, color: "#00BFFF"},{name: "Antal Kvinnor", count: 29, color: "#FF69B4"}];
         return(
             <div className="parti_page_container">
                 <img src={process.env.PUBLIC_URL +  '/parties_loggor/' + match.params.parti + '.png'} alt="PartyLogo"  width="10%"/>
                 {match.params.parti}
                 <SweMap/>
+                <DonutChart
+                    innerRadius={90}
+                    outerRadius={100}
+                    transition={true}
+                    svgClass="example1"
+                    pieClass="pie1"
+                    displayTooltip={true}
+                    strokeWidth={3}
+                    data={a} />
             </div>
         )
     }
