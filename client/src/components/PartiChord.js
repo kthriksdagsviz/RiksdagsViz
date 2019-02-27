@@ -19,7 +19,7 @@ export default class PartiChord extends React.Component{
             hoverData: []
         }
         this.previousVoteData = [partyList, votes1718, votes1617, votes1516, votes1415, votes1314, votes1213, votes1112, votes1011, votes0910, votes0809, votes0708, votes0607, votes0506, votes0405, votes0304, votes0203];
-        this.previousVotingYears = ["now", "1718", "1617", "1516", "1415", "1314", "1213", "1112", "1011", "0910", "0809", "0708", "0607", "0506", "0405", "0304", "0203"];
+        this.previousVotingYears = ["1819", "1718", "1617", "1516", "1415", "1314", "1213", "1112", "1011", "0910", "0809", "0708", "0607", "0506", "0405", "0304", "0203"];
         this.parties = ['V', 'S', 'MP', 'C', 'L', 'KD', 'M', 'SD'];
         this.colors = [partyColors.partyV, partyColors.partyS, partyColors.partyMP, partyColors.partyC,
             partyColors.partyL, partyColors.partyKD, partyColors.partyM, partyColors.partySD];
@@ -185,10 +185,10 @@ export default class PartiChord extends React.Component{
               yearString = '1718'
               break
             case 2018:
-              yearString = 'now'
+              yearString = '1819'
               break
             default:
-              yearString = 'now'
+              yearString = '1819'
           }
           this.chooseVoteYear(yearString)
         }
