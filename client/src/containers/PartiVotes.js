@@ -6,7 +6,7 @@ import  Spinner  from 'react-spinkit'
 import { requestVoteringarByYear } from '../actions'
 import PartiChord from '../components/PartiChord'
 import _ from 'lodash'
-class Parti extends Component {
+class PartiVotes extends Component {
     state = {
       selectedYear:2018,
       yearReadyToChange: false,
@@ -85,5 +85,5 @@ const mapDispatchToProps = dispatch => {
     }
 }
     
-  export default connect(mapStateToProps, mapDispatchToProps)(Parti);
+  export default connect(mapStateToProps, mapDispatchToProps)(PartiVotes);
     

@@ -8,6 +8,9 @@ import * as moment from 'moment';
 import Paper from '@material-ui/core/Paper'
 
  class IndexNews extends Component{
+    constructor(props){
+        super(props)
+    }
 
     shortenNewsDescription = (desc) => {
         if (desc.length > 150) {
@@ -18,6 +21,7 @@ import Paper from '@material-ui/core/Paper'
     }
 
     getLatestNews = (q) => {
+        console.log("called")
         this.props.requestNyheterByParams({
             q: q,
             sortBy:'popularity',
@@ -26,17 +30,20 @@ import Paper from '@material-ui/core/Paper'
         })
     }
 
-    componentDidUpdate(nextProps){
-        if(!_.isEmpty(this.props.ledamot) && (nextProps.ledamot != this.props.ledamot)){
+    componentDidMount(nextProps){
+        console.log("heeey")
+        if(!_.isEmpty(this.props.ledamot)){
             let name = this.props.ledamot.tilltalsnamn + " "  + this.props.ledamot.efternamn
-            //this.getLatestNews(name)
+            this.getLatestNews(name)
         }
+        
     }
 
     renderLatestNews = () =>{
+        
         const data =  this.props.nyheter.list.articles.map((article, index) => {
         return (
-            <Paper key={index} className="newsBox" elevation={1}>
+            <div key={index} className="newsBox" elevation={1}>
                 <div className="articleImageBox">
                     <img src={article.urlToImage} alt={article.title}></img>
                 </div>
@@ -47,7 +54,7 @@ import Paper from '@material-ui/core/Paper'
                         <p>{this.shortenNewsDescription(article.description)}</p>
                     </a>
                 </div>
-            </Paper>
+            </div>
         )
         })
     return data
@@ -57,15 +64,11 @@ import Paper from '@material-ui/core/Paper'
     render(){
         
         const { isFetching, fetched, list } = this.props.nyheter
-        const hasFetched = fetched ? fetched : false;
         const hasNews = list.totalResults > 0 ? true : false
         const check = (this.props.nyheter.list.totalResults > 0 )
         return (
             <div className="index__voteringar">
-                Latest news 
-                {!hasFetched ? 
-                (isFetching ? <Spinner name="cube-grid"  fadeIn="none" /> : "" ):
-                <div> {check && this.renderLatestNews() }</div>}
+                 {check && this.renderLatestNews() }
             </div>
         )
     }
@@ -73,8 +76,7 @@ import Paper from '@material-ui/core/Paper'
 
 
 const mapStateToProps = state => ({
-    nyheter: state.nyheter,
-    ledamot: state.ledamoter.selectedLedamot
+    nyheter: state.nyheter
   })
   
   const mapDispatchToProps = dispatch => {

@@ -11,7 +11,8 @@ class RiksdagsMap extends Component {
         this.state={
             groupby:"default",
             parti:"None",
-            search:""
+            search:"",
+            selectedFromFilter:""
         }
     }
     fetchData = () => {
@@ -61,7 +62,6 @@ class RiksdagsMap extends Component {
     }
 
     onGroupByChange = (groupBy) => {
-        console.log(groupBy)
         this.setState({groupby: groupBy})
     }
 
@@ -71,6 +71,12 @@ class RiksdagsMap extends Component {
     onSearchChange = (search) => {
         this.setState({search})
     }
+
+    onSelectedLedamotChange = (ledamot) =>{
+        this.setState({selectedFromFilter: ledamot})
+    }
+
+
 
     componentDidMount(){
         //this.fetchData()
@@ -86,9 +92,20 @@ class RiksdagsMap extends Component {
                 {/* {!hasFetched ? 
                 (isFetching ? <Spinner name="cube-grid"  fadeIn="none" /> : "" ):
                 <div style={{display:'flex', flexDirection:'row'}}> {this.renderPersonData()} </div>} */}
-                
-                <RiksdagsSeats selectLedamot={this.fetchSingleLedamot} groupby={this.state.groupby} partiBy={this.state.parti} searchBy={this.state.search} />
-                <Riksdagsfilter changeGroupBy={this.onGroupByChange} changeParti={this.onPartiChange} onSearchChange={this.onSearchChange} parti={this.state.parti}/>
+                <Riksdagsfilter 
+                    ledamoter={this.props.ledamoter}
+                    changeGroupBy={this.onGroupByChange} 
+                    changeParti={this.onPartiChange} 
+                    onSelectedLedamotChange ={this.onSelectedLedamotChange}
+                    onSearchChange={this.onSearchChange} 
+                    selectLedamot={this.fetchSingleLedamot} 
+                    parti={this.state.parti}/>
+                <RiksdagsSeats 
+                    selectLedamot={this.fetchSingleLedamot}
+                    selectedLedamot={this.state.selectedFromFilter}
+                    groupby={this.state.groupby} 
+                    partiBy={this.state.parti} 
+                    searchBy={this.state.search} />
             {/* <RiksdagsSearch/> */}
             
           </div>
