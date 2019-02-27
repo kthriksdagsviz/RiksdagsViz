@@ -11,6 +11,8 @@ class PartiPage extends React.Component{
     constructor(props){
         super(props);
         this.state  = {
+            man: 0,
+            kvinnor: 0,
             isFetching: false,
             fetched: false,
             error: false,
@@ -20,12 +22,46 @@ class PartiPage extends React.Component{
 
     fetchLedamoter = () => {
         this.setState({isFetching: true})
-        console.log(this.props.match.params.parti);
         ledamoter_api.getLedamoterByParty(this.props.match.params.parti
         ).then((data) => {
+            var k=0;
+            var m=0;
+            var temp = [];
+            var valkretsList = [];
+            var valkretsar = {"Blekinge län":"K" ,"Dalarnas län":"W",
+                              "Gotlands län":"I","Gävleborgs län":"X","Göteborgs kommun":"O",
+                              "Hallands län":"N","Jämtlands län":"Z",
+                              "Jönköpings län":"F","Kalmar län":"H",
+                              "Kronobergs län":"G","Malmö kommun":"M","Norrbottens län":"BD",
+                              "Skåne läns norra och östra":"M","Skåne läns södra":"M","Skåne läns västra":"M",
+                              "Stockholms län":"AB","Stockholms kommun":"AB",
+                              "Södermanlands län":"D","Uppsala län":"C",
+                              "Värmlands län":"S","Västerbottens län":"AC",
+                              "Västernorrlands län":"Y","Västermanlands län":"U",
+                              "Västra Götalands läns norra":"O","Västra Götalands läns västra":"O","Västra Götalands läns östra":"O",
+                              "Västra Götalands läns södra":"O","Örebro län":"T",
+                              "Östergötlands län":"E"}
+                            
             if(data['@hits'] > 0){
-                this.setState({ledamoter: data, fetched: true, isFetching: false})
-                console.log(this.state.ledamoter)
+                temp = [];
+                valkretsList = [];
+                for (var i = 0; i < data.person.length; i++) {
+                    if (data.person[i].kon == 'kvinna'){
+                        k += 1;
+                    }
+                    else {
+                        m += 1;
+                    }
+                    if (data.person[i].valkrets) {
+                        temp.push(data.person[i].valkrets);
+                    }
+                }
+                this.setState({man: m, kvinnor: k})
+                for (var j = 0; j < temp.length; j++) {
+                    valkretsList.push(valkretsar[temp[j]]);
+                }
+                console.log(valkretsList.sort());
+                this.setState({ledamoter: data.person, fetched: true, isFetching: false})
             }
             else{
                 this.setState({fetched: true, isFetching: false, error: true})
