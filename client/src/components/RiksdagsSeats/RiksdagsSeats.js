@@ -6,6 +6,7 @@ import {ledamoter_api} from '../../services'
 import _ from 'lodash'
 import {zoom } from 'd3-zoom'
 import './RiksdagsSeats.scss'
+import RiksdagsModal from '../RiksdagsModal/RiksdagsModal.js';
 
 export default class RiksdagsSeats extends Component {
 
@@ -18,7 +19,8 @@ export default class RiksdagsSeats extends Component {
             selectedName: "",
             fetchedPerson:{},
             filteredSelection:[],
-            zoom:0.9
+            zoom:0.9,
+            open: false
             // filteredSelection: [{"party": "M", "name": "John Widegren", "id": "#s031"}, {"party": "S", "name": "Johan Andersson", "id": "#s032"}, {"party": "S", "name": "Bj\u00f6rn Petersson", "id": "#s033"}, {"party": "SD", "name": "Mattias B\u00e4ckstr\u00f6m Johansson", "id": "#s034"}, {"party": "S", "name": "Laila Naraghi", "id": "#s035"}, {"party": "M", "name": "Annicka Engblom", "id": "#s036"}, {"party": "SD", "name": "Richard Jomshof", "id": "#s037"}, {"party": "M", "name": "Boriana \u00c5berg", "id": "#s038"}, {"party": "C", "name": "Ola Johansson", "id": "#s039"}, {"party": "S", "name": "Adnan Dibrani", "id": "#s040"}, {"party": "L", "name": "Bengt Eliasson", "id": "#s041"}]
         }
         this.zoom = zoom()
@@ -83,6 +85,7 @@ export default class RiksdagsSeats extends Component {
             
             
             this.setState({
+                open: true,
                 selectedSeat: '#' + e.target.id,
                 selectedName: result[0].name
             }, () => this.props.selectLedamot(fname, ename))
@@ -91,6 +94,7 @@ export default class RiksdagsSeats extends Component {
             RiksdagStolar.select("svg").select("#Welcome").selectAll(".glow").attr("fill", "gray").style("filter", null).classed("glow", false)
             RiksdagStolar.select("svg").select("#Welcome").selectAll("path").attr("fill-opacity", 1)
             this.setState({
+                open: false,
                 selectedSeat: "",
                 selectedName: ""
             }, () => this.props.selectLedamot("", ""))
@@ -278,15 +282,11 @@ export default class RiksdagsSeats extends Component {
     //       }, 1200);
     // }
     render() {
-    
         return (
-            // <div className="riksdags_map" onClick= {(e) => this.setSeat(e)}>
              <div className="riksdags_map" onClick={(e) => this.setSeat(e)}>
                 {this.buildSVG()}
                 {this.modifySVG(this.state.filteredSelection)}
-                {/* <button onClick={() => this.setTransition()}>Group by party</button>
-                <button onClick={() => this.setNewGroup()}>Set new group</button> */}
-                {/* <button onClick={this.resetZoom}>reset zoom</button> */}
+            <RiksdagsModal open={this.state.open}/>
             </div>
         )
     }
