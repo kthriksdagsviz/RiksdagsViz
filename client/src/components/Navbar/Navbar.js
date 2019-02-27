@@ -1,7 +1,7 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faQuestionCircle, faLandmark, faLayerGroup, faRunning } from '@fortawesome/free-solid-svg-icons'
+import { faQuestionCircle, faLandmark, faLayerGroup, faRunning, faHandshake } from '@fortawesome/free-solid-svg-icons'
 import './navbar.scss'
 
 export default () => (
@@ -19,6 +19,11 @@ export default () => (
         <Link to="/partier">
             <div className="navbar_link_partier">
                 <FontAwesomeIcon icon={faLayerGroup} size="3x" color="white" />   
+            </div> 
+        </Link>
+        <Link to="/parties">
+            <div className="navbar_link_parties">
+                <FontAwesomeIcon icon={faHandshake} size="3x" color="white" />   
             </div> 
         </Link>
         <Link to="/about">
