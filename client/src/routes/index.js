@@ -12,6 +12,7 @@ import NoMatch from '../components/NoMatch'
 import Ledamoter from '../containers/Ledamoter'
 import Parti from '../containers/PartiVotes';
 import VoteringPage from '../containers/voteringpage';
+import PartiInfo from '../containers/PartiInfo';
 
 const routes = (
   <div>
@@ -23,6 +24,7 @@ const routes = (
           <Route exact path="/ledamoter/:id" render={(props) => <Ledamot {...props} />} />
           <Route exact path="/partier" render={() => <Parti />} />
           <Route exact path="/voteringar/:id" render={(props) => <VoteringPage {...props}  />} /> 
+          <Route exact path="/partier/:id" render={(props) => <PartiInfo {...props}  />} /> 
           {/* <Route exact path="/partier/:parti" render={(props) => <Parti {...props} />} /> */}
           <Route exact path="/about" render={() => <About />} />
           <Route component={NoMatch} />
