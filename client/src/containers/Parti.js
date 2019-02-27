@@ -7,6 +7,7 @@ import SweMap from "../components/SweMap/SweMap.js"
 import { ledamoter_api } from '../services'
 import { requestLedamoterByParty } from '../actions'
 import DonutChart from 'react-d3-donut';
+import partyColors from '../styles/colors.scss'
 
 class PartiPage extends React.Component{
     constructor(props){
@@ -16,7 +17,8 @@ class PartiPage extends React.Component{
             isFetching: false,
             fetched: false,
             error: false,
-            ledamoter:{}
+            ledamoter:{},
+            valkrets:{}
         }
     }
 
@@ -27,7 +29,7 @@ class PartiPage extends React.Component{
             var k=0;
             var m=0;
             var temp = [];
-            var valkretsList = [];
+            var valkretsList = {};
             var valkretsar = {"Blekinge län":"K" ,"Dalarnas län":"W",
                               "Gotlands län":"I","Gävleborgs län":"X","Göteborgs kommun":"O",
                               "Hallands län":"N","Jämtlands län":"Z",
@@ -44,7 +46,7 @@ class PartiPage extends React.Component{
                             
             if(data['@hits'] > 0){
                 temp = [];
-                valkretsList = [];
+                valkretsList = {};
                 for (var i = 0; i < data.person.length; i++) {
                     if (data.person[i].kon == 'kvinna'){
                         k += 1;
@@ -53,14 +55,21 @@ class PartiPage extends React.Component{
                         m += 1;
                     }
                     if (data.person[i].valkrets) {
-                        temp.push(data.person[i].valkrets);
+                        var key = valkretsar[data.person[i].valkrets];
+                        //valkretsList.push(valkretsar[data.person[i].valkrets]);
+                        if (!(key in valkretsList)) {
+                            valkretsList[key] = 1;
+                        }
+                        else {
+                            valkretsList[key] += 1;
+                        }
                     }
                 }
                 this.setState({genderData: [{name: "Antal Män",count: Math.round((m/(m+k))*100),color: '#00BFFF'},{name: "Antal Kvinnor",count: Math.round((k/(m+k))*100),color: '#FF69B4'}]});
                 for (var j = 0; j < temp.length; j++) {
                     valkretsList.push(valkretsar[temp[j]]);
                 }
-                console.log(valkretsList);
+                this.setState({valkrets: valkretsList})
                 this.setState({ledamoter: data.person, fetched: true, isFetching: false})
             }
             else{
@@ -86,7 +95,7 @@ class PartiPage extends React.Component{
             <div className="parti_page_container">
                 <img src={process.env.PUBLIC_URL +  '/parties_loggor/' + match.params.parti + '.png'} alt="PartyLogo"  width="10%"/>
                 {match.params.parti}
-                <SweMap/>
+                <SweMap valkrets={this.state.valkrets} color={partyColors["party" + match.params.parti]}/>
                 <DonutChart
                     innerRadius={90}
                     outerRadius={100}
@@ -96,6 +105,7 @@ class PartiPage extends React.Component{
                     displayTooltip={true}
                     strokeWidth={3}
                     data={a} />
+                
             </div>
         )
     }
