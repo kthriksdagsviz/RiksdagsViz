@@ -13,7 +13,6 @@ import Ledamoter from '../containers/Ledamoter'
 import PartiVotes from '../containers/PartiVotes';
 import PartiPage from '../containers/Parti'
 import VoteringPage from '../containers/voteringpage';
-import PartiInfo from '../containers/PartiInfo';
 
 const routes = (
   <div>

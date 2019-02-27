@@ -17,6 +17,6 @@ export const getLedamoterByName = async (params) =>{
 }
 
 export const getLedamoterByParty = async (params) =>{
-	let response = await axios.get(base_url + 'ledamoter/?parti=S')	
+	let response = await axios.get(base_url + 'ledamoter/?parti=' + params)	
 	return response.data
 }
