@@ -8,12 +8,16 @@ import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
-import TextField from '@material-ui/core/TextField';
-import purple from '@material-ui/core/colors/purple';
+import {Dropdown} from 'react-bootstrap'
 import ledamoter from '../../utils/ledamoter.json'
 import Chip from '@material-ui/core/Chip';
 import Avatar from '@material-ui/core/Avatar';
 import _ from 'lodash'
+import InputBase from '@material-ui/core/InputBase';
+import SearchIcon from '@material-ui/icons/Search';
+import IconButton from '@material-ui/core/IconButton';
+
+
 
 const styles = theme => ({
     root: {
@@ -32,31 +36,32 @@ const styles = theme => ({
     formContainer:{
         display:'flex',
         flexDirection: 'row',
-        width: '25%'
+        width: '30%'
+    },
+    select:{
+        marginBottom: '16px'
+    },
+    menuItem:{
+        fontSize:'1.2em'
+        
+    },
+    shrink:{
+        display:'none'
     },
     input: {
-        margin: theme.spacing.unit,
-        width:'75%'
+        marginLeft: 8,
+        flex: 1,
+        fontSize:'1.2em'
+
     },
+    iconButton: {
+        padding: 10,
+        fontSize:'1.2em'
+      },
     textField: {
         width:'75%'
     },
-    cssLabel: {
-        '&$cssFocused': {
-          color: purple[500],
-        },
-      },
-      cssFocused: {},
-      cssUnderline: {
-        '&:after': {
-          borderBottomColor: '',
-        },
-      },
-      cssOutlinedInput: {
-        '&$cssFocused $notchedOutline': {
-          borderColor: purple[500],
-        },
-      },
+   
       notchedOutline: {},
       bootstrapRoot: {
         'label + &': {
@@ -205,31 +210,20 @@ class Riksdagsfilter extends Component {
         return (
             <div className="search-container" >
                 <form className={classes.root} autoComplete="off">
-
-                    <TextField
-                        onChange={this.updateSearch}
-                        className={classes.textField}
-                        InputLabelProps={{
-                        classes: {
-                            root: classes.cssLabel,
-                            focused: classes.cssFocused,
-                        },
-                        }}
-                        InputProps={{
-                        classes: {
-                            root: classes.cssOutlinedInput,
-                            focused: classes.cssFocused,
-                            notchedOutline: classes.notchedOutline,
-                        },
-                        }}
-                        label="Search for riksdags members"
-                        variant="outlined"
-                        id="custom-css-outlined-input"
-                    />
+                    <div className="search_bar_container">
+                    <IconButton className={classes.iconButton} aria-label="Search">
+                        <SearchIcon fontSize="large" />
+                    </IconButton>
+                    <InputBase className={classes.input} placeholder="Sök på en ledamot" onChange={this.updateSearch} />
+                    
+                    
                     <div className={classes.formContainer}>
+
                     <FormControl className={classes.formControl} >
-                        <InputLabel htmlFor="age-simple">Parti</InputLabel>
+                        <InputLabel htmlFor="age-simple" className={classes.menuItem}>Filtrera på ett parti</InputLabel>
                         <Select
+                        className={classes.select}
+                        disableUnderline={true}
                         value={this.state.parti}
                         onChange={this.handleChange}
                         inputProps={{
@@ -237,8 +231,8 @@ class Riksdagsfilter extends Component {
                             id: 'parti-simple',
                         }}
                         >
-                        <MenuItem value="None">
-                            <em>None</em>
+                        <MenuItem value="None" >
+                             {this.state.parti === "None" ? "Filtrera på ett parti" : "Inga partier valda" } 
                         </MenuItem>
                         <MenuItem value={'M'}><img className="partyimage"src="/partyLogos/m.png"></img>Moderata samlingspartiet</MenuItem>
                         <MenuItem value={'C'}><img className="partyimage"src="/partyLogos/c.png"></img>Centerpartiet</MenuItem>
@@ -253,22 +247,7 @@ class Riksdagsfilter extends Component {
                     </FormControl>
                     
                     </div>
-                    {/* <FormControl className={classes.formControlGroup} >
-                        <InputLabel htmlFor="lan-simple">Group by</InputLabel>
-                        <Select
-                        value={this.state.groupby}
-                        onChange={this.handleChange}
-                        inputProps={{
-                            name: 'groupby',
-                            id: 'groupby-simple',
-                        }}
-                        >
-                        <MenuItem value="default">
-                            <em>By real life positions</em>
-                        </MenuItem>
-                        <MenuItem value={'partiet'}>By partier</MenuItem>
-                        </Select>
-                    </FormControl> */}
+                    </div>
 
                     {/* Show parti members */}
 

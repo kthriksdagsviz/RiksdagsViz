@@ -16,7 +16,7 @@ import VoteringPage from '../containers/voteringpage';
 const routes = (
   <div>
     <Navbar />
-    <div style={{marginLeft:'100px'}}>
+    <div  className="App_container">
       <Switch>   
           <Route exact path="/" component={AppContainer} />
           <Route exact path="/ledamoter" render={() =><Ledamoter />} />

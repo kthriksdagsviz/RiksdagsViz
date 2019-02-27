@@ -1,6 +1,5 @@
 .search-container{
-    height: 20vh;
-    padding: 1em;
+    // padding: 1em;
     width: 100%;
 
 }
@@ -8,7 +7,7 @@
 .search-seat-list{
     display: flex;
     overflow-y: auto;
-    margin: 1em 0 0 0;
+    padding: 0.5em 0 0 0;
     width: 100%;
     flex-direction: row;
     height: 124px;
@@ -22,19 +21,23 @@
     bottom   : -3px;
     left     : 0;
     pointer-events   : none;
-    background-image : linear-gradient(to bottom, 
-                      rgba(255,255,255, 0), 
-                      rgba(255,255,255, 1) 90%);
+    // background-image : linear-gradient(to bottom, 
+    //                   rgba(255,255,255, 0), 
+    //                   rgba(255,255,255, 1) 90%);
     width    : 100%;
     height   : 4em;
   }
 
   .Riksdagsfilter-chip-13 {
-    transition: all 400ms cubic-bezier(.47,1.64,.41,.8);
+    transition: all 400ms cubic-bezier(.47,1.64,.41,.8) !important;
   }
   
   .Riksdagsfilter-chip-13:hover {
     transform: scale(1.06);
+  }
+
+  .MuiInputLabel-shrink-60{
+    display: none !important;
   }
 
   .partyimage {
@@ -43,3 +46,15 @@
       margin-right: 10px;
   }
 
+  .search_bar_container{
+    height: 10vh;
+    // background: blue;
+    padding: 0 1em;
+    background: #ffffff;
+    width: 100%;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.14);
+
+  }
