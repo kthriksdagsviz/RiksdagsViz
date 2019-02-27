@@ -120,9 +120,13 @@ export default class PartiChord extends React.Component{
       let partyVoters = this.state.partyData.map((x, i) => { return x[i]} );
 
       for (let j = 0; j < this.state.partyData.length; j++) {
-        if(hoverPartyIndex !== j){
+        if(this.state.partyData[j][hoverPartyIndex] !== undefined && hoverPartyIndex !== j){
           hoverData.push(Math.floor((1000 * this.state.partyData[j][hoverPartyIndex] / partyVoters[hoverPartyIndex]) / 10)  + '% av fallen: röstar enligt samma politiska linje som ' + this.parties[j]) 
         }
+      }
+      
+      if (hoverData.length == 0) {
+        hoverData.push(this.partiesLong[hoverPartyIndex] + ' satt ej i Riksdagen detta år.');
       }
 
       this.setState({hoverData: hoverData})
@@ -200,16 +204,16 @@ export default class PartiChord extends React.Component{
     
     render(){
         return(
-            <div style={{height: '600px', width:'100%', display:'flex', alignItems:'center'}}>
-            <div id="respCord" style={{height: '600px', width:'50%'}}>
+            <div style={{height: '500px', width:'100%', display:'flex', alignItems:'center'}}>
+            <div id="respCord" style={{height: '500px', width:'50%'}}>
                 <ResponsiveChord
                     matrix={this.state.chordData}
                     keys={this.parties}
                     margin={{
-                        "top": 60,
-                        "right": 60,
-                        "bottom": 90,
-                        "left": 60
+                        "top": 20,
+                        "right": 20,
+                        "bottom": 70,
+                        "left": 20
                     }}
                        
                         onMouseMove={this.handleMouseMove}
@@ -238,26 +242,26 @@ export default class PartiChord extends React.Component{
                         motionStiffness={90}
                         theme={{tooltip: {container: {display: 'none'}}}}
                         motionDamping={17}
-                        legends={[
-                            {
-                                "anchor": "bottom",
-                                "direction": "row",
-                                "translateY": 70,
-                                "itemWidth": 80,
-                                "itemHeight": 14,
-                                "itemTextColor": "#999",
-                                "symbolSize": 12,
-                                "symbolShape": "circle",
-                                "effects": [
-                                    {
-                                        "on": "hover",
-                                        "style": {
-                                            "itemTextColor": "#000"
-                                        }
-                                    }
-                                ]
-                            }
-                        ]}
+                        // legends={[
+                        //     {
+                        //         "anchor": "bottom",
+                        //         "direction": "row",
+                        //         "translateY": 60,
+                        //         "itemWidth": 80,
+                        //         "itemHeight": 14,
+                        //         "itemTextColor": "#999",
+                        //         "symbolSize": 12,
+                        //         "symbolShape": "circle",
+                        //         "effects": [
+                        //             {
+                        //                 "on": "hover",
+                        //                 "style": {
+                        //                     "itemTextColor": "#000"
+                        //                 }
+                        //             }
+                        //         ]
+                        //     }
+                        // ]}
                 />
                 
             </div>
