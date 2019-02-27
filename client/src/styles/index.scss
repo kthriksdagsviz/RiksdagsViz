@@ -38,7 +38,8 @@ html {
     align-items: center;
     .riksdags_map{
         width: 100%;
-        margin-bottom: 1em;
+        height:70vh;
+        // margin-bottom: 1em;
     }
 }
 
@@ -57,7 +58,10 @@ html {
     height:50vh;   
 }
 
-
+.about_container{
+    margin-bottom: 2em;
+    
+}
 
 .index__voteringar{
     width: 100%;

@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import MaterialTable from 'material-table'
 import Paper from '@material-ui/core/Paper';
 import { push } from 'connected-react-router'
-
+import './ledamottable.scss'
 import { connect } from 'react-redux'
 
  class LedamotTable extends Component{
@@ -14,8 +14,9 @@ import { connect } from 'react-redux'
     render(){
         const { classes, data } = this.props
         return (
-            <div style={{  width: '100%'}}>
+            <div style={{  width: '100%', height:'100%'}}>
                 <MaterialTable
+                    
                     columns={[
                         { title: 'Bild', field: 'bild_url_80',
                             render: rowData =>{

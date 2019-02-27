@@ -86,6 +86,13 @@
         bottom: 0;
         left:0;
         right: 0;
+        .fa-question-circle{
+            transition: .1s all;
+            &:hover{
+                color:lightpink;
+                transform: scale(1.1);
+            }
+        }
     }
 }
 

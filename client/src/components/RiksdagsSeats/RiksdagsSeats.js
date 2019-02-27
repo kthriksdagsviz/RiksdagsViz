@@ -36,7 +36,7 @@ export default class RiksdagsSeats extends Component {
 
   
     buildSVG = () => {
-        var map = <SvgLoader path="/RiksdagStolar.svg" style={{width:'100%', height:'60vh'}} >
+        var map = <SvgLoader path="/RiksdagStolar.svg" style={{width:'100%', height:'93%', marginTop:'1em'}} >
         
         {/* <SvgProxy selector={this.state.selectedSeats} fill={"green"}  /> */}
         </SvgLoader>
@@ -108,7 +108,7 @@ export default class RiksdagsSeats extends Component {
     }
 
     componentDidMount(){
-        d3.select('.riksdags_map').call(this.zoom)
+        // d3.select('.riksdags_map').call(this.zoom)
               
     }
 
@@ -280,7 +280,7 @@ export default class RiksdagsSeats extends Component {
                 {this.modifySVG(this.state.filteredSelection)}
                 {/* <button onClick={() => this.setTransition()}>Group by party</button>
                 <button onClick={() => this.setNewGroup()}>Set new group</button> */}
-                <button onClick={this.resetZoom}>reset zoom</button>
+                {/* <button onClick={this.resetZoom}>reset zoom</button> */}
             </div>
         )
     }

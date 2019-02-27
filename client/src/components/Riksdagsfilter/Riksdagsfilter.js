@@ -23,6 +23,9 @@ const styles = theme => ({
     root: {
       display: 'flex',
       flexWrap: 'wrap',
+      boxShadow: '0 1px 4px 0 rgba(0, 0, 0, 0.14)',
+      background: 'white',
+      padding:'0 0 1.8em 0'
     },
     formControl: {
         margin: theme.spacing.unit,
