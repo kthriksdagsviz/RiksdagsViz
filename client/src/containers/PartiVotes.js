@@ -42,6 +42,7 @@ class Parti extends Component {
     onYearChange = (year) => {
       this.setState({yearReadyToChange: true})
     }
+    
     onYearTimelineChange = (year) => {
       this.setState({selectedYear: year})
     }

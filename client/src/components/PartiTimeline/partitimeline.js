@@ -10,7 +10,7 @@ export default class PartiTimeline extends Component{
         super(props)
         this.state = {
             hasLoaded: false,
-            value:2018,
+            value: 2018,
             isPlaying: false, 
             duration: 0,
             min: 2002,
@@ -19,8 +19,8 @@ export default class PartiTimeline extends Component{
     }
 
     _onPlay = () => {
-        if (this.state.value === 2018) {
-            this.setState({value: 2002});
+        if (this.state.value == this.state.max) {
+            this.setState({value: this.state.min});
         }
         this.setState({isPlaying: true})
         this.timeInterval = setInterval(() => this.onUpdateTimeline(), 100)
@@ -47,9 +47,9 @@ export default class PartiTimeline extends Component{
         }
         else{
             clearInterval(this.timeInterval)
+            this.setState({value: this.state.max})
             this.setState({isPlaying: false})
         }
-        
     }
 
 
