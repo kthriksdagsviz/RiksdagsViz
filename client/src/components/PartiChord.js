@@ -299,6 +299,7 @@ export default class PartiChord extends React.Component{
     render(){
         return(
             <div className="chordContainer" >
+            {this.state.apiFetchMessage !== '' && (<div className="apiFetchMessage">{this.state.apiFetchMessage}</div>)}
             <div id="respCord" style={{height: '550px', width:'50%'}}>
                 <ResponsiveChord
                     matrix={this.state.chordData}
@@ -360,7 +361,6 @@ export default class PartiChord extends React.Component{
                 
             </div>
               <div className ="chordRightColumn">
-                <div className="apiFetchMessage">{this.state.apiFetchMessage}</div>
                 {this.state.hoverParty.length > 0 && (<div className="partyHoverInfo">
                   <div className="partyHoverHeadline"><h4><img src={'parties_loggor/' + this.state.hoverPartyShort + '.png'} alt="PartyLogo" /> {this.state.hoverParty}</h4></div>
                     <ListGroup>
@@ -375,7 +375,7 @@ export default class PartiChord extends React.Component{
                     </ListGroup>
                     </div>)}
               </div>
-              </div>
+            </div>
         )
     }
 }
