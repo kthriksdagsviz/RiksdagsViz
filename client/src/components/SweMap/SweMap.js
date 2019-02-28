@@ -1,62 +1,138 @@
-import React, { Component } from 'react'
-import { SvgLoader, SvgProxy } from 'react-svgmt';
-import ledamoter from "../../utils/ledamoter.json"
-import * as d3 from 'd3';
-import _ from 'lodash'
-//import './SweMap.scss'
- 
-export default class SweMap extends Component {
 
-    buildSVG = () => {
-        var map = <SvgLoader path="/SweMap.svg" width="100%" height="100%" viewBox="0 0 1000 1000">
-        </SvgLoader>
-        return(
-            map
-        )
-    }
+import React, { Component } from "react"
+import {
+  ComposableMap,
+  ZoomableGroup,
+  Geographies,
+  Geography,
+} from "react-simple-maps"
+import { scaleLinear } from "d3-scale"
+import ReactTooltip from "react-tooltip"
 
-    modifySVG = () => {
-        setTimeout(() => {
-            let sweMap = d3.select('.swe_map')
-            sweMap.selectAll("path").style("fill", "white");
-            sweMap.selectAll("polygon").style("fill", "white");
-          }, 300);
-    }
-
-    selectCounty = (id) => {
-        setTimeout(() => {
-            let sweMap = d3.select('.swe_map')
-            for (var i = 0; i < Object.keys(id).length; i++) {
-                var opacity = id[Object.keys(id)[i]]/5;
-                var newID = "#" + Object.keys(id)[i];
-                sweMap.select(newID).style("fill", this.hex2rgba(this.props.color, opacity));
-                sweMap.select(newID).selectAll('path').style("fill", this.hex2rgba(this.props.color, opacity));
-                sweMap.select(newID).selectAll('polygon').style("fill", this.hex2rgba(this.props.color, opacity));
-
-                //sweMap.select(newID).attr("class", "info");
-                //sweMap.select(newID).text("Antal ledamöter: " + id[Object.keys(id)[i]]);
-                //sweMap.select(newID).selectAll('polygon').text("Antal ledamöter: " + id[Object.keys(id)[i]]);
-                //sweMap.select(newID).innerHTML += "<span class='infotext'>Antal ledamöter: "+ id[Object.keys(id)[i]] +"</span>";
-                //sweMap.select(newID).selectAll('path').innerHTML += "<span class='infotext'>Antal ledamöter: "+ id[Object.keys(id)[i]] +"</span>";
-                //sweMap.select(newID).selectAll('polygon').innerHTML += "<span class='infotext'>Antal ledamöter: "+ id[Object.keys(id)[i]] +"</span>";
-            }
-            
-          }, 300);
-    }
-
-    hex2rgba = (hex, alpha = 1) => {
-        const [r, g, b] = hex.match(/\w\w/g).map(x => parseInt(x, 16));
-        return `rgba(${r},${g},${b},${alpha})`;
-      };
-
-    render() {
-    
-        return (
-             <div className="swe_map" width="400px" height="700px">
-                {this.buildSVG()}
-                {this.modifySVG()}
-                {this.selectCounty(this.props.valkrets)}
-            </div>
-        )
-    }
+const wrapperStyles = {
+  width: "100%",
+  maxWidth: 300,
+  margin: "0 auto",
 }
+
+class SweMap extends Component {
+
+  constructor(props){
+    super(props)
+    this.state={
+        valkretsar: {
+          "valkrets": {
+            "Västra Götaland": 0,
+            "Östergötland": 0,
+            "Skåne": 0,
+            "Stockholm": 0,
+            "Blekinge": 0,
+            "Jönköping": 0,
+            "Uppsala": 0,
+            "Kronoberg": 0,
+            "Södermanland": 0,
+            "Halland": 0,
+            "Gävleborg": 0,
+            "Kalmar": 0,
+            "Västmanland": 0,
+            "Orebro": 0,
+            "Dalarna": 0,
+            "Jämtland": 0,
+            "Västerbotten": 0,
+            "Värmland": 0,
+            "Västernorrland": 0,
+            "Norrbotten": 0,
+            "Gotland": 0
+          },
+          "color": "#FFFFFF"
+        }
+    }
+    
+}
+componentDidUpdate() {
+  var data = Object.assign({}, this.props);
+  if(Object.values(data.valkrets).length === 20 && data != this.state.valkretsar) {
+    if (!data.valkrets["Gotland"]) {
+      data.valkrets["Gotland"] = 0;
+    }
+    this.setState({valkretsar: data})
+  }
+}
+componentDidMount() {
+  setTimeout(() => {
+    ReactTooltip.rebuild()
+  }, 500)
+}
+
+  displayName (name) {
+    var tipstring
+    if (this.state.valkretsar.valkrets[name] === 1) {
+      tipstring = name + ": " + this.state.valkretsar.valkrets[name] + " ledamot"
+      return tipstring
+    }
+    else {
+      tipstring = name + ": " + this.state.valkretsar.valkrets[name] + " ledamöter"
+      return tipstring
+    }
+  }
+
+
+  countyColor (name, statekrets, colorScale) {
+      return colorScale(statekrets.valkrets[name])
+  }
+
+  render() {
+    console.log(this.state.valkretsar)
+    let max = Math.max.apply(Math, Object.values(this.state.valkretsar.valkrets))
+    const colorScale = scaleLinear()
+    .domain([0, max]) // Max is based on China
+    .range(["#FFFFFF", this.state.valkretsar.color])
+
+    return (
+      <div style={wrapperStyles}>
+        <ComposableMap
+          projection="mercator"
+          projectionConfig={{ scale: 790 }}
+          width={300}
+          height={551}
+          style={{
+            width: "100%",
+            height: "auto",
+          }}
+          >
+          <ZoomableGroup center={[ 17,62 ]} disablePanning>
+            <Geographies geography="/sweden.json" disableOptimization>
+              {(geographies, projection) =>
+                geographies.map((geography, i) =>
+                  geography.id !== "ATA" && (
+                    <Geography
+                      key={i}
+                      data-tip={this.displayName(geography.properties.NAME_1)}
+                      geography={geography}
+                      projection={projection}
+                      style={{
+                        default: {
+                          fill: this.countyColor(geography.properties.NAME_1, this.state.valkretsar, colorScale),
+                          stroke: "#607D8B",
+                          strokeWidth: 0.75,
+                          outline: "none",
+                        },
+                        hover: {
+                          fill: "#607D8B",
+                          stroke: "#607D8B",
+                          strokeWidth: 0.75,
+                          outline: "none",
+                        }
+                      }}
+                    />
+              ))}
+            </Geographies>
+          </ZoomableGroup>
+        </ComposableMap>
+        <ReactTooltip />
+      </div>
+    )
+  }
+}
+
+export default SweMap

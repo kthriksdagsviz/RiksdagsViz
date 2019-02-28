@@ -30,19 +30,19 @@ class PartiPage extends React.Component{
             var m=0;
             var temp = [];
             var valkretsList = {};
-            var valkretsar = {"Blekinge län":"K" ,"Dalarnas län":"W",
-                              "Gotlands län":"I","Gävleborgs län":"X","Göteborgs kommun":"O",
-                              "Hallands län":"N","Jämtlands län":"Z",
-                              "Jönköpings län":"F","Kalmar län":"H",
-                              "Kronobergs län":"G","Malmö kommun":"M","Norrbottens län":"BD",
-                              "Skåne läns norra och östra":"M","Skåne läns södra":"M","Skåne läns västra":"M",
-                              "Stockholms län":"AB","Stockholms kommun":"AB",
-                              "Södermanlands län":"D","Uppsala län":"C",
-                              "Värmlands län":"S","Västerbottens län":"AC",
-                              "Västernorrlands län":"Y","Västmanlands län":"U",
-                              "Västra Götalands läns norra":"O","Västra Götalands läns västra":"O","Västra Götalands läns östra":"O",
-                              "Västra Götalands läns södra":"O","Örebro län":"T",
-                              "Östergötlands län":"E"}
+            var valkretsar = {"Blekinge län":"Blekinge" ,"Dalarnas län":"Dalarna",
+                              "Gotlands län":"Gotland","Gävleborgs län":"Gävleborg","Göteborgs kommun":"Västra Götaland",
+                              "Hallands län":"Halland","Jämtlands län":"Jämtland",
+                              "Jönköpings län":"Jönköping","Kalmar län":"Kalmar",
+                              "Kronobergs län":"Kronoberg","Malmö kommun":"Skåne","Norrbottens län":"Norrbotten",
+                              "Skåne läns norra och östra":"Skåne","Skåne läns södra":"Skåne","Skåne läns västra":"Skåne",
+                              "Stockholms län":"Stockholm","Stockholms kommun":"Stockholm",
+                              "Södermanlands län":"Södermanland","Uppsala län":"Uppsala",
+                              "Värmlands län":"Värmland","Västerbottens län":"Västerbotten",
+                              "Västernorrlands län":"Västernorrland","Västmanlands län":"Västmanland",
+                              "Västra Götalands läns norra":"Västra Götaland","Västra Götalands läns västra":"Västra Götaland","Västra Götalands läns östra":"Västra Götaland",
+                              "Västra Götalands läns södra":"Västra Götaland","Örebro län":"Orebro",
+                              "Östergötlands län":"Östergötland"}
                             
             if(data['@hits'] > 0){
                 temp = [];
