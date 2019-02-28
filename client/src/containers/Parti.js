@@ -15,6 +15,7 @@ class PartiPage extends React.Component {
         super(props);
         this.state  = {
             genderData: [{name: "Antal Män", count: 0, color: "#BCE9DB"},{name: "Antal Kvinnor", count: 0, color: "#FF815C"}],
+            ageData: [{name: "20-årsåldern", count: 0, color: "#FF0046"},{name: "30-årsåldern", count: 0, color: "#FF8C00"},{name: "40-årsåldern", count: 0, color: "#FFCA00"},{name: "50-årsåldern", count: 0, color: "#00E055"},{name: "60-årsåldern", count: 0, color: "#1BC5FB"},{name: "70-årsåldern", count: 0, color: "#0069FE"},{name: "80-årsåldern", count: 0, color: "#5F3BD6"}],
             isFetching: false,
             fetched: false,
             error: false,
@@ -30,6 +31,7 @@ class PartiPage extends React.Component {
             var k = 0;
             var m = 0;
             var temp = [];
+            var ålder = [];
             var valkretsList = {};
             var valkretsar = {
                 "Blekinge län": "K", "Dalarnas län": "W",
@@ -51,6 +53,7 @@ class PartiPage extends React.Component {
                 temp = [];
                 valkretsList = {};
                 for (var i = 0; i < data.person.length; i++) {
+                    ålder.push(Math.floor((2019 - data.person[i].fodd_ar)/10)*10)
                     if (data.person[i].kon == 'kvinna') {
                         k += 1;
                     }
@@ -68,6 +71,15 @@ class PartiPage extends React.Component {
                         }
                     }
                 }
+                for (var k = 0; k < ålder.length; k++) {   
+                    for (var l=0; l < this.state.ageData.length; l++) {
+                        console.log(this.state.ageData[l].name.slice(0,3))
+                        if (ålder[k].toString() == this.state.ageData[l].name.slice(0,2)){
+                            this.state.ageData[l].count += 1;
+                        }
+                    }
+                }
+                console.log(this.state.ageData)
                 this.setState({genderData: [{name: "Antal Män",count: m,color: '#51539a'},{name: "Antal Kvinnor",count: k,color: '#e56b33'}]});
                 for (var j = 0; j < temp.length; j++) {
                     valkretsList.push(valkretsar[temp[j]]);
@@ -92,6 +104,7 @@ class PartiPage extends React.Component {
     }
 
     handleSelect = (event, rowData) => {
+        console.log(rowData)
         this.props.push('/ledamoter/' + rowData.intressent_id)
     }
 
@@ -115,8 +128,17 @@ class PartiPage extends React.Component {
                         displayTooltip={true}
                         strokeWidth={3}
                         data={this.state.genderData} />
-                    <p style={{ position: 'relative', top: '-125px', fontFamily: "Rubik"}}>Könsfördelning</p>
-                    <p style={{ position: 'relative', top: '-125px', fontFamily: "Rubik"}}>i partiet</p>
+                    <p style={{ position: 'relative', top: '-115px', left: '-100px', fontFamily: "Rubik"}}>Könsfördelning<br/>i partiet</p>
+                    <DonutChart
+                        innerRadius={90}
+                        outerRadius={100}
+                        transition={true}
+                        svgClass="ageDistribution"
+                        pieClass="pie1"
+                        displayTooltip={true}
+                        strokeWidth={3}
+                        data={this.state.ageData} />
+                    <p style={{ position: 'relative', top: '-115px', right: '-100px', fontFamily: "Rubik"}}>Åldersfördelning<br/>i partiet</p>
                 </div>
                 <div style={{ width: '100%', height: '100%' }}>
                     <MaterialTable
