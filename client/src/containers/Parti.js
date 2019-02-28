@@ -14,7 +14,7 @@ class PartiPage extends React.Component{
     constructor(props){
         super(props);
         this.state  = {
-            genderData: [{name: "Antal Män", count: 0, color: "#00BFFF"},{name: "Antal Kvinnor", count: 0, color: "#FF69B4"}],
+            genderData: [{name: "Antal Män", count: 0, color: "#BCE9DB"},{name: "Antal Kvinnor", count: 0, color: "#FF815C"}],
             isFetching: false,
             fetched: false,
             error: false,
@@ -52,7 +52,7 @@ class PartiPage extends React.Component{
                     if (data.person[i].kon == 'kvinna'){
                         k += 1;
                     }
-                    else {
+                    else if (data.person[i].kon == 'man'){
                         m += 1;
                     }
                     if (data.person[i].valkrets) {
@@ -66,7 +66,7 @@ class PartiPage extends React.Component{
                         }
                     }
                 }
-                this.setState({genderData: [{name: "Antal Män",count: Math.round((m/(m+k))*100),color: '#00BFFF'},{name: "Antal Kvinnor",count: Math.round((k/(m+k))*100),color: '#FF69B4'}]});
+                this.setState({genderData: [{name: "Antal Män",count: Math.round((m/(m+k))*100),color: '#51539a'},{name: "Antal Kvinnor",count: Math.round((k/(m+k))*100),color: '#e56b33'}]});
                 for (var j = 0; j < temp.length; j++) {
                     valkretsList.push(valkretsar[temp[j]]);
                 }
@@ -95,7 +95,7 @@ class PartiPage extends React.Component{
 
     render(){ 
         const { match } = this.props;
-        var a = [{name: "Antal Män", count: 71, color: "#00BFFF"},{name: "Antal Kvinnor", count: 29, color: "#FF69B4"}];
+        var a = [{name: "Antal Män", count: 71, color: "#BCE9DB"},{name: "Antal Kvinnor", count: 29, color: "#FF815C"}];
         console.log(a);
         console.log(this.state.genderData);
         return(
