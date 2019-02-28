@@ -116,7 +116,6 @@ class Riksdagsfilter extends Component {
     }
 
     handleChipClick = (seat) => {
-        console.log(seat, this.props.selectedLedamotFromSeats)
         let filteredData = ledamoter.filter(
             seatData => {
                 if(this.props.parti != "None")

@@ -21,7 +21,6 @@ import Paper from '@material-ui/core/Paper'
     }
 
     getLatestNews = (q) => {
-        console.log("called")
         this.props.requestNyheterByParams({
             q: q,
             sortBy:'popularity',
@@ -31,7 +30,6 @@ import Paper from '@material-ui/core/Paper'
     }
 
     componentDidMount(nextProps){
-        console.log("heeey")
         if(!_.isEmpty(this.props.ledamot)){
             let name = this.props.ledamot.tilltalsnamn + " "  + this.props.ledamot.efternamn
             this.getLatestNews(name)

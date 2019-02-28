@@ -1,3 +1,61 @@
 path {
   cursor: pointer;
 }
+
+.seat_tooltip{
+  position: absolute;
+  top:0;
+  left:50;
+  width: 200px;
+  padding: 1em 0;
+  background: rgba(255, 252, 252, 0.767);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 5px 5px 5px 5px;
+  box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.14);
+  z-index: 100;
+  overflow: hidden;
+
+  p{
+    margin: 0;
+    padding: 0;
+  }
+  &:before{
+    content: '';
+    margin: -35px;
+    position: absolute;
+    top: 0;
+    background: rgba(255,255,255,0.8);
+    right: 0;
+    bottom: 0;
+    left: 0;
+    -webkit-filter: blur(20px);
+    filter: blur(20px);
+    z-index: -1;
+  }
+
+ 
+}
+
+.arrow {
+  width: 70px;
+  height: 16px;
+  overflow: hidden;
+  position: absolute;
+  left: 50%;
+  margin-left: -35px;
+  bottom: -16px;
+}
+.arrow:after {
+  content: "";
+  position: absolute;
+  left: 20px;
+  top: -20px;
+  background: white;
+  width: 25px;
+  height: 25px;
+  box-shadow: 6px 5px 9px -9px black,
+              5px 6px 9px -9px black;
+  transform:      rotate(45deg);
+}

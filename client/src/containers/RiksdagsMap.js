@@ -17,7 +17,8 @@ class RiksdagsMap extends Component {
                 id:"",
                 fname:"",
                 ename:""
-            }
+            },
+            modalPerson: {}
         }
     }
     fetchData = () => {
@@ -44,17 +45,35 @@ class RiksdagsMap extends Component {
     }
 
     fetchSingleLedamot = (fname, ename, seat) => {
-        let p ={
-            id: seat,
-            fname: fname, 
-            ename: ename
+        if(fname != "" || ename != "" || seat != null ){
+            let p ={
+                id: seat,
+                fname: fname, 
+                ename: ename
+            }
+            this.setState({isFetching: true, selectedLedamotFromSeats: p})
+            ledamoter_api.getLedamoterByName({
+                fname: fname, ename: ename
+            }).then((data) => {
+                let d = data.personlista.person;
+                d.seat = seat
+                 this.setState({modalPerson: d})
+                 this.props.setSelectedLedamot(data.personlista.person)
+            })
         }
-        this.setState({isFetching: true, selectedLedamotFromSeats: p})
-        ledamoter_api.getLedamoterByName({
-            fname: fname, ename: ename
-        }).then((data) => {
-             this.props.setSelectedLedamot(data.personlista.person)
+        else{
+            this.setState({isFetching: true, selectedLedamotFromSeats: {
+                id:"",
+                fname:"",
+                ename:""
+            },
+            selectedFromFilter:""
         })
+            
+            this.setState({modalPerson: {}})
+
+        }
+        
     }
 
     renderPersonData = () => {
@@ -111,7 +130,8 @@ class RiksdagsMap extends Component {
                     onSearchChange={this.onSearchChange} 
                     selectLedamot={this.fetchSingleLedamot} 
                     parti={this.state.parti}/>
-                <RiksdagsSeats 
+                <RiksdagsSeats
+                    modalPerson={this.state.modalPerson}
                     selectLedamot={this.fetchSingleLedamot}
                     selectedLedamot={this.state.selectedFromFilter}
                     groupby={this.state.groupby} 
