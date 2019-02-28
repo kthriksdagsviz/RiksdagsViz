@@ -355,9 +355,17 @@ export default class PartiChord extends React.Component{
                 <ListGroup>
                   { this.state.hoverPartyShort == 'SR' ? (
                     <div>
-                      <p><br/>
+                      <p>
+                        <br/><br/><br/>
                         För musmarkören över diagrammet för att visa data om ett specifikt parti.
                       </p>
+                      <svg 
+                          x="0px" y="0px"
+                          width="100px" height="100px" viewBox="0 0 500 500"
+                          opacity="0.5"
+                          transform="translate(200, 0) rotate(180) scale(0.70)">
+                        <path d="M302.587,152.596V38.889L500,235.091L302.587,428.582V316.087C103.097,305.588,0,452.58,0,452.58 S29.601,191.594,302.587,152.596z"/>
+                      </svg>
                     </div>
                   ) : this.renderToolTip()}
                 </ListGroup>
