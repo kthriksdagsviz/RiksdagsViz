@@ -8,6 +8,7 @@ import { ledamoter_api } from '../services'
 import { requestLedamoterByParty } from '../actions'
 import DonutChart from 'react-d3-donut';
 import partyColors from '../styles/colors.scss'
+import MaterialTable from 'material-table'
 
 class PartiPage extends React.Component{
     constructor(props){
@@ -17,7 +18,7 @@ class PartiPage extends React.Component{
             isFetching: false,
             fetched: false,
             error: false,
-            ledamoter:{},
+            ledamoter:[{"name": "Annie Lööf", "id": 73, "party": "C"}],
             valkrets:{}
         }
     }
@@ -88,6 +89,10 @@ class PartiPage extends React.Component{
 
     }
 
+    handleSelect = (event, rowData) =>{
+        this.props.push('/ledamoter/' + rowData.intressent_id)
+    }
+
     render(){ 
         const { match } = this.props;
         var a = [{name: "Antal Män", count: 71, color: "#00BFFF"},{name: "Antal Kvinnor", count: 29, color: "#FF69B4"}];
@@ -96,7 +101,6 @@ class PartiPage extends React.Component{
         return(
             <div className="parti_page_container">
                 <img src={process.env.PUBLIC_URL +  '/parties_loggor/' + match.params.parti + '.png'} alt="PartyLogo"  width="10%"/>
-                {match.params.parti}
                 <SweMap valkrets={this.state.valkrets} color={partyColors["party" + match.params.parti]}/>
                 <DonutChart
                     innerRadius={90}
@@ -107,7 +111,36 @@ class PartiPage extends React.Component{
                     displayTooltip={true}
                     strokeWidth={3}
                     data={this.state.genderData} />
-                
+                <div style={{  width: '50%', height:'100%'}}>
+                    <MaterialTable
+                        
+                        columns={[
+                            { title: 'Bild', field: 'bild_url_80',
+                                render: rowData =>{
+                                    return(
+                                        <img style={{borderRadius:'100%', height:'45px'}} src={rowData.bild_url_80}></img>
+                                    )
+                                }
+                            },
+                            { title: 'Tilltalsnamn', field: 'tilltalsnamn' },
+                            { title: 'Efternamn', field: 'efternamn' },
+                            { title: 'Födelseår', field:'fodd_ar'},
+                            { title: 'Valkrets', field:'valkrets'},
+
+
+                        ]}
+                        data={this.state.ledamoter}
+                        title="Ledamöter"
+                        options={{
+                            paging: true,
+                            pageSize: 10,
+                            searchable: true
+                        }}
+                        onRowClick={this.handleSelect}
+                        
+                        
+                    />
+                </div>
             </div>
         )
     }
