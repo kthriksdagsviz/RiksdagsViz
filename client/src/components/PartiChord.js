@@ -18,9 +18,10 @@ export default class PartiChord extends React.Component{
             hoverParty: '',
             hoverPartyShort: '',
             partyData:[], 
-            hoverData: []
+            hoverData: [],
+            apiFetchMessage: ''
         }
-        this.previousVoteData = [[], votes1718, votes1617, votes1516, votes1415, votes1314, votes1213, votes1112, votes1011, votes0910, votes0809, votes0708, votes0607, votes0506, votes0405, votes0304, votes0203];
+        this.previousVoteData = [partyList, votes1718, votes1617, votes1516, votes1415, votes1314, votes1213, votes1112, votes1011, votes0910, votes0809, votes0708, votes0607, votes0506, votes0405, votes0304, votes0203];
         this.previousVotingYears = ["1819", "1718", "1617", "1516", "1415", "1314", "1213", "1112", "1011", "0910", "0809", "0708", "0607", "0506", "0405", "0304", "0203"];
         this.parties = ['V', 'S', 'MP', 'C', 'L', 'KD', 'M', 'SD'];
         this.colors = [partyColors.partyV, partyColors.partyS, partyColors.partyMP, partyColors.partyC,
@@ -148,6 +149,7 @@ export default class PartiChord extends React.Component{
           })
           this.previousVoteData[0] = votesOut;
           this.voteByParty(votesOut);
+          this.alertOfApiFetch();
         }))
     }
 
@@ -155,6 +157,13 @@ export default class PartiChord extends React.Component{
         this.voteByParty(this.previousVoteData[0])
         this.getRecentVotes();
         setTimeout(() => this.selectSvg(), 250);
+    }
+
+    alertOfApiFetch = () => {
+      this.setState({
+        apiFetchMessage: 'API data fetched!'
+      });
+      setTimeout(() => this.setState({apiFetchMessage: ''}), 1000);
     }
 
     selectSvg = () =>{
@@ -348,12 +357,15 @@ export default class PartiChord extends React.Component{
                 />
                 
             </div>
-            {this.state.hoverParty.length > 0 && (<div className="partyHoverInfo">
-              <div className="partyHoverHeadline"><h3><img src={'parties_loggor/' + this.state.hoverPartyShort + '.png'} alt="PartyLogo" /> {this.state.hoverParty}</h3></div>
-                <ListGroup>
-                  {this.state.hoverData.length > 0 && this.renderToolTip()}
-                </ListGroup>
-                </div>)}
+              <div className ="chordRightColumn">
+                <div className="apiFetchMessage">{this.state.apiFetchMessage}</div>
+                {this.state.hoverParty.length > 0 && (<div className="partyHoverInfo">
+                  <div className="partyHoverHeadline"><h4><img src={'parties_loggor/' + this.state.hoverPartyShort + '.png'} alt="PartyLogo" /> {this.state.hoverParty}</h4></div>
+                    <ListGroup>
+                      {this.state.hoverData.length > 0 && this.renderToolTip()}
+                    </ListGroup>
+                    </div>)}
+              </div>
             </div>
         )
     }

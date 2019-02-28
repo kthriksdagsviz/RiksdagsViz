@@ -63,7 +63,23 @@ export default class PartiTimeline extends Component{
                 }
                 </div>
 
-                <Slider min={this.state.min} max={this.state.max} value={this.state.value} step={1} onChange={this.onSliderChange} />
+                <Slider 
+                    min={this.state.min}
+                    max={this.state.max}
+                    value={this.state.value}
+                    step={1}
+                    onChange={this.onSliderChange}
+                    trackStyle={{ backgroundColor: 'blue', height: 15 }}
+                    handleStyle={{
+                        borderColor: 'red',
+                        height: 24,
+                        width: 24,
+                        marginLeft: -23,
+                        marginTop: -5,
+                        backgroundColor: 'white',
+                    }}
+                    railStyle={{ backgroundColor: 'red', height: 15 }}
+                />
             </div>
         )
     }

@@ -3,7 +3,17 @@
     width: 100%;
     display: flex;
     align-items: center;
-    justify-content: space-evenly;
+    justify-content: space-around;
+}
+
+.chordRightColumn {
+    display: flex;
+    flex-direction: column;
+}
+
+.chordRightColumn .apiFetchMessage {
+    text-align: center;
+    color: grey;
 }
 
 .partyHoverInfo {
@@ -17,11 +27,10 @@
 }
 
 .partyHoverInfo .list-group {
-    width: 100%;
+    width: 400px;
 }
 
 .partyHoverInfo .list-group-item {
     padding: 0.5em;
     font-size: 90%;
-    width: 100%;
 }
