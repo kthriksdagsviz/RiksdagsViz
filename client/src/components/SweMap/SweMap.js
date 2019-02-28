@@ -8,7 +8,7 @@ import _ from 'lodash'
 export default class SweMap extends Component {
 
     buildSVG = () => {
-        var map = <SvgLoader path="/SweMap.svg" width="100%" height="100%" viewBox="-5 -5 600 600" preserveAspectRatio="none">
+        var map = <SvgLoader path="/SweMap.svg" width="100%" height="100%" viewBox="-150 0 600 600" preserveAspectRatio="none">
         </SvgLoader>
         return(
             map
