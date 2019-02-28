@@ -115,8 +115,8 @@ class PartiPage extends React.Component {
                         displayTooltip={true}
                         strokeWidth={3}
                         data={this.state.genderData} />
-                    <p style={{ position: 'relative', top: '-130px', fontFamily: "Rubik"}}>Könsfördelning</p>
-                    <p style={{ position: 'relative', top: '-120px', fontFamily: "Rubik"}}>i partiet</p>
+                    <p style={{ position: 'relative', top: '-125px', fontFamily: "Rubik"}}>Könsfördelning</p>
+                    <p style={{ position: 'relative', top: '-125px', fontFamily: "Rubik"}}>i partiet</p>
                 </div>
                 <div style={{ width: '100%', height: '100%' }}>
                     <MaterialTable
