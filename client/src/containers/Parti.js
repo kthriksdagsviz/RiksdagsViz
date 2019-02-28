@@ -13,7 +13,7 @@ class PartiPage extends React.Component{
     constructor(props){
         super(props);
         this.state  = {
-            genderData: [],
+            genderData: [{name: "Antal Män", count: 0, color: "#00BFFF"},{name: "Antal Kvinnor", count: 0, color: "#FF69B4"}],
             isFetching: false,
             fetched: false,
             error: false,
@@ -91,6 +91,8 @@ class PartiPage extends React.Component{
     render(){ 
         const { match } = this.props;
         var a = [{name: "Antal Män", count: 71, color: "#00BFFF"},{name: "Antal Kvinnor", count: 29, color: "#FF69B4"}];
+        console.log(a);
+        console.log(this.state.genderData);
         return(
             <div className="parti_page_container">
                 <img src={process.env.PUBLIC_URL +  '/parties_loggor/' + match.params.parti + '.png'} alt="PartyLogo"  width="10%"/>
@@ -104,7 +106,7 @@ class PartiPage extends React.Component{
                     pieClass="pie1"
                     displayTooltip={true}
                     strokeWidth={3}
-                    data={a} />
+                    data={this.state.genderData} />
                 
             </div>
         )
