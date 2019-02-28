@@ -66,7 +66,7 @@ class PartiPage extends React.Component{
                         }
                     }
                 }
-                this.setState({genderData: [{name: "Antal Män",count: Math.round((m/(m+k))*100),color: '#51539a'},{name: "Antal Kvinnor",count: Math.round((k/(m+k))*100),color: '#e56b33'}]});
+                this.setState({genderData: [{name: "Antal Män",count: m,color: '#51539a'},{name: "Antal Kvinnor",count: k,color: '#e56b33'}]});
                 for (var j = 0; j < temp.length; j++) {
                     valkretsList.push(valkretsar[temp[j]]);
                 }
