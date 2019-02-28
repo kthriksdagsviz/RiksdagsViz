@@ -16,7 +16,7 @@ export default class PartiChord extends React.Component{
         this.state={
             chordData:[],
             hoverParty: '',
-            hoverPartyShort: '',
+            hoverPartyShort: 'SR',
             partyData:[], 
             hoverData: []
         }
@@ -174,6 +174,7 @@ export default class PartiChord extends React.Component{
     changeToolTip = () => {
       let hoverData = []
       let hoverPartyIndex = this.parties.indexOf(this.state.hoverPartyShort);
+      
       let partyVoters = this.state.partyData.map((x, i) => { return x[i]} );
 
       for (let j = 0; j < this.state.partyData.length; j++) {
@@ -183,7 +184,8 @@ export default class PartiChord extends React.Component{
       }
       
       if (hoverData.length == 0) {
-        hoverData.push(this.partiesLong[hoverPartyIndex] + ' satt ej i Riksdagen detta år.');
+        this.setState({hoverParty: ' ', hoverPartyShort: 'SR'})
+        hoverData.push('Inget parti valt.')
       }
 
       this.setState({hoverData: hoverData})
@@ -191,6 +193,7 @@ export default class PartiChord extends React.Component{
 
     componentDidUpdate(nextProps) {
         if(nextProps.selectedYear !== this.props.selectedYear){
+          setTimeout(() => this.selectSvg(), 250)
           let yearString = "";
           switch(this.props.selectedYear){
             case 2002:
@@ -253,9 +256,8 @@ export default class PartiChord extends React.Component{
 
 
     renderToolTip = () => {
-      this.selectSvg();
-
       let hoverPartyIndex = this.parties.indexOf(this.state.hoverPartyShort);
+      
 
       let self = this;
       var listGroup = this.state.hoverData.map((row, i) => {
@@ -263,7 +265,7 @@ export default class PartiChord extends React.Component{
         if (colorIndex >= hoverPartyIndex) colorIndex += 1;
 
         var progress;
-        if (!(row.includes('ej i Riksdagen'))) {
+        if (!(row.includes('Inget parti valt.'))) {
             progress = (<ProgressBar>
                           <ProgressBar now={(row.slice(0, row.indexOf('%')))} key={1} style={{backgroundColor: self.colors[colorIndex]}}/>
                         </ProgressBar>)
@@ -295,7 +297,7 @@ export default class PartiChord extends React.Component{
                     margin={{
                         "top": 10,
                         "right": 10,
-                        "bottom": 10,
+                        "bottom": 30,
                         "left": 10
                     }}
                        
@@ -351,7 +353,13 @@ export default class PartiChord extends React.Component{
             {this.state.hoverParty.length > 0 && (<div className="partyHoverInfo">
               <div className="partyHoverHeadline"><h3><img src={'parties_loggor/' + this.state.hoverPartyShort + '.png'} alt="PartyLogo" /> {this.state.hoverParty}</h3></div>
                 <ListGroup>
-                  {this.state.hoverData.length > 0 && this.renderToolTip()}
+                  { this.state.hoverPartyShort == 'SR' ? (
+                    <div>
+                      <p><br/>
+                        För musmarkören över diagrammet för att visa data om ett specifikt parti.
+                      </p>
+                    </div>
+                  ) : this.renderToolTip()}
                 </ListGroup>
                 </div>)}
             </div>
