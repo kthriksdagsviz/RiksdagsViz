@@ -203,7 +203,7 @@ export default class RiksdagsSeats extends Component {
             console.log(e.clientX, e.clientY)
             let style = {
                 top: e.clientY - 75,
-                left: e.clientX - 104
+                left: e.clientX - 98
             }
 
             if(this.state.lastHoveredSeat != e.target.id){
@@ -233,7 +233,7 @@ export default class RiksdagsSeats extends Component {
            {this.state.showToolTip && (
            <div> <div className="seat_tooltip" style={this.state.toolTipStyle}>
                 <p> {this.state.lastHoveredSeat.fname}  {this.state.lastHoveredSeat.ename} </p>
-                <div className="arrow"> </div>
+                {/* <div className="arrow"> </div> */}
             </div>
             
            </div>)}

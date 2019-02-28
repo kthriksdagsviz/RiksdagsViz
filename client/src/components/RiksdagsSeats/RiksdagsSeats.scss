@@ -8,16 +8,31 @@ path {
   left:50;
   width: 200px;
   padding: 1em 0;
-  background: white;
+  background: rgba(255, 252, 252, 0.767);
   display: flex;
   justify-content: center;
   align-items: center;
   border-radius: 5px 5px 5px 5px;
-  box-shadow: 0 0 7px black;
+  box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.14);
   z-index: 100;
+  overflow: hidden;
+
   p{
     margin: 0;
     padding: 0;
+  }
+  &:before{
+    content: '';
+    margin: -35px;
+    position: absolute;
+    top: 0;
+    background: rgba(255,255,255,0.8);
+    right: 0;
+    bottom: 0;
+    left: 0;
+    -webkit-filter: blur(20px);
+    filter: blur(20px);
+    z-index: -1;
   }
 
  
