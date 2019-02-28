@@ -11,7 +11,6 @@ class PartiPage extends React.Component{
     componentDidMount(){
         let parties =["M", "KD", "S", "SD", "MP", "V", "L", "C"]
         if(!parties.includes(this.props.match.params.parti)){
-            console.log("not a parti")
                 this.props.push('/parties')
             
         }
