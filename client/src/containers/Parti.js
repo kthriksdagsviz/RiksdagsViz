@@ -97,9 +97,6 @@ class PartiPage extends React.Component {
 
     render() {
         const { match } = this.props;
-        var a = [{name: "Antal Män", count: 71, color: "#BCE9DB"},{name: "Antal Kvinnor", count: 29, color: "#FF815C"}];
-        console.log(a);
-        console.log(this.state.genderData);
         return (
             <div className="parti_page_container" style={{ textAlign: 'center'}}>
             <div style={{ width: '100%'}}>
@@ -113,11 +110,13 @@ class PartiPage extends React.Component {
                         innerRadius={90}
                         outerRadius={100}
                         transition={true}
-                        svgClass="example1"
+                        svgClass="genderDistribution"
                         pieClass="pie1"
                         displayTooltip={true}
                         strokeWidth={3}
                         data={this.state.genderData} />
+                    <p style={{ position: 'relative', top: '-130px', fontFamily: "Rubik"}}>Könsfördelning</p>
+                    <p style={{ position: 'relative', top: '-120px', fontFamily: "Rubik"}}>i partiet</p>
                 </div>
                 <div style={{ width: '100%', height: '100%' }}>
                     <MaterialTable
