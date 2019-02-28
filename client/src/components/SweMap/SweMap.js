@@ -51,10 +51,7 @@ class SweMap extends Component {
 }
 componentDidUpdate() {
   var data = Object.assign({}, this.props);
-  if(Object.values(data.valkrets).length === 20 && data != this.state.valkretsar) {
-    if (!data.valkrets["Gotland"]) {
-      data.valkrets["Gotland"] = 0;
-    }
+  if(Object.values(data.valkrets).length > 1 && data.valkrets != this.state.valkretsar.valkrets) {
     this.setState({valkretsar: data})
   }
 }
@@ -70,19 +67,25 @@ componentDidMount() {
       tipstring = name + ": " + this.state.valkretsar.valkrets[name] + " ledamot"
       return tipstring
     }
-    else {
+    else if (this.state.valkretsar.valkrets[name] > 1 || this.state.valkretsar.valkrets[name] === 0 ){
       tipstring = name + ": " + this.state.valkretsar.valkrets[name] + " ledamöter"
+      return tipstring
+    }
+    else {
+      tipstring = name + ": " + 0 + " ledamöter"
       return tipstring
     }
   }
 
 
   countyColor (name, statekrets, colorScale) {
+    if (statekrets.valkrets[name]) {
       return colorScale(statekrets.valkrets[name])
+    }
+    else return colorScale(0)
   }
 
   render() {
-    console.log(this.state.valkretsar)
     let max = Math.max.apply(Math, Object.values(this.state.valkretsar.valkrets))
     const colorScale = scaleLinear()
     .domain([0, max]) // Max is based on China
