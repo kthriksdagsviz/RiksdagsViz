@@ -53,11 +53,10 @@ class PartiPage extends React.Component {
                 temp = [];
                 valkretsList = {};
                 for (var i = 0; i < data.person.length; i++) {
-                    ålder.push(Math.floor((2019 - data.person[i].fodd_ar)/10)*10)
                     if (data.person[i].kon == 'kvinna') {
                         k += 1;
                     }
-                    else if (data.person[i].kon == 'man'){
+                    else{
                         m += 1;
                     }
                     if (data.person[i].valkrets) {
@@ -70,16 +69,15 @@ class PartiPage extends React.Component {
                             valkretsList[key] += 1;
                         }
                     }
+                    ålder.push(Math.floor((2019 - data.person[i].fodd_ar)/10)*10)
                 }
-                for (var k = 0; k < ålder.length; k++) {   
+                for (var n = 0; n < ålder.length; n++) {   
                     for (var l=0; l < this.state.ageData.length; l++) {
-                        console.log(this.state.ageData[l].name.slice(0,3))
-                        if (ålder[k].toString() == this.state.ageData[l].name.slice(0,2)){
+                        if (ålder[n].toString() == this.state.ageData[l].name.slice(0,2)){
                             this.state.ageData[l].count += 1;
                         }
                     }
                 }
-                console.log(this.state.ageData)
                 this.setState({genderData: [{name: "Antal Män",count: m,color: '#51539a'},{name: "Antal Kvinnor",count: k,color: '#e56b33'}]});
                 for (var j = 0; j < temp.length; j++) {
                     valkretsList.push(valkretsar[temp[j]]);
