@@ -40,7 +40,7 @@ export default class PartiChord extends React.Component{
     urlMaker = (nameList) => {
       var urlList = []
       for (let name in nameList) {
-        urlList.push("http://data.riksdagen.se/voteringlista/?rm=2018%2F19&bet=&punkt=&parti=" + nameList[name] + "&valkrets=&rost=&iid=&sz=100000&utformat=xml&gruppering=votering_id");
+        urlList.push("https://data.riksdagen.se/voteringlista/?rm=2018%2F19&bet=&punkt=&parti=" + nameList[name] + "&valkrets=&rost=&iid=&sz=100000&utformat=xml&gruppering=votering_id");
       }
       return urlList;
     }
@@ -362,7 +362,7 @@ export default class PartiChord extends React.Component{
               <div className ="chordRightColumn">
                 <div className="apiFetchMessage">{this.state.apiFetchMessage}</div>
                 {this.state.hoverParty.length > 0 && (<div className="partyHoverInfo">
-                  <div className="partyHoverHeadline"><h4><img src={'parties_loggor/' + this.state.hoverPartyShort + '.png'} alt="PartyLogo" /> {this.state.hoverParty}</h4></div>
+                <div className="partyHoverHeadline"><h4><img src={process.env.PUBLIC_URL + '/parties_loggor/' + this.state.hoverPartyShort + '.png'} alt="PartyLogo" /> {this.state.hoverParty}</h4></div>
                     <ListGroup>
                       {this.state.hoverPartyShort == 'SR' ? (
                         <div>
