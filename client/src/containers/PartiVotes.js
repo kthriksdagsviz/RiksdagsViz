@@ -5,6 +5,7 @@ import { connect } from 'react-redux'
 import  Spinner  from 'react-spinkit'
 import { requestVoteringarByYear } from '../actions'
 import PartiChord from '../components/PartiChord'
+import '../styles/partiVotes.scss'
 import _ from 'lodash'
 class PartiVotes extends Component {
     state = {

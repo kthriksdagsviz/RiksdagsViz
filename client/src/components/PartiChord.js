@@ -154,7 +154,7 @@ export default class PartiChord extends React.Component{
     componentDidMount(){
         this.voteByParty(this.previousVoteData[0])
         this.getRecentVotes();
-        setTimeout(() => this.selectSvg(), 500);
+        setTimeout(() => this.selectSvg(), 250);
     }
 
     selectSvg = () =>{
@@ -287,7 +287,7 @@ export default class PartiChord extends React.Component{
     
     render(){
         return(
-            <div style={{height: '550px', width:'100%', display:'flex', alignItems:'center'}}>
+            <div className="chordContainer" >
             <div id="respCord" style={{height: '550px', width:'50%'}}>
                 <ResponsiveChord
                     matrix={this.state.chordData}
@@ -349,7 +349,7 @@ export default class PartiChord extends React.Component{
                 
             </div>
             {this.state.hoverParty.length > 0 && (<div className="partyHoverInfo">
-                <h2><img src={'partyLogos/' + this.state.hoverPartyShort + '.png'} alt="PartyLogo" /> {this.state.hoverParty}</h2>
+              <div className="partyHoverHeadline"><h3><img src={'parties_loggor/' + this.state.hoverPartyShort + '.png'} alt="PartyLogo" /> {this.state.hoverParty}</h3></div>
                 <ListGroup>
                   {this.state.hoverData.length > 0 && this.renderToolTip()}
                 </ListGroup>
