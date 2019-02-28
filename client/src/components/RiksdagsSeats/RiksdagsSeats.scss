@@ -1,3 +1,46 @@
 path {
   cursor: pointer;
 }
+
+.seat_tooltip{
+  position: absolute;
+  top:0;
+  left:50;
+  width: 200px;
+  padding: 1em 0;
+  background: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 5px 5px 5px 5px;
+  box-shadow: 0 0 7px black;
+  z-index: 100;
+  p{
+    margin: 0;
+    padding: 0;
+  }
+
+ 
+}
+
+.arrow {
+  width: 70px;
+  height: 16px;
+  overflow: hidden;
+  position: absolute;
+  left: 50%;
+  margin-left: -35px;
+  bottom: -16px;
+}
+.arrow:after {
+  content: "";
+  position: absolute;
+  left: 20px;
+  top: -20px;
+  background: white;
+  width: 25px;
+  height: 25px;
+  box-shadow: 6px 5px 9px -9px black,
+              5px 6px 9px -9px black;
+  transform:      rotate(45deg);
+}

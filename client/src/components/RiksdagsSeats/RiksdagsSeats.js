@@ -19,6 +19,16 @@ export default class RiksdagsSeats extends Component {
             selectedName: "",
             fetchedPerson:{},
             filteredSelection:[],
+            lastHoveredSeat:{
+                id:"",
+                fname:"",
+                ename:""
+            },
+            showToolTip:false,
+            toolTipStyle:{
+                top: 0,
+                left: 0
+            },
             zoom:0.9,
             open: false
             // filteredSelection: [{"party": "M", "name": "John Widegren", "id": "#s031"}, {"party": "S", "name": "Johan Andersson", "id": "#s032"}, {"party": "S", "name": "Bj\u00f6rn Petersson", "id": "#s033"}, {"party": "SD", "name": "Mattias B\u00e4ckstr\u00f6m Johansson", "id": "#s034"}, {"party": "S", "name": "Laila Naraghi", "id": "#s035"}, {"party": "M", "name": "Annicka Engblom", "id": "#s036"}, {"party": "SD", "name": "Richard Jomshof", "id": "#s037"}, {"party": "M", "name": "Boriana \u00c5berg", "id": "#s038"}, {"party": "C", "name": "Ola Johansson", "id": "#s039"}, {"party": "S", "name": "Adnan Dibrani", "id": "#s040"}, {"party": "L", "name": "Bengt Eliasson", "id": "#s041"}]
@@ -171,12 +181,62 @@ export default class RiksdagsSeats extends Component {
         d3.select('.riksdags_map').remove();
     }
 
+    hoverOnSeat = (e) =>{
+        let RiksdagStolar = d3.select('.riksdags_map')
+        if(e.target.id !== "") {
+            console.log("if")
+            let filteredledamot = ledamoter.filter(ledamot => {
+                return ledamot.id === "#"+e.target.id
+            })
+            console.log(filteredledamot)
+            RiksdagStolar.select("svg").select("#Welcome").select("#"+e.target.id).attr("fill", filteredledamot[0].color)
+            
+            let fname = filteredledamot[0].name.split(" ")[0];
+              let ename = filteredledamot[0].name.split(" ")[1];
+            
+            let seatId = e.target.id;
+            this.setState({lastHoveredSeat: {
+                id: seatId,
+                fname,
+                ename
+            }})
+            console.log(e.clientX, e.clientY)
+            let style = {
+                top: e.clientY - 75,
+                left: e.clientX - 104
+            }
+
+            if(this.state.lastHoveredSeat != e.target.id){
+                this.setState({toolTipStyle: style})
+            }
+            this.setState({showToolTip:  true})
+            
+        }else{
+            console.log("else")
+            if(this.state.lastHoveredSeat.id != e.target.id){
+                RiksdagStolar.select("svg").select("#Welcome").selectAll("path").attr("fill", "gray")
+                // clearTimeout(this.interval)
+                this.setState({showToolTip: false})
+            }
+            
+        }
+    }
+
+   
+
     render() {
         return (
-             <div className="riksdags_map" onClick={(e) => this.setSeat(e)}>
+             <div className="riksdags_map" onClick={(e) => this.setSeat(e)} onMouseOver={(e) => this.hoverOnSeat(e)} >
                 {this.buildSVG()}
                 {this.modifySVG(this.state.filteredSelection)}
             {this.state.open && <RiksdagsModal open={this.state.open} modalPerson={this.props.modalPerson} toggled={this.toggled}/>}
+           {this.state.showToolTip && (
+           <div> <div className="seat_tooltip" style={this.state.toolTipStyle}>
+                <p> {this.state.lastHoveredSeat.fname}  {this.state.lastHoveredSeat.ename} </p>
+                <div className="arrow"> </div>
+            </div>
+            
+           </div>)}
             </div>
         )
     }
