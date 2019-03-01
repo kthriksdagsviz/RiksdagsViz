@@ -27,19 +27,19 @@ const steps = [
     content: 'Sök på specifika ledamöter! Klicka på en person för att se mer information. Du kan även filtrera på parti och se var dess ledamöter sitter.',
   },
   {
-    target: '.fa-running',
+    target: '.fa-users',
     content: 'Här finns en sökfunktion för individuella ledamöter.'
   },
   {
-    target: '.fa-layer-group',
+    target: '.fa-chart-pie',
     content: 'Här finns ett diagram med information om hur partierna har röstat i olika frågor, i förhållande till varandra.'
   },
   {
-    target: '.fa-handshake',
+    target: '.fa-grip-horizontal',
     content: 'Här hittar du mer information om varje parti.'
   },
   {
-    target: '.fa-users',
+    target: '.fa-info-circle',
     content: 'Här kan du få veta mer om teamet som ligger bakom RiksdagsViz!'
   }
   
