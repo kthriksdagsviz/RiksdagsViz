@@ -164,7 +164,6 @@ class PartiPage extends React.Component {
                         displayTooltip={true}
                         strokeWidth={3}
                         data={this.state.genderData} />
-                    <p style={{ position: 'relative', top: '-115px', left: '-100px', fontFamily: "Rubik"}}>Könsfördelning<br/>i partiet</p>
                     <DonutChart
                         innerRadius={90}
                         outerRadius={100}
@@ -174,7 +173,8 @@ class PartiPage extends React.Component {
                         displayTooltip={true}
                         strokeWidth={3}
                         data={this.state.ageData} />
-                    <p style={{ position: 'relative', top: '-115px', right: '-100px', fontFamily: "Rubik"}}>Åldersfördelning<br/>i partiet</p>
+                    <p style={{display: "inline-block", fontFamily: "Rubik"}}>Könsfördelning<br/>i partiet</p>
+                    <p style={{display: "inline-block", fontFamily: "Rubik"}}>Åldersfördelning<br/>i partiet</p>
                 </div>
                 <div style={{ width: '100%', height: '100%' }}>
                     <MaterialTable
