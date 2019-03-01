@@ -154,27 +154,31 @@ class PartiPage extends React.Component {
                         <SweMap valkrets={this.state.valkrets} color={partyColors["party" + match.params.parti]} />
                     </div>
                 </div>
-                <div style={{ width: '100%'}}>
-                    <DonutChart
-                        innerRadius={90}
-                        outerRadius={100}
-                        transition={true}
-                        svgClass="genderDistribution"
-                        pieClass="pie1"
-                        displayTooltip={true}
-                        strokeWidth={3}
-                        data={this.state.genderData} />
-                    <DonutChart
-                        innerRadius={90}
-                        outerRadius={100}
-                        transition={true}
-                        svgClass="ageDistribution"
-                        pieClass="pie1"
-                        displayTooltip={true}
-                        strokeWidth={3}
-                        data={this.state.ageData} />
-                    <p style={{display: "inline-block", fontFamily: "Rubik"}}>Könsfördelning<br/>i partiet</p>
-                    <p style={{display: "inline-block", fontFamily: "Rubik"}}>Åldersfördelning<br/>i partiet</p>
+                <div style={{textAlign: 'center', width: '100%'}}>
+                    <div style={{display:"inline-block", width: '50%'}}>
+                        <DonutChart
+                            innerRadius={90}
+                            outerRadius={100}
+                            transition={true}
+                            svgClass="genderDistribution"
+                            pieClass="pie1"
+                            displayTooltip={true}
+                            strokeWidth={3}
+                            data={this.state.genderData} />
+                        <p style={{display: "inline-block", fontFamily: "Rubik"}}>Könsfördelning<br/>i partiet</p>
+                    </div>
+                    <div style={{display:"inline-block", width: '50%'}}>
+                        <DonutChart
+                            innerRadius={90}
+                            outerRadius={100}
+                            transition={true}
+                            svgClass="ageDistribution"
+                            pieClass="pie2"
+                            displayTooltip={true}
+                            strokeWidth={3}
+                            data={this.state.ageData} />
+                        <p style={{display: "inline-block", fontFamily: "Rubik"}}>Åldersfördelning<br/>i partiet</p>
+                    </div>
                 </div>
                 <div style={{ width: '100%', height: '100%' }}>
                     <MaterialTable
