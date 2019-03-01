@@ -35,36 +35,36 @@ class PartiPage extends React.Component {
             var ålder = [];
             var valkretsList = {};
             var valkretsNum = [];
-            var valkretsar = {
-                "Blekinge län": "K", "Dalarnas län": "W",
-                "Gotlands län": "I", "Gävleborgs län": "X", "Göteborgs kommun": "O",
-                "Hallands län": "N", "Jämtlands län": "Z",
-                "Jönköpings län": "F", "Kalmar län": "H",
-                "Kronobergs län": "G", "Malmö kommun": "M", "Norrbottens län": "BD",
-                "Skåne läns norra och östra": "M", "Skåne läns södra": "M", "Skåne läns västra": "M",
-                "Stockholms län": "AB", "Stockholms kommun": "AB",
-                "Södermanlands län": "D", "Uppsala län": "C",
-                "Värmlands län": "S", "Västerbottens län": "AC",
-                "Västernorrlands län": "Y", "Västmanlands län": "U",
-                "Västra Götalands läns norra": "O", "Västra Götalands läns västra": "O", "Västra Götalands läns östra": "O",
-                "Västra Götalands läns södra": "O", "Örebro län": "T",
-                "Östergötlands län": "E"
-            }
-            var counties = {
-                "K": { name: "Blekinge län", num: 0 }, "W": { name: "Dalarnas län", num: 0 },
-                "I": { name: "Gotlands län", num: 0 }, "X": { name: "Gävleborgs län", num: 0 },
-                "N": { name: "Hallands län", num: 0 }, "Z": { name: "Jämtlands län", num: 0 },
-                "F": { name: "Jönköpings län", num: 0 }, "H": { name: "Kalmar län", num: 0 },
-                "G": { name: "Kronobergs län", num: 0 }, "BD": { name: "Norrbottens län", num: 0 },
-                "M": { name: "Skåne län", num: 0 }, "AB": { name: "Stockholms län", num: 0 },
-                "D": { name: "Södermanlands län", num: 0 }, "C": { name: "Uppsala län", num: 0 },
-                "S": { name: "Värmlands län", num: 0 }, "AC": { name: "Västerbottens län", num: 0 },
-                "Y": { name: "Västernorrlands län", num: 0 }, "U": { name: "Västmanlands län", num: 0 },
-                "O": { name: "Västra Götalands län", num: 0 }, "T": { name: "Örebro län", num: 0 },
-                "E": { name: "Östergötlands län", num: 0 }
-            }
+            var valkretsar = {"Blekinge län":"Blekinge" ,"Dalarnas län":"Dalarna",
+                              "Gotlands län":"Gotland","Gävleborgs län":"Gävleborg","Göteborgs kommun":"Västra Götaland",
+                              "Hallands län":"Halland","Jämtlands län":"Jämtland",
+                              "Jönköpings län":"Jönköping","Kalmar län":"Kalmar",
+                              "Kronobergs län":"Kronoberg","Malmö kommun":"Skåne","Norrbottens län":"Norrbotten",
+                              "Skåne läns norra och östra":"Skåne","Skåne läns södra":"Skåne","Skåne läns västra":"Skåne",
+                              "Stockholms län":"Stockholm","Stockholms kommun":"Stockholm",
+                              "Södermanlands län":"Södermanland","Uppsala län":"Uppsala",
+                              "Värmlands län":"Värmland","Västerbottens län":"Västerbotten",
+                              "Västernorrlands län":"Västernorrland","Västmanlands län":"Västmanland",
+                              "Västra Götalands läns norra":"Västra Götaland","Västra Götalands läns västra":"Västra Götaland","Västra Götalands läns östra":"Västra Götaland",
+                              "Västra Götalands läns södra":"Västra Götaland","Örebro län":"Orebro",
+                              "Östergötlands län":"Östergötland"}
 
-            if (data['@hits'] > 0) {
+
+            var counties = {
+                "Blekinge": { name: "Blekinge län", num: 0 }, "Dalarna": { name: "Dalarnas län", num: 0 },
+                "Gotland": { name: "Gotlands län", num: 0 }, "Gävleborg": { name: "Gävleborgs län", num: 0 },
+                "Halland": { name: "Hallands län", num: 0 }, "Jämtland": { name: "Jämtlands län", num: 0 },
+                "Jönköping": { name: "Jönköpings län", num: 0 }, "Kalmar": { name: "Kalmar län", num: 0 },
+                "Kronobegrs": { name: "Kronobergs län", num: 0 }, "Norrbotten": { name: "Norrbottens län", num: 0 },
+                "Skåne": { name: "Skåne län", num: 0 }, "Stockholm": { name: "Stockholms län", num: 0 },
+                "Södermanland": { name: "Södermanlands län", num: 0 }, "Uppsala": { name: "Uppsala län", num: 0 },
+                "Värmland": { name: "Värmlands län", num: 0 }, "Västerbotten": { name: "Västerbottens län", num: 0 },
+                "Västernorrland": { name: "Västernorrlands län", num: 0 }, "Västmanland": { name: "Västmanlands län", num: 0 },
+                "Västra Götaland": { name: "Västra Götalands län", num: 0 }, "Orebro": { name: "Örebro län", num: 0 },
+                "Östergötland": { name: "Östergötlands län", num: 0 }
+            }
+                            
+            if(data['@hits'] > 0){
                 temp = [];
                 valkretsList = {};
                 valkretsNum = [];
