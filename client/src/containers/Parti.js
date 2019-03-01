@@ -55,7 +55,7 @@ class PartiPage extends React.Component {
                 "Gotland": { name: "Gotlands län", num: 0 }, "Gävleborg": { name: "Gävleborgs län", num: 0 },
                 "Halland": { name: "Hallands län", num: 0 }, "Jämtland": { name: "Jämtlands län", num: 0 },
                 "Jönköping": { name: "Jönköpings län", num: 0 }, "Kalmar": { name: "Kalmar län", num: 0 },
-                "Kronobegrs": { name: "Kronobergs län", num: 0 }, "Norrbotten": { name: "Norrbottens län", num: 0 },
+                "Kronoberg": { name: "Kronobergs län", num: 0 }, "Norrbotten": { name: "Norrbottens län", num: 0 },
                 "Skåne": { name: "Skåne län", num: 0 }, "Stockholm": { name: "Stockholms län", num: 0 },
                 "Södermanland": { name: "Södermanlands län", num: 0 }, "Uppsala": { name: "Uppsala län", num: 0 },
                 "Värmland": { name: "Värmlands län", num: 0 }, "Västerbotten": { name: "Västerbottens län", num: 0 },
@@ -122,17 +122,12 @@ class PartiPage extends React.Component {
 
     }
 
-    handleSelect = (event, rowData) => {
-        console.log(rowData)
-        this.props.push('/ledamoter/' + rowData.intressent_id)
-    }
-
     render() {
         const { match } = this.props;
         return (
             <div className="parti_page_container" style={{ textAlign: 'center' }}>
-                <div style={{ width: '100%' }}>
-                    <img src={process.env.PUBLIC_URL + '/parties_loggor/' + match.params.parti + '.png'} alt="PartyLogo" width="10%" />
+                <div style={{width: '100%' }}>
+                    <img src={process.env.PUBLIC_URL + '/parties_loggor/' + match.params.parti + '.png'} alt="PartyLogo" width="10%"/>
                 </div>
                 <div style={{ width: '100%' }}>
                     <div style={{ width: '50%', display: 'inline-block', verticalAlign: 'top', marginTop: '20px' }}>
@@ -157,54 +152,28 @@ class PartiPage extends React.Component {
                 <div style={{textAlign: 'center', width: '100%'}}>
                     <div style={{display:"inline-block", width: '50%'}}>
                         <DonutChart
-                            innerRadius={90}
+                            innerRadius={60}
                             outerRadius={100}
                             transition={true}
                             svgClass="genderDistribution"
                             pieClass="pie1"
                             displayTooltip={true}
-                            strokeWidth={3}
+                            strokeWidth={5}
                             data={this.state.genderData} />
                         <p style={{display: "inline-block", fontFamily: "Rubik"}}>Könsfördelning<br/>i partiet</p>
                     </div>
                     <div style={{display:"inline-block", width: '50%'}}>
                         <DonutChart
-                            innerRadius={90}
+                            innerRadius={60}
                             outerRadius={100}
                             transition={true}
                             svgClass="ageDistribution"
                             pieClass="pie2"
                             displayTooltip={true}
-                            strokeWidth={3}
+                            strokeWidth={5}
                             data={this.state.ageData} />
                         <p style={{display: "inline-block", fontFamily: "Rubik"}}>Åldersfördelning<br/>i partiet</p>
                     </div>
-                </div>
-                <div style={{ width: '100%', height: '100%' }}>
-                    <MaterialTable
-                        columns={[
-                            {
-                                title: 'Bild', field: 'bild_url_80',
-                                render: rowData => {
-                                    return (
-                                        <img style={{ borderRadius: '100%', height: '45px' }} src={rowData.bild_url_80}></img>
-                                    )
-                                }
-                            },
-                            { title: 'Tilltalsnamn', field: 'tilltalsnamn' },
-                            { title: 'Efternamn', field: 'efternamn' },
-                            { title: 'Födelseår', field: 'fodd_ar' },
-                            { title: 'Valkrets', field: 'valkrets' },
-                        ]}
-                        data={this.state.ledamoter}
-                        title="Ledamöter"
-                        options={{
-                            paging: true,
-                            pageSize: 10,
-                            searchable: true
-                        }}
-                        onRowClick={this.handleSelect}
-                    />
                 </div>
             </div>
         )
