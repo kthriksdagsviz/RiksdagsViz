@@ -163,7 +163,7 @@ export default class PartiChord extends React.Component{
       this.setState({
         apiFetchMessage: 'API data fetched!'
       });
-      setTimeout(() => this.setState({apiFetchMessage: ''}), 1500);
+      setTimeout(() => this.setState({apiFetchMessage: ''}), 1250);
     }
 
     selectSvg = () =>{
@@ -365,11 +365,14 @@ export default class PartiChord extends React.Component{
                 <div className="partyHoverHeadline"><h4><img src={process.env.PUBLIC_URL + '/parties_loggor/' + this.state.hoverPartyShort + '.png'} alt="PartyLogo" /> {this.state.hoverParty}</h4></div>
                     <ListGroup>
                       {this.state.hoverPartyShort == 'SR' ? (
-                        <div>
+                        <div id="riksdagsInfo">
                           <p>
                             <br /><br /><br />
                             För musmarkören över diagrammet för att visa data om ett specifikt parti.
-                              </p>
+                          </p>
+                          <p>
+                            Dra i tidslinjemarkören för ändra riksmötesår.
+                          </p>
                         </div>
                       ) : this.renderToolTip()}
                     </ListGroup>
