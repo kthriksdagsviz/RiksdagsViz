@@ -9,9 +9,35 @@ import IndexInformation from './IndexInformation';
 import Spinner from 'react-spinkit'
 import _ from 'lodash'
 import '../styles/index.scss'
+import ReactJoyride, { STATUS } from 'react-joyride';
+import { faQuestionCircle } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+
+
+const steps = [
+     
+  {
+    target: '.riksdags_map',
+    disableBeacon: 'true',
+    placement:'bottom',
+    content: 'Welcome to my visualization! Follow these steps to learn more about the World Value Surveys and Gapminder. Press the red circles to learn how to use this visualization!',
+  },
+  {
+    target: '.search-container',
+    content: 'Welcome to my visualization! Follow these steps to learn more about the World Value Surveys and Gapminder. Press the red circles to learn how to use this visualization!',
+  },
+  
+]
+
+
 
 class AppContainer extends Component {
-
+    constructor(props){
+      super(props)
+      this.state ={
+        runTutorial: false
+      }
+    }
 
     onButtonClick = () => {
       this.props.voteringarById("F06B69C1-265A-4916-86FD-C03C1C3BB334");
@@ -36,6 +62,21 @@ class AppContainer extends Component {
      
       
   }
+
+  runTutorial = (e) =>{
+    e.preventDefault();
+    this.setState({runTutorial:true})
+  }
+
+  handleJoyrideCallback = data => {
+    const { status, type } = data;
+    if ([STATUS.FINISHED, STATUS.SKIPPED].includes(status)) {
+      this.setState({ runTutorial: false });
+    }
+    
+  };
+
+
   componentDidUpdate(nextProps){
       // if(!nextProps.ledamoter.fetched){
       //     this.props.ledamoterByParams({
@@ -56,12 +97,35 @@ class AppContainer extends Component {
       const { isFetching, fetched } = this.props.ledamoter
 
       return (
+        <div className="root_container">
+            <ReactJoyride
+              steps={steps}
+              scrollToFirstStep
+              showProgress
+              continuous
+              showSkipButton
+              autoStart={true}
+              run={this.state.runTutorial} // or some other boolean for when you want to start it
+              callback={this.handleJoyrideCallback}
+              styles={{
+                options: {
+                  zIndex: 10000,
+                }
+              }} />
+
+            <div className="tutorialButton">
+                <FontAwesomeIcon onClick={this.runTutorial} icon={faQuestionCircle} size="3x" />
+            </div> 
+        
         <div className="App">
-        {!fetched ? 
+        
+          {!fetched ? 
                 (isFetching ? <Spinner name="cube-grid"  fadeIn="none" /> : "" ):
                 <RiksdagsMap ledamoter={this.props.ledamoter} />
                     }
           {/* <IndexInformation /> */}
+        
+        </div>
         </div>
       );
     }
