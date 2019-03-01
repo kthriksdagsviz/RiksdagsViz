@@ -55,7 +55,7 @@ class PartiPage extends React.Component {
                 "Gotland": { name: "Gotlands län", num: 0 }, "Gävleborg": { name: "Gävleborgs län", num: 0 },
                 "Halland": { name: "Hallands län", num: 0 }, "Jämtland": { name: "Jämtlands län", num: 0 },
                 "Jönköping": { name: "Jönköpings län", num: 0 }, "Kalmar": { name: "Kalmar län", num: 0 },
-                "Kronobegrs": { name: "Kronobergs län", num: 0 }, "Norrbotten": { name: "Norrbottens län", num: 0 },
+                "Kronoberg": { name: "Kronobergs län", num: 0 }, "Norrbotten": { name: "Norrbottens län", num: 0 },
                 "Skåne": { name: "Skåne län", num: 0 }, "Stockholm": { name: "Stockholms län", num: 0 },
                 "Södermanland": { name: "Södermanlands län", num: 0 }, "Uppsala": { name: "Uppsala län", num: 0 },
                 "Värmland": { name: "Värmlands län", num: 0 }, "Västerbotten": { name: "Västerbottens län", num: 0 },
@@ -131,11 +131,11 @@ class PartiPage extends React.Component {
         const { match } = this.props;
         return (
             <div className="parti_page_container" style={{ textAlign: 'center' }}>
-                <div style={{ width: '100%' }}>
-                    <img src={process.env.PUBLIC_URL + '/parties_loggor/' + match.params.parti + '.png'} alt="PartyLogo" width="10%" />
+                <div style={{ width: '100%', height: '100px', boxShadow: '0 0 3px 0 gray' }}>
+                    <img src={process.env.PUBLIC_URL + '/parties_loggor/' + match.params.parti + '.png'} alt="PartyLogo" height="80%"/>
                 </div>
                 <div style={{ width: '100%' }}>
-                    <div style={{ width: '50%', display: 'inline-block', verticalAlign: 'top', marginTop: '20px' }}>
+                    <div style={{ width: '50%', display: 'inline-block', verticalAlign: 'top', marginTop: '20px', paddingLeft: '30px' }}>
                         <MaterialTable
                             columns={[
                                 { title: 'Län', field: 'name' },
