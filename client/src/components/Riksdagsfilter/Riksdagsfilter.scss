@@ -13,7 +13,9 @@
     height: 124px;
     flex-wrap: wrap;
 }
-
+.MuiInputLabel-shrink-725{
+  display: none;
+}
 .search-seat-list:after {
     content  : "";
     position : sticky;

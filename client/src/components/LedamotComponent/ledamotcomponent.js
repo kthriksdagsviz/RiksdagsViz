@@ -19,7 +19,7 @@ const LedamotComponent = ({ledamot, numberOfVotes, votering}) => (
 
         <div className="cardStat">
             <div><h1>{numberOfVotes}</h1><p>Antal voteringar<br/>2018/19</p></div>
-            <div><h1><Link style={{color:'white'}} to={'/partier/' + ledamot.parti}>{ledamot.parti} </Link></h1><p>Parti<br/>2018/19</p></div>
+            <div><h1><Link style={{color:'white'}} to={'/parties/' + ledamot.parti}>{ledamot.parti} </Link></h1><p>Parti<br/>2018/19</p></div>
             <div><h1>{votering}%</h1><p>Deltagande<br/>2018/19</p></div>
         </div>
 

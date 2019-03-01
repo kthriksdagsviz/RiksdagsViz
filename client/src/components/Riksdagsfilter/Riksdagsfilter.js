@@ -235,7 +235,7 @@ class Riksdagsfilter extends Component {
                     <IconButton className={classes.iconButton} aria-label="Search">
                         <SearchIcon fontSize="large" />
                     </IconButton>
-                    <InputBase className={classes.input} placeholder="Sök efter en riksdagsledamot" value={this.state.search} onChange={this.updateSearch} />
+                    <InputBase className={classes.input} shrink={true} placeholder="Sök efter en riksdagsledamot" value={this.state.search} onChange={this.updateSearch} />
                     
                     
                     <div className={classes.formContainer}>
@@ -255,14 +255,14 @@ class Riksdagsfilter extends Component {
                         <MenuItem value="None" >
                              {this.state.parti === "None" ? "Filtrera på ett parti" : "Inga partier valda" } 
                         </MenuItem>
-                        <MenuItem value={'M'}><img className="partyimage"src="/partyLogos/m.png"></img>Moderata samlingspartiet</MenuItem>
-                        <MenuItem value={'C'}><img className="partyimage"src="/partyLogos/c.png"></img>Centerpartiet</MenuItem>
-                        <MenuItem value={'SD'}><img className="partyimage"src="/partyLogos/sd.png"></img>Sverigedemokraterna</MenuItem>
-                        <MenuItem value={'KD'}><img className="partyimage"src="/partyLogos/kd.jpg"></img>Kristdemokraterna</MenuItem>
-                        <MenuItem value={'S'}><img className="partyimage"src="/partyLogos/s.png"></img>Socialdemokraterna</MenuItem>
-                        <MenuItem value={'L'}><img className="partyimage"src="/partyLogos/l.png"></img>Liberalerna</MenuItem>
-                        <MenuItem value={'MP'}><img className="partyimage"src="/partyLogos/mp.png"></img>Miljöpartiet</MenuItem>
-                        <MenuItem value={'V'}><img className="partyimage"src="/partyLogos/v.png"></img>Vänsterpartiet</MenuItem>
+                        <MenuItem value={'M'}><img className="partyimage"src={process.env.PUBLIC_URL + "/partyLogos/m.png"}></img>Moderata samlingspartiet</MenuItem>
+                        <MenuItem value={'C'}><img className="partyimage"src={process.env.PUBLIC_URL + "/partyLogos/c.png"}></img>Centerpartiet</MenuItem>
+                        <MenuItem value={'SD'}><img className="partyimage"src={process.env.PUBLIC_URL + "/partyLogos/sd.png"}></img>Sverigedemokraterna</MenuItem>
+                        <MenuItem value={'KD'}><img className="partyimage"src={process.env.PUBLIC_URL + "/partyLogos/kd.jpg"}></img>Kristdemokraterna</MenuItem>
+                        <MenuItem value={'S'}><img className="partyimage"src={process.env.PUBLIC_URL + "/partyLogos/s.png"}></img>Socialdemokraterna</MenuItem>
+                        <MenuItem value={'L'}><img className="partyimage"src={process.env.PUBLIC_URL + "/partyLogos/l.png"}></img>Liberalerna</MenuItem>
+                        <MenuItem value={'MP'}><img className="partyimage"src={process.env.PUBLIC_URL + "/partyLogos/mp.png"}></img>Miljöpartiet</MenuItem>
+                        <MenuItem value={'V'}><img className="partyimage"src={process.env.PUBLIC_URL + "/partyLogos/v.png"}></img>Vänsterpartiet</MenuItem>
 
                         </Select>
                     </FormControl>
