@@ -13,19 +13,26 @@ import ReactJoyride, { STATUS } from 'react-joyride';
 
 
 
-const steps = [
-     
+const steps = [ 
   {
     target: '#respCord',
     disableBeacon: 'true',
     placement:'right-start',
-    content: 'Welcome to my visualization! Follow these steps to learn more about the World Value Surveys and Gapminder. Press the red circles to learn how to use this visualization!',
+    content: 'Utforska diagrammet för att se hur partierna röstar i relation till varandra.',
   },
   {
-    target: '.search-container',
-    content: 'Welcome to my visualization! Follow these steps to learn more about the World Value Surveys and Gapminder. Press the red circles to learn how to use this visualization!',
+    target: '.chordPartyPath',
+    disableBeacon: 'true',
+    content: 'För musmarkören över ett parti för att se dess voteringshistorik jämfört med andra partier.',
   },
-  
+  {
+    target: '.chordPartyArc',
+    content: 'En båge mellan två partier har samma färg som det parti vars ledamöter vid flest tillfällen röstat likt det andra partiet.',
+  },
+  {
+    target: '.partitimeline_container',
+    content: 'Byt riksmöte (år) genom att spela upp animationen eller dra tidslinjen till ett specifikt år.',
+  }
 ]
 
 
