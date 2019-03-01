@@ -174,10 +174,14 @@ export default class PartiChord extends React.Component{
 
         let self = this;
         svgg.select('g').select('g').select('g:nth-child(2)').selectAll('path')
+          .attr('class', 'chordPartyPath')
           .on('mouseover', function(d, i){
             self.setState({hoverParty: self.partiesLong[i], hoverPartyShort: self.parties[i]})
             self.changeToolTip(); 
           })
+
+          svgg.select('g').select('g').select('g:nth-child(1)')
+            .attr('class', 'chordPartyArc')
     }
     
     changeToolTip = () => {
@@ -188,7 +192,7 @@ export default class PartiChord extends React.Component{
 
       for (let j = 0; j < this.state.partyData.length; j++) {
         if(this.state.partyData[j][hoverPartyIndex] !== undefined && hoverPartyIndex !== j){
-          hoverData.push(Math.floor((1000 * this.state.partyData[j][hoverPartyIndex] / partyVoters[hoverPartyIndex]) / 10)  + '% av fallen: röstar enligt samma politiska linje som ' + this.parties[j]) 
+          hoverData.push(Math.floor((1000 * this.state.partyData[j][hoverPartyIndex] / partyVoters[hoverPartyIndex]) / 10)  + '% av partiets voteringsbesult överensstämmer med ' + this.parties[j]) 
         }
       }
       
