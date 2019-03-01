@@ -163,7 +163,7 @@ export default class PartiChord extends React.Component{
       this.setState({
         apiFetchMessage: 'API data fetched!'
       });
-      setTimeout(() => this.setState({apiFetchMessage: ''}), 1000);
+      setTimeout(() => this.setState({apiFetchMessage: ''}), 1500);
     }
 
     selectSvg = () =>{
