@@ -8,16 +8,20 @@
 
 .chordContainer .apiFetchMessage {
     position: fixed;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     width: 150px;
     height: 50px;
-    top: 25;
-    left: 25;
-    right: 250;
-    bottom: 250;
+    top: 8%;
+    left: 47%;
     z-index: 2;
+    border-radius: 10px;
     text-align: center;
-    color: #f8faf8;
-    background-color: #0ae427;
+    color: #155724;
+    border: 1px solid;
+    border-color: rgb(195,230,203);
+    background-color: rgba(212,237,218,0.8);
     transition: ease-in-out(500);
 }
 
