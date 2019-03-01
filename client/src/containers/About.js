@@ -29,8 +29,10 @@ class Hello extends Component {
                     <Card.Body>
                       <Card.Title>Oscar Wiigh</Card.Title>
                       <Card.Text>
-                        Oscar has done this and that and some more even.
+                      UX, frontend och Git
                       </Card.Text>
+                      <Card.Link href="mailto:wiigh@kth.se">Mail</Card.Link>
+                      <Card.Link href="https://www.linkedin.com/in/wiigh/" target="_blank">LinkedIn</Card.Link>
                     </Card.Body>
                 </Card>
               
@@ -44,8 +46,10 @@ class Hello extends Component {
                     <Card.Body>
                       <Card.Title>Adrian Berger</Card.Title>
                       <Card.Text>
-                        Adrian has done this and that and some more even.
+                        Frontend och datahantering
                       </Card.Text>
+                      <Card.Link href="mailto:aberger@kth.se">Mail</Card.Link>
+                      <Card.Link href="https://www.linkedin.com/in/adrian-berger-810074142/" target="_blank">LinkedIn</Card.Link>
                     </Card.Body>
                 </Card>
               </Col>
@@ -57,8 +61,10 @@ class Hello extends Component {
                     <Card.Body>
                       <Card.Title>Ben Forsrup</Card.Title>
                       <Card.Text>
-                        Ben has done this and that and some more even.
+                        Backend, frontend och gruppansvarig
                       </Card.Text>
+                      <Card.Link href="mailto:aberger@kth.se">Mail</Card.Link>
+                      <Card.Link href="https://www.linkedin.com/in/ben-forsrup-43b230a4/" target="_blank">LinkedIn</Card.Link>
                     </Card.Body>
                 </Card>
               </Col>
@@ -72,8 +78,10 @@ class Hello extends Component {
                     <Card.Body>
                       <Card.Title>Martin Wedberg</Card.Title>
                       <Card.Text>
-                        Martin has done this and that and some more even.
+                      Frontend och statistik
                       </Card.Text>
+                      <Card.Link href="mailto:marwed@kth.se">Mail</Card.Link>
+                      <Card.Link href="https://www.linkedin.com/in/martin-wedberg-5667ba14a/" target="_blank">LinkedIn</Card.Link>
                     </Card.Body>
                 </Card>
               </Col>
@@ -85,8 +93,10 @@ class Hello extends Component {
                     <Card.Body>
                       <Card.Title>Emil Dickson</Card.Title>
                       <Card.Text>
-                        Emil has done this and that and some more even.
+                        Frontend och backend
                       </Card.Text>
+                      <Card.Link href="mailto:edickson@kth.se">Mail</Card.Link>
+                      <Card.Link href="https://www.linkedin.com/in/emil-dickson-2813b668/" target="_blank">LinkedIn</Card.Link>
                     </Card.Body>
                 </Card>
               </Col>
@@ -98,8 +108,10 @@ class Hello extends Component {
                     <Card.Body>
                       <Card.Title>Jonatan Lindström</Card.Title>
                       <Card.Text>
-                        Jonatan has done this and that and some more even.
+                        Frontend och statistik
                       </Card.Text>
+                      <Card.Link href="mailto:jonatan3@kth.se">Mail</Card.Link>
+                      <Card.Link href="https://www.linkedin.com/in/jonatan-lindstr%C3%B6m-95047b165/" target="_blank">LinkedIn</Card.Link>
                     </Card.Body>
                 </Card>
               </Col>
