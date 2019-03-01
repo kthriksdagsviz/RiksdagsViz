@@ -30,11 +30,7 @@
   "dependencies": {
     "axios": "^0.18.0",
     "concurrently": "^4.1.0",
-    "nodemon": "^1.18.10",
-    "react-d3-donut": "^1.1.2",
-    "react-donut-chart": "^1.1.8",
-    "react-simple-maps": "^0.12.1",
-    "react-tooltip": "^3.9.2"
+    "nodemon": "^1.18.10"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",
