@@ -147,7 +147,7 @@ class PartiPage extends React.Component {
         const { match } = this.props;
         return (
             <div className="parti_page_container" style={{ textAlign: 'center' }}>
-                <ReactJoyride
+                {/* <ReactJoyride
               steps={steps}
               scrollToFirstStep
               showProgress
@@ -164,7 +164,7 @@ class PartiPage extends React.Component {
 
             <div style={{position:'absolute', top:'10px', right:'10px'}}>
                 <FontAwesomeIcon onClick={this.runTutorial} icon={faQuestionCircle} size="3x" />
-            </div> 
+            </div>  */}
                 <div style={{ width: '100%', height: '100px', boxShadow: '0 0 3px 0 gray' }}>
                     <img src={process.env.PUBLIC_URL + '/parties_loggor/' + match.params.parti + '.png'} alt="PartyLogo" height="80%"/>
                 </div>
