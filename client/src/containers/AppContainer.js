@@ -20,12 +20,28 @@ const steps = [
     target: '.riksdags_map',
     disableBeacon: 'true',
     placement:'bottom',
-    content: 'Welcome to my visualization! Follow these steps to learn more about the World Value Surveys and Gapminder. Press the red circles to learn how to use this visualization!',
+    content: 'Här ser du en visualisering av alla stolarna i Sveriges riksdag! För musmarkören över en stol för att se vem som sitter på den platsen och klicka för mer information.',
   },
   {
     target: '.search-container',
-    content: 'Welcome to my visualization! Follow these steps to learn more about the World Value Surveys and Gapminder. Press the red circles to learn how to use this visualization!',
+    content: 'Sök på specifika ledamöter! Klicka på en person för att se mer information. Du kan även filtrera på parti och se var dess ledamöter sitter.',
   },
+  {
+    target: '.fa-running',
+    content: 'Här finns en sökfunktion för individuella ledamöter.'
+  },
+  {
+    target: '.fa-layer-group',
+    content: 'Här finns ett diagram med information om hur partierna har röstat i olika frågor, i förhållande till varandra.'
+  },
+  {
+    target: '.fa-handshake',
+    content: 'Här hittar du mer information om varje parti.'
+  },
+  {
+    target: '.fa-users',
+    content: 'Här kan du få veta mer om teamet som ligger bakom RiksdagsViz!'
+  }
   
 ]
 
