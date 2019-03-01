@@ -49,7 +49,7 @@ export default class RiksdagsSeats extends Component {
 
   
     buildSVG = () => {
-        var map = <SvgLoader path="/RiksdagStolar.svg" style={{width:'100%', height:'93%', marginTop:'1em'}}></SvgLoader>
+        var map = <SvgLoader path="/RiksdagStolar.svg" style={{width:'100%', height:'80%', marginTop:'3em'}}></SvgLoader>
         
         return(
             map
