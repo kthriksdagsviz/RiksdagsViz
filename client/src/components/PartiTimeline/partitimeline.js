@@ -71,12 +71,12 @@ export default class PartiTimeline extends Component{
                     onChange={this.onSliderChange}
                     trackStyle={{ backgroundColor: 'rgb(40,40,40)', height: 15 }}
                     handleStyle={{
-                        borderColor: 'rgb(255,198,124)',
+                        borderColor: 'rgb(113,179,217)',
                         height: 24,
                         width: 24,
                         marginLeft: -15,
                         marginTop: -5,
-                        backgroundColor: 'white',
+                        backgroundColor: 'rgb(22,82,109)',
                     }}
                     railStyle={{ backgroundColor: 'rgb(141,141,141)', height: 15 }}
                 />
