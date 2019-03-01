@@ -49,7 +49,7 @@ export default class RiksdagsSeats extends Component {
 
   
     buildSVG = () => {
-        var map = <SvgLoader path="/RiksdagStolar.svg" style={{width:'100%', height:'93%', marginTop:'1em'}}></SvgLoader>
+        var map = <SvgLoader path="/RiksdagStolar.svg" style={{width:'100%', height:'80%', marginTop:'3em'}}></SvgLoader>
         
         return(
             map
@@ -184,11 +184,9 @@ export default class RiksdagsSeats extends Component {
     hoverOnSeat = (e) =>{
         let RiksdagStolar = d3.select('.riksdags_map')
         if(e.target.id !== "") {
-            console.log("if")
             let filteredledamot = ledamoter.filter(ledamot => {
                 return ledamot.id === "#"+e.target.id
             })
-            console.log(filteredledamot)
             RiksdagStolar.select("svg").select("#Welcome").select("#"+e.target.id).attr("fill", filteredledamot[0].color)
             
             let fname = filteredledamot[0].name.split(" ")[0];
@@ -200,7 +198,6 @@ export default class RiksdagsSeats extends Component {
                 fname,
                 ename
             }})
-            console.log(e.clientX, e.clientY)
             let style = {
                 top: e.clientY - 75,
                 left: e.clientX - 98
@@ -212,7 +209,6 @@ export default class RiksdagsSeats extends Component {
             this.setState({showToolTip:  true})
             
         }else{
-            console.log("else")
             if(this.state.lastHoveredSeat.id != e.target.id){
                 RiksdagStolar.select("svg").select("#Welcome").selectAll("path").attr("fill", "gray")
                 // clearTimeout(this.interval)

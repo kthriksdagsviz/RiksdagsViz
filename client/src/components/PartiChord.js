@@ -16,11 +16,12 @@ export default class PartiChord extends React.Component{
         this.state={
             chordData:[],
             hoverParty: '',
-            hoverPartyShort: '',
+            hoverPartyShort: 'SR',
             partyData:[], 
-            hoverData: []
+            hoverData: [],
+            apiFetchMessage: ''
         }
-        this.previousVoteData = [[], votes1718, votes1617, votes1516, votes1415, votes1314, votes1213, votes1112, votes1011, votes0910, votes0809, votes0708, votes0607, votes0506, votes0405, votes0304, votes0203];
+        this.previousVoteData = [partyList, votes1718, votes1617, votes1516, votes1415, votes1314, votes1213, votes1112, votes1011, votes0910, votes0809, votes0708, votes0607, votes0506, votes0405, votes0304, votes0203];
         this.previousVotingYears = ["1819", "1718", "1617", "1516", "1415", "1314", "1213", "1112", "1011", "0910", "0809", "0708", "0607", "0506", "0405", "0304", "0203"];
         this.parties = ['V', 'S', 'MP', 'C', 'L', 'KD', 'M', 'SD'];
         this.colors = [partyColors.partyV, partyColors.partyS, partyColors.partyMP, partyColors.partyC,
@@ -39,7 +40,7 @@ export default class PartiChord extends React.Component{
     urlMaker = (nameList) => {
       var urlList = []
       for (let name in nameList) {
-        urlList.push("http://data.riksdagen.se/voteringlista/?rm=2018%2F19&bet=&punkt=&parti=" + nameList[name] + "&valkrets=&rost=&iid=&sz=100000&utformat=xml&gruppering=votering_id");
+        urlList.push("https://data.riksdagen.se/voteringlista/?rm=2018%2F19&bet=&punkt=&parti=" + nameList[name] + "&valkrets=&rost=&iid=&sz=100000&utformat=xml&gruppering=votering_id");
       }
       return urlList;
     }
@@ -148,13 +149,21 @@ export default class PartiChord extends React.Component{
           })
           this.previousVoteData[0] = votesOut;
           this.voteByParty(votesOut);
+          this.alertOfApiFetch();
         }))
     }
 
     componentDidMount(){
         this.voteByParty(this.previousVoteData[0])
         this.getRecentVotes();
-        setTimeout(() => this.selectSvg(), 500);
+        setTimeout(() => this.selectSvg(), 250);
+    }
+
+    alertOfApiFetch = () => {
+      this.setState({
+        apiFetchMessage: 'API data fetched!'
+      });
+      setTimeout(() => this.setState({apiFetchMessage: ''}), 1250);
     }
 
     selectSvg = () =>{
@@ -174,6 +183,7 @@ export default class PartiChord extends React.Component{
     changeToolTip = () => {
       let hoverData = []
       let hoverPartyIndex = this.parties.indexOf(this.state.hoverPartyShort);
+      
       let partyVoters = this.state.partyData.map((x, i) => { return x[i]} );
 
       for (let j = 0; j < this.state.partyData.length; j++) {
@@ -183,7 +193,8 @@ export default class PartiChord extends React.Component{
       }
       
       if (hoverData.length == 0) {
-        hoverData.push(this.partiesLong[hoverPartyIndex] + ' satt ej i Riksdagen detta år.');
+        this.setState({hoverParty: ' ', hoverPartyShort: 'SR'})
+        hoverData.push('Inget parti valt.')
       }
 
       this.setState({hoverData: hoverData})
@@ -191,6 +202,7 @@ export default class PartiChord extends React.Component{
 
     componentDidUpdate(nextProps) {
         if(nextProps.selectedYear !== this.props.selectedYear){
+          setTimeout(() => this.selectSvg(), 250)
           let yearString = "";
           switch(this.props.selectedYear){
             case 2002:
@@ -253,9 +265,8 @@ export default class PartiChord extends React.Component{
 
 
     renderToolTip = () => {
-      this.selectSvg();
-
       let hoverPartyIndex = this.parties.indexOf(this.state.hoverPartyShort);
+      
 
       let self = this;
       var listGroup = this.state.hoverData.map((row, i) => {
@@ -263,7 +274,7 @@ export default class PartiChord extends React.Component{
         if (colorIndex >= hoverPartyIndex) colorIndex += 1;
 
         var progress;
-        if (!(row.includes('ej i Riksdagen'))) {
+        if (!(row.includes('Inget parti valt.'))) {
             progress = (<ProgressBar>
                           <ProgressBar now={(row.slice(0, row.indexOf('%')))} key={1} style={{backgroundColor: self.colors[colorIndex]}}/>
                         </ProgressBar>)
@@ -287,7 +298,8 @@ export default class PartiChord extends React.Component{
     
     render(){
         return(
-            <div style={{height: '550px', width:'100%', display:'flex', alignItems:'center'}}>
+            <div className="chordContainer" >
+            {this.state.apiFetchMessage !== '' && (<div className="apiFetchMessage">{this.state.apiFetchMessage}</div>)}
             <div id="respCord" style={{height: '550px', width:'50%'}}>
                 <ResponsiveChord
                     matrix={this.state.chordData}
@@ -295,7 +307,7 @@ export default class PartiChord extends React.Component{
                     margin={{
                         "top": 10,
                         "right": 10,
-                        "bottom": 10,
+                        "bottom": 30,
                         "left": 10
                     }}
                        
@@ -348,12 +360,24 @@ export default class PartiChord extends React.Component{
                 />
                 
             </div>
-            {this.state.hoverParty.length > 0 && (<div className="partyHoverInfo">
-                <h2><img src={'partyLogos/' + this.state.hoverPartyShort + '.png'} alt="PartyLogo" /> {this.state.hoverParty}</h2>
-                <ListGroup>
-                  {this.state.hoverData.length > 0 && this.renderToolTip()}
-                </ListGroup>
-                </div>)}
+              <div className ="chordRightColumn">
+                {this.state.hoverParty.length > 0 && (<div className="partyHoverInfo">
+                <div className="partyHoverHeadline"><h4><img src={process.env.PUBLIC_URL + '/parties_loggor/' + this.state.hoverPartyShort + '.png'} alt="PartyLogo" /> {this.state.hoverParty}</h4></div>
+                    <ListGroup>
+                      {this.state.hoverPartyShort == 'SR' ? (
+                        <div id="riksdagsInfo">
+                          <p>
+                            <br /><br /><br />
+                            För musmarkören över diagrammet för att visa data om ett specifikt parti.
+                          </p>
+                          <p>
+                            Dra i tidslinjemarkören för ändra riksmötesår.
+                          </p>
+                        </div>
+                      ) : this.renderToolTip()}
+                    </ListGroup>
+                    </div>)}
+              </div>
             </div>
         )
     }

@@ -1,7 +1,7 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faQuestionCircle, faLandmark, faLayerGroup, faRunning, faHandshake } from '@fortawesome/free-solid-svg-icons'
+import { faUsers, faLandmark, faLayerGroup, faRunning, faHandshake } from '@fortawesome/free-solid-svg-icons'
 import './navbar.scss'
 
 export default () => (
@@ -28,7 +28,7 @@ export default () => (
         </Link>
         <Link to="/about">
             <div className="navbar_link_about" title="Om RiksdagsViz">
-                <FontAwesomeIcon icon={faQuestionCircle} size="3x" />
+                <FontAwesomeIcon icon={faUsers} size="3x" />
             </div> 
         </Link>
     </div>

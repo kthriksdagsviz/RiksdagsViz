@@ -1,5 +1,52 @@
+.chordContainer {
+    height: 550px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.chordContainer .apiFetchMessage {
+    position: fixed;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 150px;
+    height: 50px;
+    top: 8%;
+    left: 47%;
+    z-index: 2;
+    border-radius: 10px;
+    text-align: center;
+    color: #155724;
+    border: 1px solid;
+    border-color: rgb(195,230,203);
+    background-color: rgba(212,237,218,0.8);
+    transition: ease-in-out(500);
+}
+
+.chordRightColumn {
+    display: flex;
+    flex-direction: column;
+    width: 400px;
+    height: 465.63px;
+}
+
 .partyHoverInfo {
     display: flex;
     flex-direction: column;
     align-items: center;
+}
+
+.partyHoverInfo img {
+    height: 90px;
+}
+
+.partyHoverInfo .list-group {
+    width: 400px;
+}
+
+.partyHoverInfo .list-group-item {
+    padding: 0.5em;
+    font-size: 90%;
 }
