@@ -210,7 +210,7 @@ export default class RiksdagsSeats extends Component {
             
         }else{
             if(this.state.lastHoveredSeat.id != e.target.id){
-                RiksdagStolar.select("svg").select("#Welcome").selectAll("path").attr("fill", "gray")
+                RiksdagStolar.select("svg").select("#Welcome").selectAll("path:not(.colored)").attr("fill", "gray")
                 // clearTimeout(this.interval)
                 this.setState({showToolTip: false})
             }
@@ -222,17 +222,19 @@ export default class RiksdagsSeats extends Component {
 
     render() {
         return (
-             <div className="riksdags_map" onClick={(e) => this.setSeat(e)} onMouseOver={(e) => this.hoverOnSeat(e)} >
+             <div className="riksdags_map" onClick={(e) => this.setSeat(e)} onMouseMove={(e) => this.hoverOnSeat(e)} >
                 {this.buildSVG()}
                 {this.modifySVG(this.state.filteredSelection)}
             {this.state.open && <RiksdagsModal open={this.state.open} modalPerson={this.props.modalPerson} toggled={this.toggled}/>}
            {this.state.showToolTip && (
            <div> <div className="seat_tooltip" style={this.state.toolTipStyle}>
                 <p> {this.state.lastHoveredSeat.fname}  {this.state.lastHoveredSeat.ename} </p>
-                {/* <div className="arrow"> </div> */}
+                <div className="arrow"> </div>
             </div>
             
            </div>)}
+           
+
             </div>
         )
     }
