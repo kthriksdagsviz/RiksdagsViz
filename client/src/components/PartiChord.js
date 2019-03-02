@@ -192,7 +192,7 @@ export default class PartiChord extends React.Component{
 
       for (let j = 0; j < this.state.partyData.length; j++) {
         if(this.state.partyData[j][hoverPartyIndex] !== undefined && hoverPartyIndex !== j){
-          hoverData.push(Math.floor((1000 * this.state.partyData[j][hoverPartyIndex] / partyVoters[hoverPartyIndex]) / 10)  + '% av partiets voteringsbesult överensstämmer med ' + this.parties[j]) 
+          hoverData.push(Math.floor((1000 * this.state.partyData[j][hoverPartyIndex] / partyVoters[hoverPartyIndex]) / 10)  + '% av partiets voteringsbeslut överensstämmer med ' + this.parties[j]) 
         }
       }
       

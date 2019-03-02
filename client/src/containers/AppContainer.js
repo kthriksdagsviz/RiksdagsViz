@@ -20,7 +20,7 @@ const steps = [
     target: '.riksdags_map',
     disableBeacon: 'true',
     placement:'bottom',
-    content: 'Här ser du en visualisering av alla stolarna i Sveriges riksdag! För musmarkören över en stol för att se vem som sitter på den platsen och klicka för mer information.',
+    content: 'Här ser du en visualisering av alla stolar i Sveriges riksdag! För musmarkören över en stol för att se vem som sitter på den platsen och klicka för mer information.',
   },
   {
     target: '.search-container',

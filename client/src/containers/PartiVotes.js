@@ -23,7 +23,7 @@ const steps = [
   {
     target: '.chordPartyPath',
     disableBeacon: 'true',
-    content: 'För musmarkören över ett parti för att se dess voteringshistorik jämfört med andra partier.',
+    content: 'För musmarkören över ett parti för att se dess voteringshistorik jämfört med andra partier. Det valda partiet överensstämmer till 100% med sig själv, därav utesluts den från detaljvyn. ',
   },
   {
     target: '.chordPartyArc',
