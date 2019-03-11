@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { Container, Card, Col, Row, Badge } from 'react-bootstrap'
 import { Divider } from '@material-ui/core'
-import Vimeo from 'react-vimeo'
 const cardStyle={
   width:'21rem',
   height:'45rem',
@@ -101,7 +100,7 @@ class Hello extends Component {
                       <div style={badgeStyle} className="about_badges">
                       <Badge variant="secondary">Backend</Badge>
                       <Badge variant="secondary">Frontend</Badge>
-                      <Badge variant="secondary">Gruppansvarig</Badge>
+                      <Badge variant="secondary">Group leader</Badge>
                       </div>
                       From setting up the project website in React to building and publishing to Heroku, Ben has been the group leader for the project, making sure everyone's contributions work together. Furthermore, Ben created the general layout and routings for the website and set up the endpoints in the backend. Finally, Ben added many details on the site, such as the tutorial and the modal on the index page.
 
@@ -145,7 +144,7 @@ class Hello extends Component {
                       <Card.Text>
                       <div style={badgeStyle} className="about_badges">
                       <Badge variant="secondary">Frontend</Badge>
-                      <Badge variant="secondary">datahantering</Badge>
+                      <Badge variant="secondary">Data management</Badge>
                       </div>
                       Mainly worked together with Martin on different data visualizations. Being the main responsible of the logic and visualization of the party constituency distribution in the country (the Sweden map on the party page). Also contributed to the creating the other visualizations on the same page. Helped with overall optimization and css:ing.
 
@@ -168,7 +167,7 @@ class Hello extends Component {
                       <Card.Text>
                       <div style={badgeStyle} className="about_badges">
                       <Badge variant="secondary">Frontend</Badge>
-                      <Badge variant="secondary">Statistik</Badge>
+                      <Badge variant="secondary">Statistics</Badge>
                       </div>
                       Worked together with Adrian on different data visualizations. The visualizations of the party page being the main ones making it to the final product. Martin also helped with the translation of the initially English application, to the final Swedish one. Also helped writing the filtering algorithm of the search function on the start page. 
 
@@ -207,7 +206,7 @@ class Hello extends Component {
                       <Card.Text>
                       <div style={badgeStyle} className="about_badges">
                       <Badge variant="secondary">Frontend</Badge>
-                      <Badge variant="secondary">Statistik</Badge>
+                      <Badge variant="secondary">Statistics</Badge>
                       </div>
                       With the goal of comparing parties Jonatan created the chord diagram, the data handling and the math behind it. Together with Emil he also worked on other aspects of the chord diagram page, such as the timeline. Additionally, Jonatan was the one who kept in touch with Riksdagen for when the API was malfunctioning.
                       </Card.Text>
