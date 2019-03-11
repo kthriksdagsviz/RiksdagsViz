@@ -143,12 +143,41 @@ class PartiPage extends React.Component {
 
     }
 
+    getPartiFullName =(parti) => {
+        switch(parti){
+            case "M":
+                return "Moderata samlingsförbundet"
+                break;
+            case "SD":
+                return "Sverigedemokraterna"
+                break;
+            case "KD":
+                return "Kristdemokraterna"
+                break;
+            case "MP":
+                return "Miljöpartiet"
+                break;
+            case "V":
+                return "Vänsterpartiet"
+                break;
+            case "S":
+                return "Socialdemokraterna"
+                break;
+            case "L":
+                return "Liberalerna"
+                break;
+        }
+    }
+
     render() {
+        
         const { match } = this.props;
         return (
             <div className="parti_page_container" style={{ textAlign: 'center' }}>
-                <div style={{ width: '100%', height: '100px', boxShadow: '0 0 3px 0 gray' }}>
-                    <img src={process.env.PUBLIC_URL + '/parties_loggor/' + match.params.parti + '.png'} alt="PartyLogo" height="80%"/>
+                <div style={{ width: '100%', boxShadow: '0 0 3px 0 gray', padding: '.6em 0'}}>
+                    <img src={process.env.PUBLIC_URL + '/parties_loggor/' + match.params.parti + '.png'} alt="PartyLogo" height="80px"/>
+                    <h3 style={{marginTop: '.5em', color:partyColors["party" + match.params.parti]}}> {this.getPartiFullName(match.params.parti)}</h3>
+
                 </div>
                 <div style={{ width: '100%' }}>
                     <div style={{ width: '50%', display: 'inline-block', verticalAlign: 'top', marginTop: '20px', paddingLeft: '30px' }}>
