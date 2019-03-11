@@ -31,7 +31,7 @@ class Partier extends React.Component{
                     </div>
                     <div><Link style={{textDecoration:'none'}} to='/parties/S'>
                         <img src={process.env.PUBLIC_URL + 'parties_loggor/S.png'} alt="PartyLogo"  width="40%"/>
-                        <h3 style={{marginTop: '1em', color:partyColors["partyS"]}}> Liberalerna</h3>
+                        <h3 style={{marginTop: '1em', color:partyColors["partyS"]}}> Socialdemokraterna</h3>
                         </Link></div>
                     <div><Link style={{textDecoration:'none'}} to='/parties/SD'>
                         <img src={process.env.PUBLIC_URL + 'parties_loggor/SD.png'} alt="PartyLogo"  width="40%"/>
