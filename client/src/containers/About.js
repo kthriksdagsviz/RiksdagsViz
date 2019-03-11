@@ -35,10 +35,7 @@ class Hello extends Component {
 
               <h4 style={{marginTop: '1em', textAlign:'center'}}> Video description </h4>
               <div >
-              <iframe src="https://player.vimeo.com/video/309856272" width="1140" height="460" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
-              <p style={{textAlign:'center'}}>
-                <a href="https://vimeo.com/309856272">[DT2140@KTH] A jenga game in Augmented Reality: JengAR</a> 
-                from <a href="https://vimeo.com/user93623201">Ben Forsrup</a> on <a href="https://vimeo.com">Vimeo</a>.</p>
+              <iframe src="https://player.vimeo.com/video/322905269" width="1140" height="460" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
                 {/* video */}
                 </div>
 
