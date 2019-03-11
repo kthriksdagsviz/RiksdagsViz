@@ -43,7 +43,7 @@ class Hello extends Component {
                 </div>
 
               <h4 style={{marginTop: '1em', fontWeight:'bold'}}> Background </h4>
-              <p style={{marginTop:'1em'}}>  During the last few years the world political climate has changed, alot. 
+              <p style={{marginTop:'1em'}}>  During the last few years the world political climate has changed, a lot. 
               In the light of these recent changes, the importance of political awareness has significantly increased. 
               The need to know what’s going on in the buildings of power is dire. Fortunately for us, 
               data from the Swedish parliament is open to everyone, the only problem is; it needs to be properly understood. 
@@ -52,32 +52,37 @@ class Hello extends Component {
               the visualization could also contribute to a more transparent society.</p>
 
               <h5> Goals </h5>
-              Bridge the gap between decision-makers and citizens by making public voting data more digestible
-              Educate users about how the decision-making process in the Swedish political system works
-              Create an exploratory tool that is easy to use and understand
+              <ul>
+                <li>
+              Bridge the gap between decision-makers and citizens by making public voting data more digestible.
+                </li>
+              <li>Educate users about how the decision-making process in the Swedish political system works.
+             
+              </li>
+              <li> Create an exploratory tool that is easy to use and understand.</li>
+              </ul>
               <h5 style={{marginTop:'1em'}}> Challenges </h5>
-              Condensing large amounts of data into an appealing visualization.
-              Ensuring that deep knowledge of the political process isn’t a requirement to use the visualization.
-              The technical challenge of bringing different technologies together.
+              <ul>
+             <li>Condensing large amounts of data into an appealing visualization.</li> 
+             <li>  Ensuring that deep knowledge of the political process isn’t a requirement to use the visualization.</li> 
+             <li> The technical challenge of bringing different technologies together.</li> 
+             </ul>
 
               <h4 style={{marginTop:'1em', fontWeight:'bold'}}> Visual structures </h4>
               <p style={{marginTop:'1em'}}>  
-              In RiksdagsViz, we have mapped the data available to a few different visual structures.
-              <br />
-              <br />
-              - A map of the chairs of parliament. A spatial structure letting users know where a member of parliament or an entire party sits. Party affiliation is represented by the party color.
-              <br />
-              - A chord diagram showing how similar the parties are when voting in parliament.
-              <br />
-              - Donut charts, visualizing the gender and age distributions for each party.
-              <br />
-              - Another spatial structure in the form of a map of Sweden, showing where a party’s parliament members are from.
-              <br />
-              - Tables and lists displaying everything from parliament members and news articles to percentages of a party’s likeness to another party in different votings.
-              <br />
-              <br />
-              On a more simplistic note, we decided to use party colors and logos prominent on the site, since this is what people usually associate them with. For the same reason we used pictures of individual parliament members, whenever this was available.
-              </p>
+              In RiksdagsViz, we have mapped the data available to a few different visual structures.</p>
+
+              
+              <ul>
+              <li>A map of the chairs of parliament. A spatial structure letting users know where a member of parliament or an entire party sits. Party affiliation is represented by the party color.</li>
+             
+              <li>A chord diagram showing how similar the parties are when voting in parliament.</li>
+            
+              <li>Donut charts, visualizing the gender and age distributions for each party.</li>
+              <li> Another spatial structure in the form of a map of Sweden, showing where a party’s parliament members are from.</li>
+              <li> Tables and lists displaying everything from parliament members and news articles to percentages of a party’s likeness to another party in different votings.</li>
+              </ul>
+              <p> On a more simplistic note, we decided to use party colors and logos prominent on the site, since this is what people usually associate them with. For the same reason we used pictures of individual parliament members, whenever this was available.</p>
 
                   <h4 style={{marginTop:'1em', fontWeight:'bold'}}> Learning objectives reached </h4>
               <p style={{marginTop:'1em'}}>  We achieved our group goal of developing an extensive and comprehensible
