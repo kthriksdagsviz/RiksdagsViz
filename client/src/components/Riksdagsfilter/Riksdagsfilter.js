@@ -255,14 +255,14 @@ class Riksdagsfilter extends Component {
                         <MenuItem value="None" >
                              {this.state.parti === "None" ? "Filtrera på ett parti" : "Inga partier valda" } 
                         </MenuItem>
-                        <MenuItem value={'M'}><img className="partyimage"src={process.env.PUBLIC_URL + "/partyLogos/m.png"}></img>Moderata samlingspartiet</MenuItem>
-                        <MenuItem value={'C'}><img className="partyimage"src={process.env.PUBLIC_URL + "/partyLogos/c.png"}></img>Centerpartiet</MenuItem>
-                        <MenuItem value={'SD'}><img className="partyimage"src={process.env.PUBLIC_URL + "/partyLogos/sd.png"}></img>Sverigedemokraterna</MenuItem>
-                        <MenuItem value={'KD'}><img className="partyimage"src={process.env.PUBLIC_URL + "/partyLogos/kd.jpg"}></img>Kristdemokraterna</MenuItem>
-                        <MenuItem value={'S'}><img className="partyimage"src={process.env.PUBLIC_URL + "/partyLogos/s.png"}></img>Socialdemokraterna</MenuItem>
-                        <MenuItem value={'L'}><img className="partyimage"src={process.env.PUBLIC_URL + "/partyLogos/l.png"}></img>Liberalerna</MenuItem>
-                        <MenuItem value={'MP'}><img className="partyimage"src={process.env.PUBLIC_URL + "/partyLogos/mp.png"}></img>Miljöpartiet</MenuItem>
-                        <MenuItem value={'V'}><img className="partyimage"src={process.env.PUBLIC_URL + "/partyLogos/v.png"}></img>Vänsterpartiet</MenuItem>
+                        <MenuItem value={'M'}><img className="partyimage"src={process.env.PUBLIC_URL + "/parties_loggor/M.png"}></img>Moderata samlingspartiet</MenuItem>
+                        <MenuItem value={'C'}><img className="partyimage"src={process.env.PUBLIC_URL + "/parties_loggor/C.png"}></img>Centerpartiet</MenuItem>
+                        <MenuItem value={'SD'}><img className="partyimage"src={process.env.PUBLIC_URL + "/parties_loggor/SD.png"}></img>Sverigedemokraterna</MenuItem>
+                        <MenuItem value={'KD'}><img className="partyimage"src={process.env.PUBLIC_URL + "/parties_loggor/KD.png"}></img>Kristdemokraterna</MenuItem>
+                        <MenuItem value={'S'}><img className="partyimage"src={process.env.PUBLIC_URL + "/parties_loggor/S.png"}></img>Socialdemokraterna</MenuItem>
+                        <MenuItem value={'L'}><img className="partyimage"src={process.env.PUBLIC_URL + "/parties_loggor/L.png"}></img>Liberalerna</MenuItem>
+                        <MenuItem value={'MP'}><img className="partyimage"src={process.env.PUBLIC_URL + "/parties_loggor/MP.png"}></img>Miljöpartiet</MenuItem>
+                        <MenuItem value={'V'}><img className="partyimage"src={process.env.PUBLIC_URL + "/parties_loggor/V.png"}></img>Vänsterpartiet</MenuItem>
 
                         </Select>
                     </FormControl>
